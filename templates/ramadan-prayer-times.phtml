@@ -1,0 +1,147 @@
+<?php include_once('common/header.phtml'); ?>
+<?php include_once('common/navigation.phtml'); ?>
+<link rel="stylesheet" href="/css/play.css">
+
+<div class="container panel">
+    <?php include_once('common/bismillah.phtml'); ?>
+    <div class="page-header">
+        <h2>Ramadan Prayer Times <small id="calendarHeading">for <?=$gy;?> / <?=$y;?> - <?=$city;?>, <?=$country;?></small></h2>
+      </div>
+
+
+      <form role="form" id="calendarConfigForm" action="/ramadan-prayer-times/<?=$gy;?>/<?=$city;?>/<?=$country;?>" style="display:none;">
+      <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="form-group">
+                    <label for="method">Year</label>
+                    <select id="year" name="year" class="form-control">
+                    <?php foreach ($years as $key => $val) { ?>
+                    <option value="<?php echo $key;  ?>"
+                    <?php echo $key == $gy ? 'selected' : ''; ?> ><?php echo $val; ?></option>
+                    <?php } ?>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="method">Method</label>
+                    <select id="method" name="method" class="form-control">
+                    <option value="0" <?=$method == '0' ? 'selected' : ''?>>Shia Ithna-Ashari</option>
+                        <option value="1" <?=$method == '1' ? 'selected' : ''?>>University of Islamic Sciences, Karachi</option>
+                        <option value="2" <?=$method == '2' ? 'selected' : ''?>>Islamic Society of North America (ISNA)</option>
+                        <option value="3" <?=$method == '3' ? 'selected' : ''?>>Muslim World League (MWL)</option>
+                        <option value="4" <?=$method == '4' ? 'selected' : ''?>>Umm al-Qura, Makkah</option>
+                        <option value="5" <?=$method == '5' ? 'selected' : ''?>>Egyptian General Authority of Survey</option>
+                        <option value="7" <?=$method == '7' ? 'selected' : ''?>>Institute of Geophysics, University of Tehran</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="latidudeAdjustment">Higher Latitude Adjustment Method (for locations like UK, Sweden, Canada etc.)</label>
+                 <select class="form-control" name="latiudeAdjustment" id="latiudeAdjustment">
+                     <option value="1" <?=$lam == '1' ? 'selected' : ''?>>Middle of the Night Method</option>
+                     <option value="2" <?=$lam == '2' ? 'selected' : ''?>>One Seventh Rule</option>
+                     <option value="3" <?=$lam == '3' ? 'selected' : ''?>>Angle Based Method </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <?php if ($city != '') { ?>
+                    <input class="form-control" name="city" id="city" value="<?= $city; ?>" />
+                    <?php } else { ?>
+                    <input class="form-control" name="city" id="city" value="" placeholder="Example: London"/>
+                    <?php } ?>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <?php if ($country != '') { ?>
+                    <input class="form-control" name="country" id="country" value="<?= $country; ?>" />
+                    <?php } else { ?>
+                    <input class="form-control" name="country" id="country" value="" placeholder="Example: United Kingdom"/>
+                    <?php } ?>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-centered">
+                <div class="form-group">
+                    <button type="submit" id="generateCalendar" class="btn btn-primary">Generate Calendar</button>
+                </div>
+            </div>
+          </div>
+    </form>
+
+    <div class="row" id="showCalendarConfigForm" style="">
+        <div class="col-md-12 col-centered" >
+            <a href="#" id ="showCalendarConfigFormButton" class="btn btn-primary">Show Calendar Settings</a>
+        </div>
+    </div>
+    <hr />
+
+    <table class="table table-hover table-striped table-bordered">
+        <thead>
+            <tr>
+            <td><span class="lead">Date</span></td>
+            <td><span class="lead">Fajr</span></td>
+            <td><span class="lead">Sunrise</span></td>
+            <td><span class="lead">Zhuhr</span></td>
+            <td><span class="lead">Asr</span></td>
+            <td><span class="lead">Sunset</span></td>
+            <td><span class="lead">Maghrib</span></td>
+            <td><span class="lead">Isha</span></td>
+            <td><span class="lead">Imsak</span></td>
+            <td><span class="lead">Midnight</span></td>
+            </tr>  
+        </thead>
+        <tbody id="generatedCalendar">
+<?php foreach ($calendar[$y][$m]['days'] as $day) { ?>
+            <tr>
+                <td class="<?php echo (date('d') == $calendar[$y][$m]['days'][$x]['gregorian']['day'] && date('m') == $calendar[$y][$m]['days'][$x]['gregorian']['month']['number'] && date('y') == $calendar[$y][$m]['days'][$x]['gregorian']['year'] ) ? 'danger' : '' ?>">
+                <?=$day['hijri']['day'];?> <?=$day['hijri']['month']['en'];?>, <?=$day['hijri']['year'];?> <small>(<?=$day['gregorian']['day'];?> <?=$day['gregorian']['month']['en'];?>, <?=$day['gregorian']['year'];?>)</small>
+            </td>
+<?php foreach ($day['timings'] as $key => $time) { ?>
+            <td><?=$time;?></td>
+<?php } ?>
+            </tr>
+
+<?php } ?>
+
+        </tbody>
+    </table>
+</div>
+
+<script>
+$(function() {
+    $('#year').on('change', function() {
+        var y = $(this).val();
+        var loc = $('#city').val() + '/' + $('#country').val();
+        $('#calendarConfigForm').attr('action', '/ramadan-prayer-times/' + y + '/' + loc);
+    });
+    $('#city').on('change', function() {
+        var y = $('#year').val();
+        var loc = $('#city').val() + '/' + $('#country').val();
+        $('#calendarConfigForm').attr('action', '/ramadan-prayer-times/' + y + '/' + loc);
+    });
+    $('#country').on('change', function() {
+        var y = $('#year').val();
+        var loc = $('#city').val() + '/' + $('#country').val();
+        $('#calendarConfigForm').attr('action', '/ramadan-prayer-times/' + y + '/' + loc);
+    });
+    $('#showCalendarConfigFormButton').on('click', function() {
+        $('#calendarConfigForm').slideDown();
+        $('#showCalendarConfigForm').slideUp();
+    });
+});
+</script>
+
+<?php include_once('common/footer.phtml'); ?>

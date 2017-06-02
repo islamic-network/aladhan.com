@@ -1,0 +1,126 @@
+.panel {
+  opacity: 0.9;
+
+}
+.col-centered {
+    text-align: center;
+    vertical-align: middle;
+}
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px;
+    border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu.active>.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu.active>a:after {
+    border-left-color: #fff;
+}
+
+.dropdown-submenu>a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #ccc;
+    margin-top: 5px;
+    margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+    border-left-color: #fff;
+}
+
+.dropdown-submenu.pull-left {
+    float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+    left: -100%;
+    margin-left: 10px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px;
+}
+
+.location-city-padding {
+    padding: 3px 0px 3px 0px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+.linkify, .dateRow, .endpointRow, .timezoneRow, .locationRow, .ipRow, .originRow, .useragentRow {
+    cursor: pointer;
+    cursor: hand;
+}
+
+.bismillah {
+    font-size: 350%;
+    font-weight: bold;
+}
+
+.alignLeft {
+    text-align: left;
+}
+
+.alignRight {
+    text-align:right;
+}
+
+.floatRight {
+    float:right;
+}
+.floatLeft {
+    float:left;
+}
+
+.nextPrayer {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 60px;
+    width: 250px;
+    z-index:9999;
+    border-radius:0px
+}
+
+.holydayFloater {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 450px;
+    z-index:9999;
+    border-radius:0px
+}
+
+body {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    transition: background 7s linear;
+}

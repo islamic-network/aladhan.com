@@ -1,0 +1,314 @@
+<?php include_once('common/header.phtml'); ?>
+<?php include_once('common/navigation.phtml'); ?>
+<?php
+ini_set('memory_limit','1048M');
+?>
+<div class="container panel">
+    <?php include_once('common/bismillah.phtml'); ?>
+
+    <div class="page-header">
+        <h2>API Usage Statistics</h2>
+    </div>
+    <p>
+        <b>NOTE: These statistics are not up-tp-date. Due to high traffic volumes the application and API have been split over multuple servers. These statistics will, therefore, not be updated until I have time to put a log aggregator in place.</b>
+    </p>    
+    <p>
+        This page lists the AlAdhan API usage statistics by date. This data is only informational and as such is simply a gauge to assess any capacity management requirements.
+    </p>
+    <table class="table table-hover">
+        <?php
+            $i = 0;
+            foreach ($lines as $l) {
+                $i++;
+                if ($i <= $days) {
+                $p = explode(':::', $l);
+                $date = $p[0];
+                $data = json_decode($p[1]);
+        ?>
+    <tr class="primary">
+        <td colspan="2" class="bold dateRow" id="<?php echo $date; ?>">
+            <?php echo $date; ?>
+        </td>
+    </tr>
+    <tr class="hidden" id="stats-<?php echo $date; ?>">
+        <td>
+        <table class="table">
+            <tr>
+                <td class="bold">Total</td>
+                <td>
+                    <?php echo number_format($data->total); ?>
+                </td>
+            </tr>
+            <!-- IPs -->
+            <?php if ($ipStats) { ?>
+            <tr class="primary ipRow" id="<?php echo $date; ?>">
+            
+                <td class="bold">Unique IP Addresses</td>
+                <td>
+                    <?php echo number_format($data->ip->count); ?>
+                </td>
+            </tr>
+            <tr class="hidden" id="ip-<?php echo $date; ?>">
+                <td colspan="2">
+                    <table class="table">
+                        <tr>
+                            <th>IP Address</th>
+                            <th>Queries</th>
+                        </tr>
+                        <?php foreach ($data->ip as $epName => $epCount) { 
+                        if ($epName !== 'count') {
+                        ?>
+                        <tr>
+                            <td>
+                                <?php echo strip_tags($epName); ?>
+                            </td>
+                            <td>
+                                <?php echo number_format($epCount->count); ?>
+                            </td>
+                        </tr>
+                        <?php }} ?>
+                    </table>
+                </td>
+            </tr>
+            <?php } ?>
+            
+            <!-- Origin -->
+            <?php if ($origin && isset($data->origin)) { ?>
+            <tr class="primary originRow" id="<?php echo $date; ?>">
+            
+                <td class="bold">Http Origins</td>
+                <td>
+                    <?php echo number_format($data->origin->count); ?>
+                </td>
+            </tr>
+            <tr class="hidden" id="origin-<?php echo $date; ?>">
+                <td colspan="2">
+                    <table class="table">
+                        <tr>
+                            <th>Origin</th>
+                            <th>Queries</th>
+                        </tr>
+                        <?php foreach ($data->origin as $originName => $originCount) { 
+                        if ($originName !== 'count') {
+                        ?>
+                        <tr>
+                            <td>
+                                <?php echo strip_tags($originName); ?>
+                            </td>
+                            <td>
+                                <?php echo number_format($originCount->count); ?>
+                            </td>
+                        </tr>
+                        <?php }} ?>
+                    </table>
+                </td>
+            </tr>
+            <?php } ?>
+            
+            
+            <!-- Useragent -->
+            <?php if (isset($data->useragent)) { ?>
+            <tr class="primary useragentRow" id="<?php echo $date; ?>">
+                <td class="bold">User Agents</td>
+                <td>
+                    <?php echo number_format($data->useragent->count); ?>
+                </td>
+            </tr>
+            <tr class="hidden" id="useragent-<?php echo $date; ?>">
+                <td colspan="2">
+                    <table class="table">
+                        <tr>
+                            <th>Name</th>
+                            <th>Queries</th>
+                        </tr>
+                        <?php foreach ($data->useragent as $uaName => $uaCount) { 
+                        if ($uaName !== 'count') {
+                        ?>
+                        <tr>
+                            <td>
+                                <?php echo strip_tags($uaName); ?>
+                            </td>
+                            <td>
+                                <?php echo number_format($uaCount->count); ?>
+                            </td>
+                        </tr>
+                        <?php }} ?>
+                    </table>
+                </td>
+            </tr>
+            <?php } ?>
+            
+            <!-- Endpoints -->
+            <tr class="primary endpointRow" id="<?php echo $date; ?>">
+                <td class="bold">Endpoints</td>
+                <td>
+                    <?php echo number_format($data->endpoint->count); ?>
+                </td>
+            </tr>
+            <tr class="hidden" id="endpoint-<?php echo $date; ?>">
+                <td colspan="2">
+                    <table class="table">
+                        <tr>
+                            <th>Name</th>
+                            <th>Queries</th>
+                        </tr>
+                        <?php foreach ($data->endpoint as $epName => $epCount) { 
+                        if ($epName !== 'count') {
+                        ?>
+                        <tr>
+                            <td>
+                                <?php echo strip_tags($epName); ?>
+                            </td>
+                            <td>
+                                <?php echo number_format($epCount->count); ?>
+                            </td>
+                        </tr>
+                        <?php }} ?>
+                    </table>
+                </td>
+            </tr>
+
+            <!-- Timezones -->
+            <tr class="primary timezoneRow" id="<?php echo $date; ?>">
+                <td class="bold">Timezones</td>
+                <td>
+                    <?php echo number_format($data->timezone->count); ?>
+                </td>
+            </tr>
+            <tr class="hidden" id="timezone-<?php echo $date; ?>">
+                <td colspan="2">
+                    <table class="table">
+                        <tr>
+                            <th>Name</th>
+                            <th>Queries</th>
+                        </tr>
+                        <?php foreach ($data->timezone as $epName => $epCount) { 
+                        if ($epName !== 'count') {
+                        ?>
+                        <tr>
+                            <td>
+                                <?php echo strip_tags($epName); ?>
+                            </td>
+                            <td>
+                                <?php echo number_format($epCount->count); ?>
+                            </td>
+                        </tr>
+                        <?php }} ?>
+                    </table>
+                </td>
+            </tr>
+            <!-- Cities -->
+            <tr class="primary locationRow" id="<?php echo $date; ?>">
+                <td class="bold">Cities</td>
+                <td>
+                    <?php echo number_format($data->location->count); ?>
+                </td>
+            </tr>
+            <tr class="hidden" id="location-<?php echo $date; ?>">
+                <td colspan="2">
+                    <table class="table">
+                        <tr>
+                            <th>Name</th>
+                            <th>Queries</th>
+                        </tr>
+                        <?php foreach ($data->location as $epName => $epCount) { 
+                        if ($epName !== 'count') {
+                        ?>
+                        <tr>
+                            <td>
+                                <?php echo strip_tags($epName); ?>
+                            </td>
+                            <td>
+                                <?php echo number_format($epCount->count); ?>
+                            </td>
+                        </tr>
+                        <?php }} ?>
+                    </table>
+                </td>
+            </tr>
+        </table>
+            </td>
+    </tr>
+        <?php } 
+            }
+        ?>
+    </table>
+
+</div><!-- /.container -->
+<script>
+$(function() {
+    $('.dateRow').on('click', function() {
+       var id = $(this).attr('id');
+       if ($('#stats-' + id).hasClass('hidden')) {
+            $('#stats-' + id).removeClass('hidden'); 
+            $('#stats-' + id).addClass('shown'); 
+       } else {
+            $('#stats-' + id).removeClass('shown'); 
+            $('#stats-' + id).addClass('hidden'); 
+       }
+    });
+    $('.endpointRow').on('click', function() {
+       var id = $(this).attr('id');
+       if ($('#endpoint-' + id).hasClass('hidden')) {
+            $('#endpoint-' + id).removeClass('hidden'); 
+            $('#endpoint-' + id).addClass('shown'); 
+       } else {
+            $('#endpoint-' + id).removeClass('shown'); 
+            $('#endpoint-' + id).addClass('hidden'); 
+       }
+    });
+    $('.timezoneRow').on('click', function() {
+       var id = $(this).attr('id');
+       if ($('#timezone-' + id).hasClass('hidden')) {
+            $('#timezone-' + id).removeClass('hidden'); 
+            $('#timezone-' + id).addClass('shown'); 
+       } else {
+            $('#timezone-' + id).removeClass('shown'); 
+            $('#timezone-' + id).addClass('hidden'); 
+       }
+    });
+    $('.locationRow').on('click', function() {
+       var id = $(this).attr('id');
+       if ($('#location-' + id).hasClass('hidden')) {
+            $('#location-' + id).removeClass('hidden'); 
+            $('#location-' + id).addClass('shown'); 
+       } else {
+            $('#location-' + id).removeClass('shown'); 
+            $('#location-' + id).addClass('hidden'); 
+       }
+    });
+    $('.ipRow').on('click', function() {
+       var id = $(this).attr('id');
+       if ($('#ip-' + id).hasClass('hidden')) {
+            $('#ip-' + id).removeClass('hidden'); 
+            $('#ip-' + id).addClass('shown'); 
+       } else {
+            $('#ip-' + id).removeClass('shown'); 
+            $('#ip-' + id).addClass('hidden'); 
+       }
+    });
+    $('.originRow').on('click', function() {
+       var id = $(this).attr('id');
+       if ($('#origin-' + id).hasClass('hidden')) {
+            $('#origin-' + id).removeClass('hidden'); 
+            $('#origin-' + id).addClass('shown'); 
+       } else {
+            $('#origin-' + id).removeClass('shown'); 
+            $('#origin-' + id).addClass('hidden'); 
+       }
+    });
+    $('.useragentRow').on('click', function() {
+       var id = $(this).attr('id');
+       if ($('#useragent-' + id).hasClass('hidden')) {
+            $('#useragent-' + id).removeClass('hidden'); 
+            $('#useragent-' + id).addClass('shown'); 
+       } else {
+            $('#useragent-' + id).removeClass('shown'); 
+            $('#useragent-' + id).addClass('hidden'); 
+       }
+    });
+    
+});
+</script>
+
+<?php include_once('common/footer.phtml'); ?>

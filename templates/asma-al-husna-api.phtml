@@ -1,0 +1,144 @@
+<?php include_once('common/header.phtml'); ?>
+<?php include_once('common/navigation.phtml'); ?>
+
+<div class="container panel">
+    <?php include_once('common/bismillah.phtml'); ?>
+                <div class="page-header">
+                    <h2>Asma Al Husna / 99 Names of God  API</h2>
+                </div>
+                
+                <p>
+                    <b>NOTE</b>: <u>If you are using this API, please sign up to the developer mailing list <a href="/contact">here</a> so you can be informed of any updates or scheduled maintenance to the API.</u>
+                </p>
+                <h2>Endpoints - Asma Al Husna</h2>
+                <ol>
+                    <li><a href="#endpointAll">Get all names</a> - http://api.aladhan.com/asmaAlHusna</li>
+                    <li><a href="#endpointSingle">Get one name</a> - http://api.aladhan.com/asmaAlHusna/{number}</li>
+                    <li><a href="#endpointMulti">Get multiple names</a> - http://api.aladhan.com/asmaAlHusna/{number1,number2,number3}</li>
+                </ol>
+                <p>
+                    &nbsp;
+                </p>
+                <h4>1. <a name="endpointAll">Get the 99 Names of Allah</a> - http://api.aladhan.com/asmaAlHusna</h4>
+                <ul>
+                    <li>
+                        <b>Description:</b> Returns the Arabic text with transliteration and meaning
+                    </li>
+                    <li>
+                        <b>Method:</b> GET
+                    </li>
+                    <li>
+                        <b>Endpoint URL:</b> http://api.aladhan.com/asmaAlHusna
+                    </li>
+                    <li>
+                        <b>Example Request:</b> <a href="http://api.aladhan.com/asmaAlHusna" target="_blank">http://api.aladhan.com/asmaAlHusna</a>
+                    </li>
+                    <li>
+                        <b>Example Response:</b>
+                        <pre>
+{
+    code: 200,
+    status: "OK",
+    data: [
+    {
+        name: "الرَّحْمَنُ",
+        transliteration: "Ar Rahmaan",
+        number: 1,
+        en: {
+            meaning: "The Beneficent"
+        }
+    },
+    {
+        name: "الرَّحِيمُ",
+        transliteration: "Ar Raheem",
+        number: 2,
+        en: {
+            meaning: "The Merciful"
+        }
+    },
+...
+    ]
+}                        
+                        </pre>
+                    </li>
+                </ul>
+                    <p>&nbsp;</p>
+                <h4>2. <a name="endpointSingle">Get One name of Allah</a> - http://api.aladhan.com/asmaAlHusna/{number}</h4>
+                <ul>
+                    <li>
+                        <b>Description:</b> Returns the Arabic text with transliteration and meaning of one name. Names are numbered from 1 to 99, in the order usually recited in the Islamic tradition. They start with 1 (Ar Rahmaan) and end with 99 (As Saboor)
+                    </li>
+                    <li>
+                        <b>Method:</b> GET
+                    </li>
+                    <li>
+                        <b>Endpoint URL:</b> http://api.aladhan.com/asmaAlHusna/{number}
+                    </li>
+                    <li>
+                        <b>Example Request:</b> <a href="http://api.aladhan.com/asmaAlHusna/77" target="_blank">http://api.aladhan.com/asmaAlHusna/77</a>
+                    </li>
+                    <li>
+                        <b>Example Response:</b>
+                       <pre>
+{
+    code: 200,
+    status: "OK",
+    data: [
+        {
+            name: "الْوَالِي",
+            transliteration: "Al Waali",
+            number: 77,
+            en: {
+                meaning: "The Governor"
+            }
+        }
+    ]
+}
+                        </pre>
+                    </li>
+                </ul>
+                <h4>3. <a name="endpointMultiple">Get multiple names  of Allah</a> - http://api.aladhan.com/asmaAlHusna/{number},{number},{number}...</h4>
+                <ul>
+                    <li>
+                        <b>Description:</b> Returns the Arabic text with transliteration and meaning of multiple names. Names are numbered from 1 to 99, in the order usually recited in the Islamic tradition. They start with 1 (Ar Rahmaan) and end with 99 (As Saboor)
+                    </li>
+                    <li>
+                        <b>Method:</b> GET
+                    </li>
+                    <li>
+                        <b>Endpoint URL:</b> http://api.aladhan.com/asmaAlHusna/{number},{number}...
+                    </li>
+                    <li>
+                        <b>Example Request:</b> <a href="http://api.aladhan.com/asmaAlHusna/1,2" target="_blank">http://api.aladhan.com/asmaAlHusna/1,2</a>
+                    </li>
+                    <li>
+                        <b>Example Response:</b>
+                       <pre>
+{
+    code: 200,
+    status: "OK",
+    data: [
+    {
+        name: "الرَّحْمَنُ",
+        transliteration: "Ar Rahmaan",
+        number: 1,
+        en: {
+            meaning: "The Beneficent"
+        }
+    },
+    {
+        name: "الرَّحِيمُ",
+        transliteration: "Ar Raheem",
+        number: 2,
+        en: {
+            meaning: "The Merciful"
+        }
+    }
+    ]
+}                        
+                        </pre>
+                    </li>
+                </ul>
+            </div>
+
+<?php include_once('common/footer.phtml'); ?>

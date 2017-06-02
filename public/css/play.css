@@ -1,0 +1,79 @@
+dl.inline-flex {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    /*width: 300px;      /* set the container width*/
+    overflow: visible;
+}
+dl.inline-flex dt {
+    flex: 0 0 50%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+dl.inline-flex dd {
+    flex:0 0 50%;
+    margin-left: auto;
+    text-align: right;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.timings {
+  background-color: black;
+  opacity: 0.8;
+  margin: 10 0 0 0;
+  position: relative;
+  max-width: 300px;
+}
+
+.timings dl {
+  color: white; padding: 10 10 10 10;
+}
+
+.timings dt, .timings dd{
+  border-bottom: 1px #ccc solid;
+  margin-bottom: 5px;
+  margin-top: 3px;
+  font-size: 120%;
+}
+
+.timings dd {
+    text-align: right;
+}
+
+
+.settings-icon, .settings-close-icon {
+  cursor: pointer;
+  position: absolute;
+  top: -7px;
+  right: -7px;
+}
+
+.minimise-icon {
+  cursor: pointer;
+  position: absolute;
+  top: -7px;
+  right: 23px;
+}
+
+.loader {
+    display: none;
+    position: fixed;
+    top: 350px;
+    left: 50%;
+    margin-top: -96px;
+    margin-left: -96px;
+    background-color: #000;
+    border-radius: 25px;
+    width: 192px;
+    height: 192px;
+    z-index: 99999;
+    text-align: center;
+}
+
+.fullscreenify {
+    position: absolute;
+    top: 60px;
+    left: 10px;
+    max-width: 290px;
+}

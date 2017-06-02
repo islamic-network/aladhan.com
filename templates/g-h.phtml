@@ -1,0 +1,121 @@
+<?php include_once('common/header.phtml'); ?>
+<?php include_once('common/navigation.phtml'); ?>
+
+<div class="container panel">
+    <?php include_once('common/bismillah.phtml'); ?>
+	<p>
+		Please note that the below Hijri dates are computed mathematically and may be inaccurate by one day.
+	</p>
+
+	<div class="page-header">
+        <h2>Gregorian to Hijri Calendar - <?php echo $calendar[$y][$m]['days'][1]['gregorian']['month']['en'] . ' ' . $y; ?> AD</h2>
+    </div>
+
+	<form role="form" action="/gregorian-hijri-calendar" method="GET" class="hidden" id="calconfig">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="method">Month</label>
+                    <select id="month" name="m" class="form-control">
+                        <option value="1" <?php echo $m == '1' ? 'selected' : ''; ?>>January</option>
+                        <option value="2" <?php echo $m == '2' ? 'selected' : ''; ?>>February</option>
+                        <option value="3" <?php echo $m == '3' ? 'selected' : ''; ?>>March</option>
+                        <option value="4" <?php echo $m == '4' ? 'selected' : ''; ?>>April</option>
+                        <option value="5" <?php echo $m == '5' ? 'selected' : ''; ?>>May</option>
+                        <option value="6" <?php echo $m == '6' ? 'selected' : ''; ?>>June</option>
+						<option value="7" <?php echo $m == '7' ? 'selected' : ''; ?>>July</option>
+                        <option value="8" <?php echo $m == '8' ? 'selected' : ''; ?>>August</option>
+						<option value="9" <?php echo $m == '9' ? 'selected' : ''; ?>>September</option>
+						<option value="10" <?php echo $m == '10' ? 'selected' : ''; ?>>October</option>
+						<option value="11" <?php echo $m == '11' ? 'selected' : ''; ?>>November</option>
+						<option value="12" <?php echo $m == '12' ? 'selected' : ''; ?>>December</option>
+                    </select>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="year">Year</label>
+					<input type="text" class="form-control" id="year" name="y" value="<?php echo $y; ?>"/>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 col-centered">
+				<button type="submit" class="btn btn-primary" >
+					Update Calendar
+				</button>
+			</div>
+		</div>
+	</form>
+	<div class="row">
+		<div class="col-md-12" style="text-align: right">
+			<span class="btn btn-primary" title="Configuration Options" id="configBtn">+</span>
+		</div>
+	</div>
+
+    <div class="row">
+		<div class="col-md-1 col-xs-12 col-sm-12">
+			<a href="<?php echo $prevMonth; ?>" class="btn btn-large glyphicon glyphicon-chevron-left"></a>
+		</div>
+<?php
+$days = [ 0 =>'Sunday', 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday', 4 => 'Thursday', 5 => 'Friday', 6 => 'Saturday'];
+?>
+        <div class="col-md-10 col-lg-10 col-xs-1 col-sm-1">
+        <table class="table table-striped table-hover table-bordered">
+        <thead>
+            <tr>
+        <?php foreach ($days as $wday) {?>
+            <td>
+                <?=$wday;?>
+            </td>    
+        <?php } ?>
+            </tr>
+        </thead>
+        <tbody>
+        <?php $x = 1; ?>
+		<?php for($row=0; $row<=$rows; $row++) { ?> 
+            <tr>
+			<?php for($col=0; $col<$cols; $col++) { ?>
+                <td class="<?php echo (date('d') == $calendar[$y][$m]['days'][$x]['gregorian']['day'] && date('m') == $m) ? 'danger' : '' ?>" style="padding-top: 10px; padding-bottom: 15px; padding-left: 3px;">
+                <?php if ($days[$col] == $calendar[$y][$m]['days'][$x]['gregorian']['weekday']['en']) { ?>
+					<?php if (isset($calendar[$y][$m]['days'][$x])) { ?>
+                    <span class="bg-active"><?php echo $calendar[$y][$m]['days'][$x]['gregorian']['day'] ; ?> <?php echo $calendar[$y][$m]['days'][$x]['gregorian']['month']['en'] ; ?> - <?php echo date('l', strtotime($calendar[$y][$m]['days'][$x]['gregorian']['date'])) ; ?></span>
+					<br />
+                    <span class="bg-primary"><?php echo $calendar[$y][$m]['days'][$x]['hijri']['day'] ; ?> <?php echo $calendar[$y][$m]['days'][$x]['hijri']['month']['en'] ; ?> - <?php echo $calendar[$y][$m]['days'][$x]['hijri']['weekday']['ar'] ; ?></span>
+						<?php if (isset($calendar[$y][$m]['days'][$x]['holidays']) && !empty($calendar[$y][$m]['days'][$x]['holidays'])) { ?>
+							<br />
+							<?php foreach ($calendar[$y][$m]['days'][$x]['holidays'] as $h) { ?>
+							<span class="bg-danger"><?php echo $h; ?></span>
+							<br />
+							<?php } ?>
+						<?php } ?>
+					<?php $x++; }} ?>
+                </td>
+			<?php } ?>
+            </tr>
+		<?php } ?>
+            </tbody>
+        </table>
+        </div>
+        <div class="col-md-1 col-xs-12 col-sm-12">
+			<a href="<?php echo $nextMonth; ?>" class="btn btn-large glyphicon glyphicon-chevron-right"></a>
+		</div>
+    </div>
+</div><!-- /.container -->
+<script>
+$(function() {
+	$('#configBtn').on('click', function() {
+		var val = $(this).text();
+		if(val == '+') {
+			$('#calconfig').removeClass('hidden');
+			$(this).text('-');
+		}
+		if(val == '-') {
+			$('#calconfig').addClass('hidden');
+			$(this).text('+');
+		}
+	});
+});
+</script>
+
+<?php include_once('common/footer.phtml'); ?>

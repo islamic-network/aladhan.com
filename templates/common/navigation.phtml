@@ -1,0 +1,237 @@
+<?php
+$locations = array(
+    'Europe' => array(
+        'London/UK' => 'London, UK',
+        'Paris/France' => 'Paris, France',
+        'Berlin/Germany' => 'Berlin, Germany',
+        'Brussels/Belgium' => 'Brussels, Belgium',
+        'Lisbon/Portugal' => 'Lisbon, Portugal',
+        'Amsterdam/Netherlands' => 'Amsterdam, Netherlands',
+        'Belfast/Northern Ireland' => 'Belfast, Northern Ireland',
+        'Madrid/Spain' => 'Madrid, Spain',
+        'Rome/Italy' => 'Rome, Italy',
+        'Vienna/Austria' => 'Vienna, Austria',
+        'Moscow/Russia' => 'Moscow, Russia',
+        'Budapest/Hungary' => 'Budapest, Hungary',
+        'Bucharest/Romania' => 'Bucharest, Romania',
+        'Prague/Czech Republic' => 'Prague, Czech Republic',
+        'Oslo/Norway' => 'Oslo, Norway',
+        'Zurich/Switzerland' => 'Zurich, Switzerland',
+        'Helsinki/Finland' => 'Helsinki, Finland',
+        'Sofia/Bulgaria' => 'Sofia, Bulgaria',
+        'Dublin/Ireland' => 'Dublin, Ireland',
+        'Pristina, Kosovo' => 'Pristina, Kosovo',
+        'Tirana, Albania' => 'Tirana, Albania',
+        'Sarajevo/Bosnia and Herzegovina' => 'Sarajevo, Bosnia and Herzegovina',
+        'Stockholm/Sweden' => 'Stockholm, Sweden'
+    ),
+    'North America' => array(
+        'New York/NY, USA' => 'New York, NY, USA',
+        'Houston/TX, USA' => 'Houston, TX, USA',
+        'Chicago/IL, USA' => 'Chicago, IL, USA',
+        'Denver/CO, USA' => 'Denver, CO, USA',
+        'Los Angeles/CA, USA' => 'Los Angeles, CA, USA',
+        'Toronto/Canada' => 'Toronto, Canada',
+        'Edmonton/Canada' => 'Edmonton, Canada',
+        'Regina/Canada' => 'Regina, Canada',
+        'Montreal/Canada' => 'Montreal, Canada',
+        'Halifax/Canada' => 'Halifax, Canada',
+        'Vancouver/Canada' => 'Vancouver, Canada',
+        'Havana/Cuba' => 'Havana, Cuba',
+        'Honolulu/Hawaii' => 'Honolulu, Hawaii'
+    ),
+    'Asia' => array(
+        'Hong Kong/China' => 'Hong Kong, China',
+        'Beijing/China' => 'Beijing, China',
+        'Shanghai/China' => 'Shanghai, China',
+        'Singapore/Asia' => 'Singapore',
+        'Colombo/Sri Lanka' => 'Colombo, Sri Lanka',
+        'Tokyo/Japan' => 'Tokyo, Japan',
+        'Taipei/Taiwan' => 'Taipei, Taiwan',
+        'Jakarta/Indonesia' => 'Jakarta, Indonesia',
+        'Seoul/South Korea' => 'Seoul, South Korea',
+        'Karachi/Pakistan' => 'Karachi, Pakistan',
+        'Lahore/Pakistan' => 'Lahore, Pakistan',
+        'Islamabad/Pakistan' => 'Islamabad, Pakistan',
+        'Dhaka/Bangladesh' => 'Dhaka, Bangladesh',
+        'Kabul/Afghanistan' => 'Kabul, Afghanistan',
+        'New Delhi/India' => 'New Dellhi, India',
+        'Mumbai/India' => 'Mumbai, India',
+        'Chennai/India' => 'Chennai, India',
+        'Colombo/Sri Lanka' => 'Colombo, Sri Lanka',
+    ),
+    'Africa' => array(
+        'Nigeria/Lagos' => 'Lagos, Nigeria',
+        'Algiers/Algeria' => 'Algiers, Algeria',
+        'Casablanca/Morocco' => 'Casablanca, Morocco',
+        'Fez/Morocco' => 'Fez, Morocco',
+        'Rabat/Morocco' => 'Rabat, Morocco',
+        'Marrakech/Morocco' => 'Marrakech, Morocco',
+        'Tunis/Tunisia' => 'Tunis, Tunisia'
+    ),
+    'Australia' => array(
+        'Adelaide/Australia' => 'Adelaide, Australia',
+        'Perth/Australia' => 'Perth, Australia',
+        'Brisbane/Australia' => 'Brisbane, Australia',
+        'Sydney/Australia' => 'Sydney, Australia',
+        'Darwin/Australia' => 'Darwin, Australia',
+        'Tasmania/Australia' => 'Tasmania, Australia'
+    ),
+    'South America' => array(
+       'Sao Paulo/Brazil' => 'Sao Paulo, Brazil',
+       'Mexico City/Mexico' => 'Mexico City, Mexico',
+    ),
+    'Middle East' => array(
+        'Makkah/Saudi Arabia' => 'Makkah, Saudi Arabia',
+        'Madinah/Saudi Arabia' => 'Madinah, Saudi Arabia',
+        'Riyadh/Saudi Arabia' => 'Riyadh, Saudi Arabia',
+        'Dubai/United Arab Emirates' => 'Dubai, UAE',
+        'Abu Dhabi/United Arab Emirates' => 'Abu Dhabi, UAE',
+        'Muscat/Oman' => 'Muscat, Oman',
+        'Damascus/Syria' => 'Damascus, Syria',
+        'Aleppo/Syria' => 'Aleppo, Syria',
+        'Baghdad/Iraq' => 'Baghdad, Iraq',
+        'Mosul/Iraq' => 'Mosul, Iraq',
+        'Tehran/Iran' => 'Tehran, Iran',
+        'Isfahan/Iran' => 'Isfahan, Iran',
+        'Cairo/Egypt' => 'Cairo, Egypt',
+        'Alexandria/Egypt' => 'Alexandria, Egypt',
+    )
+);
+ksort($locations);
+asort($locations['Europe']);
+asort($locations['North America']);
+asort($locations['South America']);
+asort($locations['Asia']);
+asort($locations['Africa']);
+asort($locations['Australia']);
+$cYears = [date('Y')-1, date('Y'), date('Y')+1];
+
+?>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">الأذَان</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="<?php echo $view == 'home' ? 'active' : ''; ?>"><a href="/">Home</a></li>
+                <li class="dropdown <?php echo $view == 'play' ? 'active' : ''; ?>">
+                    <a href="/play" class="dropdown-toggle" data-toggle="dropdown">Adhan Player <b class="caret"></b></a>
+                    <ul class="dropdown-menu multi-level">
+                        <li><a href="/play">Adhan Player</a></li>
+                        <li class="divider"></li>
+                        <?php foreach ($locations as $region => $locs) { ?>
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b><?php echo $region; ?></b></a>
+                            <ul class="dropdown-menu">
+                            <?php foreach ($locs as $k => $v) { ?>
+                                <li><a href="/play/<?php echo $k; ?>"><?php echo $v; ?></a></li>
+                            <?php } ?>
+                            </ul>
+                        </li>
+                        <?php } ?>
+                        <li class="divider"></li>
+                        <li><a href="/locations">Browse All Locations</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown <?php echo $view == 'calendar' ? 'active' : ''; ?>">
+                    <a href="/calendar" class="dropdown-toggle" data-toggle="dropdown">Prayer Times Calendar <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/calendar">Prayer Times Calendar</a></li>
+                        <li class="divider"></li>
+                        <?php foreach ($locations as $region => $locs) { ?>
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b><?php echo $region; ?></b></a>
+                            <ul class="dropdown-menu">
+                            <?php foreach ($locs as $k => $v) { ?>
+                                <li><a href="/calendar/<?php echo $k; ?>"><?php echo $v; ?></a></li>
+                            <?php } ?>
+                            </ul>
+                        </li>
+                        <?php } ?>
+                        <li class="divider"></li>
+                        <li><a href="/locations">Browse All Locations</a></li>
+                    </ul>
+                </li>
+                 <li class="dropdown <?php echo $view == 'gToHCalendar' || $view == 'gToHCalendar' || $view == 'holydays' ? 'active' : ''; ?>">
+                    <a href="/hijri-gregorian-calendar" class="dropdown-toggle" data-toggle="dropdown">Islamic Calendar <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/gregorian-hijri-calendar">Gregorian to Hijri Calendar</a></li>
+                        <li><a href="/hijri-gregorian-calendar">Hijri to Gregorian Calendar</a></li>
+                        <li><a href="/islamic-holidays">Islamic Holidays</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown <?php echo $view == 'ramadanCalendar' ? 'active' : ''; ?>">
+                    <a href="/calendar" class="dropdown-toggle" data-toggle="dropdown">Ramadan Calendar <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Ramadan Calendar</b></a>
+                            <ul class="dropdown-menu">
+                            <?php foreach ($cYears as $cy) { ?>
+                                <li><a href="/ramadan-calendar/<?=$cy;?>">Ramadan Calendar <?=$cy;?></a></li>
+                            <?php } ?>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header"><b>Ramadan Prayer Times <?=$cYears[1];?></b></li>
+                        <?php foreach ($locations as $region => $locs) { ?>
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b><?php echo $region; ?></b></a>
+                            <ul class="dropdown-menu">
+                            <?php foreach ($locs as $k => $v) { ?>
+                                <li><a href="/ramadan-prayer-times/<?=$cYears[1];?>/<?=$k;?>"><?=$v;?></a></li>
+                            <?php } ?>
+                            </ul>
+                        </li>
+                        <?php } ?>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown <?php echo ($view == 'api' || $view == 'api-clients' || $view == 'api-stats' || $view == 'download-adhans' ) ? 'active' : ''; ?>">
+                    <a href="/rest-api" class="dropdown-toggle" data-toggle="dropdown">API <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/prayer-times-api">Prayer Times API</a></li>
+                        <li><a href="/islamic-calendar-api">Islamic Calendar API</a></li>
+                        <li><a href="/asma-al-husna-api">Asma Al Husna API</a></li>
+                        <li><a href="http://alquran.cloud/api" target="_blank">Quran API</a></li>
+                        <li><a href="http://alquran.cloud/cdn" target="_blank">Quran CDN</a></li>
+                        <li><a href="/clients-api">API Clients</a></li>
+                        <li><a href="/stats-api">API Statistics</a></li>
+                        <li><a href="/download-adhans">Download Adhan Files</a></li>
+                        <li><a href="/consumers-api">Who's using the API</a></li>
+                        <li><a href="/contact">Developer Mailing List</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Related Projects <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class=""><a href="http://alquran.cloud" target="_blank">Quran Cloud</a></li>
+                        <li class=""><a href="http://masjidproject.org" target="_blank">The Masjid Project</a></li>
+                    </ul>
+                </li>
+                <li class="<?php echo $view == 'about' ? 'active' : ''; ?>"><a href="/about">About</a></li>
+                <li class="<?php echo $view == 'contact' ? 'active' : ''; ?>"><a href="/contact">Contact</a></li>
+            </ul>
+        </nav><!-- /.navbar-collapse -->
+
+<!-- Multi level on click only -->
+<script>
+$(document).ready( function() {
+    $("li.dropdown-submenu > a").on("click", function(){
+    $("li.dropdown-submenu").removeClass("active");
+    $(this).parent().addClass("active");
+    return false;
+    });
+});
+</script>

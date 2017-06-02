@@ -1,0 +1,121 @@
+<?php include_once('common/header.phtml'); ?>
+<?php include_once('common/navigation.phtml'); ?>
+<link rel="stylesheet" href="/css/play.css">
+
+<div class="container panel">
+    <?php include_once('common/bismillah.phtml'); ?>
+    <div class="page-header">
+      <h2>Prayer Times Calendar <small id="calendarHeading"></small></h2>
+      </div>
+
+
+    <form role="form" id="calendarConfigForm">
+      <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="method">Month</label>
+                        <select id="month" name="month" class="form-control">
+                        <?php foreach ($months as $key => $val) { ?>
+                        <option value="<?php echo $key;  ?>" name="<?php echo $val; ?>"
+                    <?php echo $key == $cmonth ? 'selected' : ''; ?> ><?php echo $val; ?></option>
+                    <?php } ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="method">Year</label>
+                    <select id="year" name="year" class="form-control">
+                    <?php foreach ($years as $key => $val) { ?>
+                    <option value="<?php echo $key;  ?>"
+                    <?php echo $key == $cyear ? 'selected' : ''; ?> ><?php echo $val; ?></option>
+                    <?php } ?>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="method">Method</label>
+                    <select id="method" name="method" class="form-control">
+                        <option value="0">Shia Ithna-Ashari</option>
+                        <option value="1">University of Islamic Sciences, Karachi</option>
+                        <option value="2" selected>Islamic Society of North America (ISNA)</option>
+                        <option value="3">Muslim World League (MWL)</option>
+                        <option value="4">Umm al-Qura, Makkah</option>
+                        <option value="5">Egyptian General Authority of Survey</option>
+                        <option value="7">Institute of Geophysics, University of Tehran</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="latidudeAdjustment">Higher Latitude Adjustment Method (for locations like UK, Sweden, Canada etc.)</label>
+                 <select class="form-control" name="latiudeAdjustment" id="latiudeAdjustment">
+                     <option value="1">Middle of the Night Method</option>
+                     <option value="2">One Seventh Rule</option>
+                     <option value="3" selected="selected">Angle Based Method </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <?php if ($city != '' && $country != '') { ?>
+                    <input class="form-control" name="location" id="location" value="<?= $city; ?>, <?= $country; ?>" />
+                    <?php } else { ?>
+                    <input class="form-control" name="location" id="location" value="" placeholder="Example: London, UK"/>
+                    <?php } ?>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-centered">
+                <div class="form-group">
+                    <a href="#" id ="generateCalendar" class="btn btn-primary">Generate Calendar</a>
+                </div>
+            </div>
+          </div>
+    </form>
+
+    <div class="row" id="showCalendarConfigForm" style="display: none">
+        <div class="col-md-12 col-centered" >
+            <a href="#" id ="showCalendarConfigFormButton" class="btn btn-primary">Show Calendar Settings</a>
+        </div>
+    </div>
+    <hr />
+
+    <table class="table table-hover table-striped table-bordered">
+        <thead>
+            <tr>
+            <td><span class="lead">Date</span></td>
+            <td><span class="lead">Fajr (فجر)</span></td>
+            <td><span class="lead">Zhuhr (ظهر)</span></td>
+            <td><span class="lead">Asr (عصر)</span></td>
+            <td><span class="lead">Maghrib (مغرب)</span></td>
+            <td><span class="lead">Isha (عشاء)</span></td>
+            </tr>  
+        </thead>
+        <tbody id="generatedCalendar"></tbody>
+    </table>
+
+</div>
+
+<div class="loader">
+    <img src="/images/loader.svg" />
+    <div>Loading</div>
+</div>
+<script src="/js/jquery.calendar.js" type="text/javascript"></script>
+<script>
+$(function(){
+  $.nsCalendar.init();
+});
+</script>
+
+<?php include_once('common/footer.phtml'); ?>

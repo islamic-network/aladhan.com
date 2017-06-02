@@ -1,0 +1,800 @@
+<?php include_once('common/header.phtml'); ?>
+<?php include_once('common/navigation.phtml'); ?>
+
+<div class="container panel">
+    <?php include_once('common/bismillah.phtml'); ?>
+
+                <div class="page-header">
+                    <h2>Prayer Times API</h2>
+                </div>
+                
+                <p>
+                    AlAdhan.com is powered by a REST API that is open for public use. The API only supports the GET method and returns JSON.
+                </p>
+                <p>
+                    <b>NOTE</b>: <u>If you are using this API, please sign up to the developer mailing list <a href="/contact">here</a> so you can be informed of any updates or scheduled maintenance to the API.</u>
+                </p>
+                <h2>Endpoints - Prayer Times</h2>
+                <p>
+                    The API has several endpoints to assist developers. Note that all the endpoints return JSON and are available over http and https.
+                </p>
+                <ol>
+                    <li><a href="#endpointTimings">Timings</a> - http://api.aladhan.com/timings/{timestamp}</li>
+                    <li><a href="#endpointCalendar">Calendar</a> - http://api.aladhan.com/calendar</li>
+                    <li><a href="#endpointCurrentTimestamp">Current Time Stamp</a> - http://api.aladhan.com/currentTimestamp</li>
+                    <li><a href="#endpointCurrentTime">Current Time</a> - http://api.aladhan.com/currentTime</li>
+                    <li><a href="#endpointCityInfo">City Geolocation Info</a> - http://api.aladhan.com/cityInfo</li>
+                    <li><a href="#endpointAddressInfo">Address Geolocation Info</a> - http://api.aladhan.com/addressInfo</li>
+                    <li><a href="#endpointTimingsByCity">Timings by City</a> - http://api.aladhan.com/timingsByCity/{timestamp}</li>
+                    <li><a href="#endpointCalendarByCity">Calendar by City</a> - http://api.aladhan.com/calendarByCity</li>
+                    <li><a href="#endpointTimingsByAddress">Timings by Address</a> - http://api.aladhan.com/timingsByAddress/{timestamp}</li>
+                    <li><a href="#endpointCalendarByAddress">Calendar by Address</a> - http://api.aladhan.com/calendarByAddress</li>
+                </ol>
+                
+                <p>
+                    &nbsp;
+                </p>
+                <h4>1. <a name="endpointTimings">Timings</a> - http://api.aladhan.com/timings/{timestamp}</h4>
+                <ul>
+                    <li>
+                        <b>Description:</b> Returns all prayer times for a specific date.
+                    </li>
+                    <li>
+                        <b>Method:</b> GET
+                    </li>
+                    <li>
+                        <b>Endpoint URL:</b> http://api.aladhan.com/timings/{timestamp}, where {timestamp} is a UNIX timestamp (from any time of the day) of the day for which you want the timings. If you don't specify a timestamp, the result will come
+                        back for today - today being the date in the Europe/London timezone.
+                    </li>
+                    <li>
+                        <b>Additional Parameters</b>
+                        <ul>
+                            <li>"method" - these are the different methods identifying various schools of thought about how to compute the timings. This parameter accepts values from 0-7, as signified below:
+                                <ul>
+                                    <li>0 - Shia Ithna-Ashari</li>
+                                    <li>1 - University of Islamic Sciences, Karachi</li>
+                                    <li>2 - Islamic Society of North America (ISNA)</li>
+                                    <li>3 - Muslim World League (MWL)</li>
+                                    <li>4 - Umm al-Qura, Makkah</li>
+                                    <li>5 - Egyptian General Authority of Survey</li>
+                                    <li>7 - Institute of Geophysics, University of Tehran</li>
+                                </ul>
+                            </li>
+                            <li>"timezonestring" - A valid timezone name as specified on <a href="http://php.net/manual/en/timezones.php">http://php.net/manual/en/timezones.php</a>. Example: Europe/London</li>
+                            <li>"latitude" - the decimal value for the latitude co-ordinate of the location you want the time computed for. Example: 51.75865125</li>
+                            <li>"longitude" - the decimal value for the longitude co-ordinate of the location you want the time computed for. Example: -1.25387785</li>
+                            <li>"school" - Optional. 0 for Shafii, 1 for Hanfi. If you leave this empty, it defaults to Shafii.</li>
+                            <li>"latitudeAdjustmentMethod" - Method for adjusting times higher latitudes - for instance, if you are checking timings in the UK or Sweden. Defaults to 3 - Angle Based
+                                <ul>
+                                    <li>1 - Middle of the Night</li>
+                                    <li>2 - One Seventh</li>
+                                    <li>3 - Angle Based</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <b>Example Request:</b>
+                        <p>
+                            If you wanted the time for April 24, 2014 for London, UK and just wanted to see the output in your browser, you can pop the following into your address bar:
+                            <a href="http://api.aladhan.com/timings/1398332113?latitude=51.508515&longitude=-0.1254872&timezonestring=Europe/London&method=2" target="_blank">http://api.aladhan.com/timings/1398332113?latitude=51.508515&longitude=-0.1254872&timezonestring=1&method=2</a>
+                        </p>
+                    </li>
+                    <li>
+                        <b>Example Response:</b>
+                        <pre>
+        {
+        "code":200,
+        "status":"OK",
+        "data":
+            {
+            "timings":
+                {
+                "Fajr":"03:57",
+                "Sunrise":"05:46",
+                "Dhuhr":"12:59",
+                "Asr":"16:55",
+                "Sunset":"20:12",
+                "Maghrib":"20:12",
+                "Isha":"22:02",
+                "Imsak":"03:47",
+                "Midnight":"00:59"
+                },
+                "date":
+                    {
+                    "readable":"24 Apr 2014",
+                    "timestamp":1398332113
+                    }
+                }
+            }
+    </pre>
+                    </li>
+                </ul>
+                <p>&nbsp;</p>
+                <h4>2. <a name="endpointCalendar">Calendar</a> - http://api.aladhan.com/calendar</h4>
+                <ul>
+                    <li>
+                        <b>Description:</b> Returns prayer times for a specific month (in a given year)
+                    </li>
+                    <li>
+                        <b>Method:</b> GET
+                    </li>
+                    <li>
+                        <b>Endpoint URL:</b> http://api.aladhan.com/calendar
+                    </li>
+                    <li>
+                        <b>Additional Parameters</b>
+                        <ul>
+                            <li>"method" - these are the different methods identifying various schools of thought about how to compute the timings. This parameter accepts values from 0-7, as signified below:
+                                <ul>
+                                    <li>0 - Shia Ithna-Ashari</li>
+                                    <li>1 - University of Islamic Sciences, Karachi</li>
+                                    <li>2 - Islamic Society of North America (ISNA)</li>
+                                    <li>3 - Muslim World League (MWL)</li>
+                                    <li>4 - Umm al-Qura, Makkah</li>
+                                    <li>5 - Egyptian General Authority of Survey</li>
+                                    <li>7 - Institute of Geophysics, University of Tehran</li>
+                                </ul>
+                            </li>
+                            <li>"timezonestring" - A valid timezone name as specified on <a href="http://php.net/manual/en/timezones.php">http://php.net/manual/en/timezones.php</a>. Example: Europe/London</li>
+                            <li>"latitude" - the decimal value for the latitude co-ordinate of the location you want the time computed for. Example: 51.75865125</li>
+                            <li>"longitude" - the decimal value for the longitude co-ordinate of the location you want the time computed for. Example: -1.25387785</li>
+                            <li>"month" - 1 or 2 digit month. Example: '08' or '8' for August</li>
+                            <li>"year" - 4 digit year. Example: 2014</li>
+                            <li>"school" - Optional. 0 for Shafii, 1 for Hanfi. If you leave this empty, it defaults to Shafii.</li>
+                            <li>"latitudeAdjustmentMethod" - Method for adjusting times higher latitudes - for instance, if you are checking timings in the UK or Sweden. Defaults to 3 - Angle Based
+                                <ul>
+                                    <li>1 - Middle of the Night</li>
+                                    <li>2 - One Seventh</li>
+                                    <li>3 - Angle Based</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <b>Example Request:</b>
+                        <p>If you wanted the calendar for March 2016 for London, UK and just wanted to see the output in your browser, you can pop the following into your address bar: <a href="http://api.aladhan.com/calendar?latitude=51.5073509&longitude=-0.1277583&timezonestring=Europe%2FLondon&method=2&month=03&year=2016" target="_blank">http://api.aladhan.com/calendar?latitude=51.5073509&longitude=-0.1277583&timezonestring=Europe%2FLondon&method=2&month=03&year=2016</a>
+                            
+                        </p>
+                    </li>
+                    <li>
+                        <b>Example Response:</b>
+                        <pre>
+{
+  "code": 200,
+  "status": "OK",
+  "data": [
+    {
+      "timings": {
+        "Fajr": "05:14 (GMT)",
+        "Sunrise": "06:45 (GMT)",
+        "Dhuhr": "12:13 (GMT)",
+        "Asr": "15:04 (GMT)",
+        "Sunset": "17:42 (GMT)",
+        "Maghrib": "17:42 (GMT)",
+        "Isha": "19:13 (GMT)",
+        "Imsak":"03:47 (GMT)",
+        "Midnight":"00:59 (GMT)"
+      },
+      "date": {
+        "readable": "01 Mar 2016",
+        "timestamp": "1456822861"
+      }
+    },
+    {
+      "timings": {
+        "Fajr": "05:11 (GMT)",
+        "Sunrise": "06:43 (GMT)",
+        "Dhuhr": "12:13 (GMT)",
+        "Asr": "15:06 (GMT)",
+        "Sunset": "17:43 (GMT)",
+        "Maghrib": "17:43 (GMT)",
+        "Isha": "19:15 (GMT)",
+        "Imsak":"03:47 (GMT)",
+        "Midnight":"00:59 (GMT)"
+      },
+      "date": {
+        "readable": "02 Mar 2016",
+        "timestamp": "1456909261"
+      }
+    },
+      
+    ... More Data here till the end of the month ...
+    
+    {
+      "timings": {
+        "Fajr": "05:01 (BST)",
+        "Sunrise": "06:37 (BST)",
+        "Dhuhr": "13:05 (BST)",
+        "Asr": "16:37 (BST)",
+        "Sunset": "19:33 (BST)",
+        "Maghrib": "19:33 (BST)",
+        "Isha": "21:09 (BST)",
+        "Imsak":"03:47 (GMT)",
+        "Midnight":"00:59 (GMT)"
+      },
+      "date": {
+        "readable": "31 Mar 2016",
+        "timestamp": "1459414861"
+      }
+    }
+  ]
+}
+                        </pre>
+                    </li>
+                    
+                </ul>
+                
+                <p>&nbsp;</p>
+                <h4>3. <a name="endpointCurrentTimestamp">Current Timestamp</a> - http://api.aladhan.com/currentTimestamp</h4>
+                <ul>
+                    <li>
+                        <b>Description:</b> Returns the current UNIX timestamp for the specified time zone
+                    </li>
+                    <li>
+                        <b>Method:</b> GET
+                    </li>
+                    <li>
+                        <b>Endpoint URL:</b> http://api.aladhan.com/currentTimestamp
+                    </li>
+                    <li>
+                        <b>Additional Parameters</b>
+                        <ul>
+                            <li>
+                            "zone" - A valid timezone name as specified on <a href="http://php.net/manual/en/timezones.php">http://php.net/manual/en/timezones.php</a>. Example: Europe/London
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <b>Example Request:</b> <a href="http://api.aladhan.com/currentTimestamp?zone=Europe/London" target="_blank">http://api.aladhan.com/currentTimestamp?zone=Europe/London</a>
+                    </li>
+                    <li>
+                        <b>Example Response:</b>
+                        <pre>
+{
+  "code": 200,
+  "status": "OK",
+  "data": 1452080970
+}
+                        </pre>
+                    </li>
+                </ul>
+                
+                <p>&nbsp;</p>
+                <h4>4. <a name="endpointCurrentTime">Current Time</a> - http://api.aladhan.com/currentTime</h4>
+                <ul>
+                    <li>
+                        <b>Description:</b> Returns the current time (in the HH:MM format) for the specified time zone
+                    </li>
+                    <li>
+                        <b>Method:</b> GET
+                    </li>
+                    <li>
+                        <b>Endpoint URL:</b> http://api.aladhan.com/currentTime
+                    </li>
+                    <li>
+                        <b>Additional Parameters</b>
+                        <ul>
+                            <li>
+                            "zone" - A valid timezone name as specified on <a href="http://php.net/manual/en/timezones.php">http://php.net/manual/en/timezones.php</a>. Example: Europe/London
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <b>Example Request:</b> <a href="http://api.aladhan.com/currentTime?zone=Europe/London" target="_blank">http://api.aladhan.com/currentTime?zone=Europe/London</a>
+                    </li>
+                    <li>
+                        <b>Example Response:</b>
+                        <pre>
+{
+  "code": 200,
+  "status": "OK",
+  "data": "13:56"
+}
+                        </pre>
+                    </li>
+                </ul>
+
+<p>&nbsp;</p>
+
+            <h4>5. <a name="endpointCityInfo">City Geolocation Info</a> - http://api.aladhan.com/cityInfo</h4>
+                <ul>
+                    <li>
+                        <b>Description:</b> Returns the latitude, longitude and timezone for a given city
+                    </li>
+                    <li>
+                        <b>Method:</b> GET
+                    </li>
+                    <li>
+                        <b>Endpoint URL:</b> http://api.aladhan.com/cityInfo
+                    </li>
+                    <li>
+                        <b>Additional Parameters</b>
+                        <ul>
+                            <li>
+                            "city" - A city name. Example: London
+                            </li>
+                            <li>
+                            "country" - A country name or 2 character alpha ISO 3166 code. Example: GB or United Kindom
+                            </li>
+                            <li>
+                            "state" - State or province (optional). A state name or abbreviation - both US and non US supported. Example: Colorado / CO / Punjab / Bengal
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <b>Example Request 1:</b> <a href="http://api.aladhan.com/cityInfo?city=Dubai&country=AE" target="_blank">http://api.aladhan.com/cityInfo?city=Dubai&country=AE</a>
+                    </li>
+                    <li>
+                        <b>Example Response 1:</b>
+                        <pre>
+{
+"code":200,
+"status":"OK",
+"data":
+    {
+        "latitude":"25.2048493",
+        "longitude":"55.2707828",
+        "timezone":"Asia/Dubai"
+    }
+}
+                        </pre>
+                    </li>
+                    <li>
+                        <b>Example Request 2:</b> <a href="http://api.aladhan.com/cityInfo?city=Denver&state=Colorado&country=US" target="_blank">http://api.aladhan.com/cityInfo?city=Denver&state=Colorado&country=US</a>
+                    </li>
+                    <li>
+                        <b>Example Response 2:</b>
+                        <pre>
+{
+"code":200,
+"status":"OK",
+"data":
+    {
+        "latitude":"39.7392358",
+        "longitude":"-104.990251",
+        "timezone":"America/Denver"
+    }
+}
+                        </pre>
+                    </li>
+                </ul>
+<p>&nbsp;</p>
+
+            <h4>5. <a name="endpointAddressInfo">Address Geolocation Info</a> - http://api.aladhan.com/addressInfo</h4>
+                <ul>
+                    <li>
+                        <b>Description:</b> Returns the latitude, longitude and timezone for a given address
+                    </li>
+                    <li>
+                        <b>Method:</b> GET
+                    </li>
+                    <li>
+                        <b>Endpoint URL:</b> http://api.aladhan.com/addressInfo
+                    </li>
+                    <li>
+                        <b>Additional Parameters</b>
+                        <ul>
+                            <li>
+                            "address" - A complete address string. Example: 10 Upper Bank Street, London, Canary Wharf, London, UK
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <b>Example Request:</b> <a href="http://api.aladhan.com/addressInfo?address=10 Upper Bank Street, London, Canary Wharf, London, UK" target="_blank">http://api.aladhan.com/addressInfo?address=10 Upper Bank Street, London, Canary Wharf, London, UK</a>
+                    </li>
+                    <li>
+                        <b>Example Response:</b>
+                        <pre>
+{
+"code":200,
+"status":"OK",
+"data":
+    {
+        "latitude":"51.5026562",
+        "longitude":"-0.0171995",
+        "timezone":"Europe/London"
+    }
+}
+                        </pre>
+                    </li>
+                </ul>
+<p>&nbsp;</p>
+
+                <h4>6. <a name="endpointTimingsByCity">Timings by City</a> - http://api.aladhan.com/timingsByCity/{timestamp}</h4>
+                <ul>
+                    <li>
+                        <b>Description:</b> Returns all prayer times for a specific date in a city
+                    </li>
+                    <li>
+                        <b>Method:</b> GET
+                    </li>
+                    <li>
+                        <b>Endpoint URL:</b> http://api.aladhan.com/timingsByCity/{timestamp}, where {timestamp} is a UNIX timestamp (from any time of the day) of the day for which you want the timings. If you don't specify a timestamp, the result will come back for today.
+                    </li>
+                    <li>
+                        <b>Parameters</b>
+                        <ul>
+                            <li>
+                            "city" - A city name. Example: London
+                            </li>
+                            <li>
+                            "country" - A country name or 2 character alpha ISO 3166 code. Example: GB or United Kindom
+                            </li>
+                            <li>
+                            "state" - State or province (optional). A state name or abbreviation. Example: Colorado / CO / Punjab / Bengal
+                            </li>
+                            <li>"method" - these are the different methods identifying various schools of thought about how to compute the timings. This parameter accepts values from 0-7, as signified below:
+                                <ul>
+                                    <li>0 - Shia Ithna-Ashari</li>
+                                    <li>1 - University of Islamic Sciences, Karachi</li>
+                                    <li>2 - Islamic Society of North America (ISNA)</li>
+                                    <li>3 - Muslim World League (MWL)</li>
+                                    <li>4 - Umm al-Qura, Makkah</li>
+                                    <li>5 - Egyptian General Authority of Survey</li>
+                                    <li>7 - Institute of Geophysics, University of Tehran</li>
+                                </ul>
+                            </li>
+                            <li>"latitudeAdjustmentMethod" - Method for adjusting times higher latitudes - for instance, if you are checking timings in the UK or Sweden. Defaults to 3 - Angle Based
+                                <ul>
+                                    <li>1 - Middle of the Night</li>
+                                    <li>2 - One Seventh</li>
+                                    <li>3 - Angle Based</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>"school" - Optional. 0 for Shafii, 1 for Hanfi. If you leave this empty, it defaults to Shafii.</li>
+                    <li>
+                        <b>Example Request 1:</b> <a href="http://api.aladhan.com/timingsByCity?city=Dubai&country=AE&method=2" target="_blank">http://api.aladhan.com/timingsByCity?city=Dubai&country=AE&method=2</a>
+                    </li>
+                    <li>
+                        <b>Example Response 1:</b>
+                        <pre>
+{
+    status: "OK",
+    code: 200,
+    data: {
+        timings: {
+            Fajr: "05:23",
+            Sunrise: "06:26",
+            Dhuhr: "12:27",
+            Asr: "15:53",
+            Sunset: "18:29",
+            Maghrib: "18:29",
+            Isha: "19:32",
+            Imsak: "05:13",
+            Midnight: "10:59"
+        },
+    date: {
+        readable: "17 Mar 2016",
+        timestamp: 1458224556
+        }
+    }
+}
+                        </pre>
+                    </li>
+                    <li>
+                        <b>Example Request 2:</b> <a href="http://api.aladhan.com/timingsByCity?city=Denver&state=Colorado&country=US&method=2" target="_blank">http://api.aladhan.com/timingsByCity?city=Denver&state=Colorado&country=US&method=2</a>
+                    </li>
+                    <li>
+                        <b>Example Response 2:</b>
+                        <pre>
+{
+    code: 200,
+    status: "OK",
+    data: {
+        timings: {
+            Fajr: "05:53",
+            Sunrise: "07:07",
+            Dhuhr: "13:08",
+            Asr: "16:32",
+            Sunset: "19:10",
+            Maghrib: "19:10",
+            Isha: "20:24",
+            Imsak: "05:13",
+            Midnight: "10:59"
+        },
+        date: {
+            readable: "17 Mar 2016",
+            timestamp: 1458224652
+        }
+    }
+}
+                        </pre>
+                    </li>
+                </ul>
+<p>&nbsp;</p>
+                <h4>7. <a name="endpointCalendarByCity">Calendar by City</a> - http://api.aladhan.com/calendarByCity</h4>
+                <ul>
+                    <li>
+                        <b>Description:</b> Returns all prayer times for a specific month in a city
+                    </li>
+                    <li>
+                        <b>Method:</b> GET
+                    </li>
+                    <li>
+                        <b>Endpoint URL:</b> http://api.aladhan.com/timingsByCity
+                    </li>
+                    <li>
+                        <b>Parameters</b>
+                        <ul>
+                            <li>
+                            "city" - A city name. Example: London
+                            </li>
+                            <li>
+                            "country" - A country name or 2 character alpha ISO 3166 code. Example: GB or United Kindom
+                            </li>
+                            <li>
+                            "state" - State or province (optional). A state name or abbreviation. Example: Colorado / CO / Punjab / Bengal
+                            </li>
+                            <li>"month" - 1 or 2 digit month. Example: '08' or '8' for August</li>
+                            <li>"year" - 4 digit year. Example: 2014</li>
+                            <li>"method" - these are the different methods identifying various schools of thought about how to compute the timings. This parameter accepts values from 0-7, as signified below:
+                                <ul>
+                                    <li>0 - Shia Ithna-Ashari</li>
+                                    <li>1 - University of Islamic Sciences, Karachi</li>
+                                    <li>2 - Islamic Society of North America (ISNA)</li>
+                                    <li>3 - Muslim World League (MWL)</li>
+                                    <li>4 - Umm al-Qura, Makkah</li>
+                                    <li>5 - Egyptian General Authority of Survey</li>
+                                    <li>7 - Institute of Geophysics, University of Tehran</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>"school" - Optional. 0 for Shafii, 1 for Hanfi. If you leave this empty, it defaults to Shafii.</li>
+                    <li>"latitudeAdjustmentMethod" - Method for adjusting times higher latitudes - for instance, if you are checking timings in the UK or Sweden. Defaults to 3 - Angle Based
+                                <ul>
+                                    <li>1 - Middle of the Night</li>
+                                    <li>2 - One Seventh</li>
+                                    <li>3 - Angle Based</li>
+                                </ul>
+                            </li>
+                    <li>
+                        <b>Example Request:</b> <a href="http://api.aladhan.com/calendarByCity?city=Dubai&country=AE&month=06&year=2016&method=2" target="_blank">http://api.aladhan.com/calendarByCity?city=Dubai&country=AE&month=06&year=2016&method=2</a>
+                    </li>
+                    <li>
+                        <b>Example Response:</b>
+                        <pre>
+{
+    code: 200,
+    status: "OK",
+    data: [
+        {
+            timings: {
+                Fajr: "04:17 (GST)",
+                Sunrise: "05:29 (GST)",
+                Dhuhr: "12:17 (GST)",
+                Asr: "15:41 (GST)",
+                Sunset: "19:05 (GST)",
+                Maghrib: "19:05 (GST)",
+                Isha: "20:17 (GST)",
+                Imsak: "03:47 (GMT)",
+                Midnight: "00:59 (GMT)"
+            },
+            date: {
+                readable: "01 Jun 2016",
+                timestamp: "1464757261"
+            }
+        },
+        {
+            timings: {
+                Fajr: "04:17 (GST)",
+                Sunrise: "05:29 (GST)",
+                Dhuhr: "12:17 (GST)",
+                Asr: "15:41 (GST)",
+                Sunset: "19:06 (GST)",
+                Maghrib: "19:06 (GST)",
+                Isha: "20:18 (GST)",
+                Imsak: "03:47 (GMT)",
+                Midnight: "00:59 (GMT)"
+            },
+            date: {
+                readable: "02 Jun 2016",
+                timestamp: "1464843661"
+            }
+        },
+        //....More data
+        {
+            timings: {
+                Fajr: "04:19 (GST)",
+                Sunrise: "05:32 (GST)",
+                Dhuhr: "12:23 (GST)",
+                Asr: "15:45 (GST)",
+                Sunset: "19:13 (GST)",
+                Maghrib: "19:13 (GST)",
+                Isha: "20:26 (GST)",
+                Imsak: "03:47 (GMT)",
+                Midnight: "00:59 (GMT)"
+            },
+            date: {
+                readable: "30 Jun 2016",
+                timestamp: "1467262861"
+            }
+        }
+    ]
+}
+                        </pre>
+                    </li>
+</ul>
+<p>&nbsp;</p>
+            <h4>8. <a name="endpointTimingsByAddress">Timings by Address</a> - http://api.aladhan.com/timingsByAddress/{timestamp}</h4>
+                <ul>
+                    <li>
+                        <b>Description:</b> Returns all prayer times for a specific date at a specified address. This endpoint has been introduced because not everyone wanted to be tied down to a city and country via /timingsByCity. This endpoint uses Google geocoding to identify your address. If Google is unable to find it, you'll get back an error response 400.
+                    </li>
+                    <li>
+                        <b>Method:</b> GET
+                    </li>
+                    <li>
+                        <b>Endpoint URL:</b> http://api.aladhan.com/timingsByAddress/{timestamp}, where {timestamp} is a UNIX timestamp (from any time of the day) of the day for which you want the timings. If you don't specify a timestamp, the result will come back for today.
+                    </li>
+                    <li>
+                        <b>Parameters</b>
+                        <ul>
+                            <li>
+                            "address" - An address string. Example: 1420 Austin Bluffs Parkway, Colorado Springs, CO <i>OR</i> 25 Hampstead High Street, London, NW3 1RL, United Kingdom <i>OR</i> Sultanahmet Mosque, Istanbul
+                            </li>
+                            <li>"method" - these are the different methods identifying various schools of thought about how to compute the timings. This parameter accepts values from 0-7, as signified below:
+                                <ul>
+                                    <li>0 - Shia Ithna-Ashari</li>
+                                    <li>1 - University of Islamic Sciences, Karachi</li>
+                                    <li>2 - Islamic Society of North America (ISNA)</li>
+                                    <li>3 - Muslim World League (MWL)</li>
+                                    <li>4 - Umm al-Qura, Makkah</li>
+                                    <li>5 - Egyptian General Authority of Survey</li>
+                                    <li>7 - Institute of Geophysics, University of Tehran</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>"school" - Optional. 0 for Shafii, 1 for Hanfi. If you leave this empty, it defaults to Shafii.</li>
+                    <li>"latitudeAdjustmentMethod" - Method for adjusting times higher latitudes - for instance, if you are checking timings in the UK or Sweden. Defaults to 3 - Angle Based
+                                <ul>
+                                    <li>1 - Middle of the Night</li>
+                                    <li>2 - One Seventh</li>
+                                    <li>3 - Angle Based</li>
+                                </ul>
+                            </li>
+                    <li>
+                        <b>Example Request 1:</b> <a href="http://api.aladhan.com/timingsByAddress?address=Sultanahmet Mosque, Istanbul&method=2" target="_blank">http://api.aladhan.com/timingsByAddress?address=Sultanahmet Mosque, Istanbul&method=2</a>
+                    </li>
+                    <li>
+                        <b>Example Response 1:</b>
+                        <pre>
+{
+    code: 200,
+    status: "OK",
+    data: {
+        timings: {
+        Fajr: "04:52",
+        Sunrise: "06:14",
+        Dhuhr: "13:03",
+        Asr: "16:50",
+        Sunset: "19:52",
+        Maghrib: "19:52",
+        Isha: "21:14",
+        Imsak: "05:13",
+        Midnight: "10:59"
+    },
+        date: {
+            readable: "22 Apr 2016",
+            timestamp: 1461326162
+        }
+    }
+}
+                        </pre>
+                    </li>
+                </ul>
+
+                <h4>9. <a name="endpointCalendarByAddress">Calendar by Address</a> - http://api.aladhan.com/calendarByAddress</h4>
+                <ul>
+                    <li>
+                        <b>Description:</b> Returns all prayer times for a specific month at a specified address. This endpoint has been introduced because not everyone wanted to be tied down to a city and country via /calendarByCity. This endpoint uses Google geocoding to identify your address. If Google is unable to find it, you'll get back an error response 400.
+                    </li>
+                    <li>
+                        <b>Method:</b> GET
+                    </li>
+                    <li>
+                        <b>Endpoint URL:</b> http://api.aladhan.com/timingsByAddress
+                    </li>
+                    <li>
+                        <b>Parameters</b>
+                        <ul>
+                            <li>
+                            "address" - An address string. Example: 1420 Austin Bluffs Parkway, Colorado Springs, CO <i>OR</i> 25 Hampstead High Street, London, NW3 1RL, United Kingdom <i>OR</i> Sultanahmet Mosque, Istanbul
+                            </li>
+                            <li>"month" - 1 or 2 digit month. Example: '08' or '8' for August</li>
+                            <li>"year" - 4 digit year. Example: 2014</li>
+                            <li>"method" - these are the different methods identifying various schools of thought about how to compute the timings. This parameter accepts values from 0-7, as signified below:
+                                <ul>
+                                    <li>0 - Shia Ithna-Ashari</li>
+                                    <li>1 - University of Islamic Sciences, Karachi</li>
+                                    <li>2 - Islamic Society of North America (ISNA)</li>
+                                    <li>3 - Muslim World League (MWL)</li>
+                                    <li>4 - Umm al-Qura, Makkah</li>
+                                    <li>5 - Egyptian General Authority of Survey</li>
+                                    <li>7 - Institute of Geophysics, University of Tehran</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>"school" - Optional. 0 for Shafii, 1 for Hanfi. If you leave this empty, it defaults to Shafii.</li>
+                    <li>"latitudeAdjustmentMethod" - Method for adjusting times higher latitudes - for instance, if you are checking timings in the UK or Sweden. Defaults to 3 - Angle Based
+                                <ul>
+                                    <li>1 - Middle of the Night</li>
+                                    <li>2 - One Seventh</li>
+                                    <li>3 - Angle Based</li>
+                                </ul>
+                            </li>
+                    <li>
+                        <b>Example Request:</b> <a href="http://api.aladhan.com/calendarByAddress?address=Sheikh Zayed Road, Dubai&month=06&year=2016&method=2" target="_blank">http://api.aladhan.com/calendarByAddress?address=Sheikh Zayed Road, Dubai&month=06&year=2016&method=2</a>
+                    </li>
+                    <li>
+                        <b>Example Response:</b>
+                        <pre>
+{
+    code: 200,
+    status: "OK",
+    data: [
+        {
+            timings: {
+                Fajr: "04:17 (GST)",
+                Sunrise: "05:29 (GST)",
+                Dhuhr: "12:17 (GST)",
+                Asr: "15:41 (GST)",
+                Sunset: "19:05 (GST)",
+                Maghrib: "19:05 (GST)",
+                Isha: "20:17 (GST)",
+                Imsak: "03:47 (GMT)",
+                Midnight: "00:59 (GMT)"
+            },
+            date: {
+                readable: "01 Jun 2016",
+                timestamp: "1464757261"
+            }
+        },
+        {
+            timings: {
+                Fajr: "04:17 (GST)",
+                Sunrise: "05:29 (GST)",
+                Dhuhr: "12:17 (GST)",
+                Asr: "15:41 (GST)",
+                Sunset: "19:06 (GST)",
+                Maghrib: "19:06 (GST)",
+                Isha: "20:18 (GST)",
+                Imsak: "03:47 (GMT)",
+                Midnight: "00:59 (GMT)"
+            },
+            date: {
+                readable: "02 Jun 2016",
+                timestamp: "1464843661"
+            }
+        },
+        //....More data
+        {
+            timings: {
+                Fajr: "04:19 (GST)",
+                Sunrise: "05:32 (GST)",
+                Dhuhr: "12:23 (GST)",
+                Asr: "15:45 (GST)",
+                Sunset: "19:13 (GST)",
+                Maghrib: "19:13 (GST)",
+                Isha: "20:26 (GST)",
+                Imsak: "03:47 (GMT)",
+                Midnight: "00:59 (GMT)"
+            },
+            date: {
+                readable: "30 Jun 2016",
+                timestamp: "1467262861"
+            }
+        }
+    ]
+}
+                        </pre>
+                    </li>
+</ul>
+
+            </div>
+<?php include_once('common/footer.phtml'); ?>

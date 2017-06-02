@@ -1,0 +1,99 @@
+<?php include_once('common/header.phtml'); ?>
+<?php include_once('common/navigation.phtml'); ?>
+
+<div class="container panel">
+    <?php include_once('common/bismillah.phtml'); ?>
+    <div class="page-header">
+        <h2>Prayer Times, Adhan Player &amp; Islamic Calendar</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <h3>What this is</h3>
+            <p>
+                This is an application built specifically for those Muslims who live in non-Islamic countries and cannot hear adhan (or azan) -
+                the call to prayer - 5 times a day. That's not to say you can't use it if you live in an Islamic country.
+                It was built for use in our house, but we thought it's something nice to share. We hope that it is useful - may Allah be pleased with it.
+            </p>
+        </div>
+        <div class="ccol-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <h3>Adhan Player</h3>
+            <p>
+                To stream adhan, just head on over to <a href="/play">https://aladhan.com/play</a>, select your timezone and location and leave the browser open.
+                The application will compute the time for all 5 daily prayers and play adhan automatically.
+            </p>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <h3>Prayer Times Calendar</h3>
+            <p>
+                Just like the adhan player, there's also a configurable calendar on <a href="/calendar">https://aladhan.com/calendar</a>. You select the timezone, location, month and year and can see the calendar for the whole month.
+            </p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <h3>Prayer Times API</h3>
+            <p>
+                This application has a RESTful <a href="/prayer-times-api">prayer times API</a> that you can use for:
+            </p>
+            <ul>
+                <li>Computing prayer times and prayer time calendars via co-ordinates</li>
+                <li>Computing prayer times and prayer time calendars via city and country</li>
+                <li>Computing prayer times and prayer time calendars via an address</li>
+                <li>Computing geographic co-ordinates and timezone by city and country</li>
+            </ul>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <h3>Islamic / Hijri Calendar API</h3>
+            <p>
+                This application has a RESTful <a href="/islamic-calendar-api">Islamic calendar API</a> that you can use for:
+            </p>
+            <ul>
+                <li>Gregorian to Hijri Date Conversion</li>
+                <li>Hijri to Gregorian Date Conversion</li>
+                <li><a href="/gregorian-hijri-calendar">Gregorian Calendar with Hijri Dates</a></li>
+                <li><a href="/hijri-gregorian-calendar">Hijri Calendar with Gregorian Dates</a></li>
+            </ul>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <h3>Islamic / Hijri Calendar API</h3>
+            <p>
+                This application also provides Ramadan Calendars and Prayer times::
+            </p>
+            <ul>
+                <li><a href="/ramadan-calendar/<?=date('Y');?>">Ramadan Calendar for <?=date('Y');?></a></li>
+                <li>See calendars for future and past years  with URLs like https://aladhan.com/ramadan-calendar/{{year}}</li>
+                <li>See Ramadan Prayer Times with URLs like https://aladhan.com/ramadan-prayer-times/{{year}}/{{city}}/{{country}}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <h3>Using the Adhan Player / Calendar</h3>
+            <p>
+            Both the Adhan <a href="/play">Player</a> and <a href="calendar">Calendar</a> can be customised for any location across the globe. A list of locations is available on <a href="/locations">https://aladhan.com/locations</a>, but these are essentially shortcuts to various towns and cities. To create your own shortcut URL for the player and calendar, you can use the following formats:
+            </p>
+            <ul>
+                <li>https://aladhan.com/play/{{city}}/{{country}}</li>
+                <li>https://aladhan.com/calendar/{{city}}/{{country}}</li>
+                <li>https://aladhan.com/ramadan-prayer-times/{{year}}/{{city}}/{{country}}</li>
+                <li>https://aladhan.com/ramadan-calendar/{{year}}</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "url": "http://aladhan.com/",
+    "about": "Islamic Prayer Times and Adhan Streaming with a RESTful API",
+    "audience": "Muslims all over the world",
+    "name": "Al Adhan Prayer Times and Adhan Player"
+}
+</script>
+<?php include_once('common/footer.phtml'); ?>

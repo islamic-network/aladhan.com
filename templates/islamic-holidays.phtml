@@ -1,0 +1,42 @@
+<?php include_once('common/header.phtml'); ?>
+<?php include_once('common/navigation.phtml'); ?>
+
+<div class="container panel">
+    <?php include_once('common/bismillah.phtml'); ?>
+    <div class="page-header">
+        <h2>Islamic Holy Days</h2>
+    </div>
+
+	<p>
+		Please note that the below dates are computed mathematically and may be inaccurate by one day. Please use them as a guide only and check local
+		authorities or the news for moon sightings before observing any of the holy days below.
+	</p>
+
+    <div class="row">
+        <div class="col-md-3 lead col-centered">
+            <b>Holiday</b>
+        </div>
+    <?php foreach ($years as $y) { ?>
+        <div class="col-md-3 lead col-centered <?php echo ($y == $current_year) ?  'bg-primary' : ''; ?>">
+            <b><?php echo $y; ?></b>
+        </div>
+    <?php } ?>
+    </div>
+
+	<?php foreach ($days as $day) { ?>
+	<div class="row">
+		<div class="col-md-3 lead col-centered">
+            <b><?php echo $day['name'] ;?></b>
+			<br />
+			<?php echo $day['day']; ?> <?php echo $months[$day['month']]['en'] ;?>
+        </div>
+		<?php foreach ($years as $y) { ?>
+        <div class="col-md-3 col-centered lead <?php echo ($y == $current_year) ?  'bg-primary' : ''; ?>">
+            <?php echo $day[$y]['day'] ;?><br /><?php echo $day[$y]['month']['en'] ;?>
+        </div>
+    	<?php } ?>
+	</div>
+	<?php } ?>
+</div>
+
+<?php include_once('common/footer.phtml'); ?>

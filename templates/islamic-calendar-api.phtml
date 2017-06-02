@@ -1,0 +1,392 @@
+<?php include_once('common/header.phtml'); ?>
+<?php include_once('common/navigation.phtml'); ?>
+
+<div class="container panel">
+    <?php include_once('common/bismillah.phtml'); ?>
+                <div class="page-header">
+                    <h2>Islamic / Hijri Date Conversion API</h2>
+                </div>
+                
+                <p>
+                    <b>NOTE</b>: <u>If you are using this API, please sign up to the developer mailing list <a href="/contact">here</a> so you can be informed of any updates or scheduled maintenance to the API.</u>
+                </p>
+                <h2>Endpoints - Hijri / Gregorian Dates</h2>
+                <p>
+                    Please note that given the nature of the computation, Hijri - Gregorian date conversions can always be off by one day.
+                    <br />
+                    All endoints are available over https and httpss.
+                </p>
+                <ol>
+                    <li><a href="#endpointGToH">Gregorian to Hijri</a> - https://api.aladhan.com/gToH</li>
+                    <li><a href="#endpointHToG">Hijri to Gregorian</a> - https://api.aladhan.com/hToG</li>
+                    <li><a href="#nextHijriHoliday">Next Hijri Holiday</a> - https://api.aladhan.com/nextHijriHoliday</li>
+                    <li><a href="#endpointGToHCal">Gregorian to Hijri Calendar by Month</a> - https://api.aladhan.com/gToHCalendar</li>
+                    <li><a href="#endpointHToGCal">Hijri to Gregorian Calendar by Month</a> - https://api.aladhan.com/hToGCalendar</li>
+                </ol>
+                <p>
+                    &nbsp;
+                </p>
+                <h4>1. <a name="endpointGToH">Convert Gregorian Date to Hijri Date</a> - https://api.aladhan.com/gToH</h4>
+                <ul>
+                    <li>
+                        <b>Description:</b> Returns the Hijri Date for the specified Gregorian Date
+                    </li>
+                    <li>
+                        <b>Method:</b> GET
+                    </li>
+                    <li>
+                        <b>Endpoint URL:</b> https://api.aladhan.com/gToH
+                    </li>
+                    <li>
+                        <b>Parameters</b>
+                        <ul>
+                            <li>
+                            "date" - A date with an DD-MM-YYYY format. Example: 07-12-2014 (for 7 December, 2016). If a date is not specified, the endpoint will convert and return today's date.</li>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <b>Example Request:</b> <a href="https://api.aladhan.com/gToH?date=07-12-2014" target="_blank">https://api.aladhan.com/gToH?date=07-12-2014</a>
+                    </li>
+                    <li>
+                        <b>Example Response:</b>
+                        <pre>
+{
+    {
+        code: 200,
+        status: "OK",
+        data: {
+            hijri: {
+                date: "14-02-1436",
+                format: "DD-MM-YYYY",
+                day: "14",
+                month: {
+                    number: 2,
+                    en: "Ṣafar",
+                    ar: "صَفَر"
+                },
+                year: "1436",
+                designation: {
+                    abbreviated: "AH",
+                    expanded: "Anno Hegirae"
+                }
+            },
+            gregorian: {
+                date: "07-12-2014",
+                format: "DD-MM-YYYY",
+                day: "07",
+                month: {
+                    number: 12,
+                    en: "December"
+                },
+                year: "2014",
+                designation: {
+                    abbreviated: "AD",
+                    expanded: "Anno Domini"
+                }
+            }
+        }
+    }
+}
+                        </pre>
+                    </li>
+                    <p>&nbsp;</p>
+                <h4>2. <a name="endpointHToG">Convert Hijri Date to Gregorian Date</a> - https://api.aladhan.com/hToG</h4>
+                <ul>
+                    <li>
+                        <b>Description:</b> Returns the Gregorian Date for the specified Hijri Date
+                    </li>
+                    <li>
+                        <b>Method:</b> GET
+                    </li>
+                    <li>
+                        <b>Endpoint URL:</b> https://api.aladhan.com/hToG
+                    </li>
+                    <li>
+                        <b>Parameters</b>
+                        <ul>
+                            <li>
+                            "date" - A Hijri date with an DD-MM-YYYY format. Example: 17-01-1407 (for 17 Muharram, 1407). If a date is not specified, the endpoint will convert and return today's date.</li>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <b>Example Request:</b> <a href="https://api.aladhan.com/hToG?date=17-01-1407" target="_blank">https://api.aladhan.com/hToG?date=17-01-1407</a>
+                    </li>
+                    <li>
+                        <b>Example Response:</b>
+                        <pre>
+{
+    code: 200,
+    status: "OK",
+    data: {
+        gregorian: {
+            date: "22-09-1986",
+            format: "DD-MM-YYYY",
+            day: "22",
+            month: {
+                number: 9,
+                en: "September"
+            },
+            year: "1986",
+            designation: {
+                abbreviated: "AD",
+                expanded: "Anno Domini"
+            }
+        },
+        hijri: {
+            date: "17-01-1407",
+            format: "DD-MM-YYYY",
+            day: "17",
+            month: {
+                number: 1,
+                en: "Muḥarram",
+                ar: "مُحَرَّم"
+            },
+            year: "1407",
+            designation: {
+                abbreviated: "AH",
+                expanded: "Anno Hegirae"
+            }
+        }
+    }
+}
+                        </pre>
+                    </li>
+                </ul>
+
+            <h4>3. <a name="nextHijriHoliday">Next Hijri Holiday</a> - https://api.aladhan.com/nextHijriHoliday</h4>
+                <ul>
+                    <li>
+                        <b>Description:</b> Returns the next Hijri Holiday in the Islamic Calendar
+                    </li>
+                    <li>
+                        <b>Method:</b> GET
+                    </li>
+                    <li>
+                        <b>Endpoint URL:</b> https://api.aladhan.com/nextHijriHoliday
+                    </li>
+                    <li>
+                        <b>Parameters</b> - None
+                    </li>
+                    <li>
+                        <b>Example Request:</b> <a href="https://api.aladhan.com/nextHijriHoliday" target="_blank">https://api.aladhan.com/nextHijriHoliday</a>
+                    </li>
+                    <li>
+                        <b>Example Response:</b>
+                        <pre>
+{
+  "code": 200,
+  "status": "OK",
+  "data": {
+    "hijri": {
+      "date": "01-09-1437",
+      "format": "DD-MM-YYYY",
+      "day": "01",
+      "weekday": {
+        "en": "Al Thalaata",
+        "ar": "الثلاثاء"
+      },
+      "month": {
+        "number": 9,
+        "en": "Ramaḍān",
+        "ar": "رَمَضان"
+      },
+      "year": "1437",
+      "designation": {
+        "abbreviated": "AH",
+        "expanded": "Anno Hegirae"
+      },
+      "holidays": [
+        "1st Day of Ramadan"
+      ]
+    },
+    "gregorian": {
+      "date": "07-06-2016",
+      "format": "DD-MM-YYYY",
+      "day": "07",
+      "weekday": {
+        "en": "Tuesday"
+      },
+      "month": {
+        "number": 6,
+        "en": "June"
+      },
+      "year": "2016",
+      "designation": {
+        "abbreviated": "AD",
+        "expanded": "Anno Domini"
+      }
+    }
+  }
+}
+                        </pre>
+                    </li>
+                </ul>
+
+                <p> &nbsp;</p>
+                <h4>4. <a name="endpointGToHCal">Gregorian to Hijri Calendar by Month</a> - https://api.aladhan.com/gToHCalendar/{month}/{year}</h4>
+                <ul>
+                    <li>
+                        <b>Description:</b> Returns the Hijri Date for the specified Gregorian Month
+                    </li>
+                    <li>
+                        <b>Method:</b> GET
+                    </li>
+                    <li>
+                        <b>Endpoint URL:</b> https://api.aladhan.com/gToHCalendar/{month}/{year}
+                    </li>
+                    <li>
+                        <b>Resources</b>
+                        <ul>
+                            <li>
+                            "month" - Gregorian Month - from '1' to '12'. Example: 6 for the month of June</li>
+                            </li>
+                            <li>
+                            "year" - Gregorian Year - from the year 1000+. Example: 2015 for the year 2015</li>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <b>Example Request:</b> <a href="https://api.aladhan.com/gToHCalendar/6/2017" target="_blank">https://api.aladhan.com/gToHCalendar/6/2017</a>
+                    </li>
+                    <li>
+                        <b>Example Response:</b>
+                        <pre>
+{
+    code: 200,
+    status: "OK",
+    data: [
+    {
+        gregorian: {
+            date: "01-12-2578",
+            format: "DD-MM-YYYY",
+            day: "01",
+            weekday: {
+                en: "Tuesday"
+            },
+            month: {
+                number: 12,
+                en: "December"
+            },
+            year: "2578",
+            designation: {
+                abbreviated: "AD",
+                expanded: "Anno Domini"
+            }
+        },
+        hijri: {
+            date: "01-06-2017",
+            format: "DD-MM-YYYY",
+            day: "01",
+            weekday: {
+                en: "Al Thalaata",
+                ar: "الثلاثاء"
+            },
+            month: {
+                number: 6,
+                en: "Jumādá al-ākhirah",
+                ar: "جُمادى الآخرة"
+            },
+            year: "2017",
+            designation: {
+                abbreviated: "AH",
+                expanded: "Anno Hegirae"
+            },
+            holidays: [ ]
+        }
+    },
+
+    ...  more days
+
+    ]
+}
+</pre>
+                    </li>
+                </ul>
+
+                <p> &nbsp;</p>
+                <h4>5. <a name="endpointHToGCal">Hijri to Gregorian Calendar by Month</a> - https://api.aladhan.com/hToGCalendar/{month}/{year}</h4>
+                <ul>
+                    <li>
+                        <b>Description:</b> Returns the Gregorian Date for the specified Hijri Month
+                    </li>
+                    <li>
+                        <b>Method:</b> GET
+                    </li>
+                    <li>
+                        <b>Endpoint URL:</b> https://api.aladhan.com/hToGCalendar/{month}/{year}
+                    </li>
+                    <li>
+                        <b>Resources</b>
+                        <ul>
+                            <li>
+                            "month" - Hijri  Month - from '1' to '12'. Example: 6 for the month of Ramadan</li>
+                            </li>
+                            <li>
+                            "year" - Hijri Year - from the year 1. Example: 1438 for the year Islamic year 1438</li>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <b>Example Request:</b> <a href="https://api.aladhan.com/hToGCalendar/9/1438" target="_blank">https://api.aladhan.com/hToGCalendar/9/1438</a>
+                    </li>
+                    <li>
+                        <b>Example Response:</b>
+                        <pre>
+{
+    code: 200,
+    status: "OK",
+    data: [
+    {
+        gregorian: {
+            date: "01-12-2578",
+            format: "DD-MM-YYYY",
+            day: "01",
+            weekday: {
+                en: "Tuesday"
+            },
+            month: {
+                number: 12,
+                en: "December"
+            },
+            year: "2578",
+            designation: {
+                abbreviated: "AD",
+                expanded: "Anno Domini"
+            }
+        },
+        hijri: {
+            date: "01-06-2017",
+            format: "DD-MM-YYYY",
+            day: "01",
+            weekday: {
+                en: "Al Thalaata",
+                ar: "الثلاثاء"
+            },
+            month: {
+                number: 6,
+                en: "Jumādá al-ākhirah",
+                ar: "جُمادى الآخرة"
+            },
+            year: "2017",
+            designation: {
+                abbreviated: "AH",
+                expanded: "Anno Hegirae"
+            },
+            holidays: [ ]
+        }
+    },
+
+    ...  more days
+
+    ]
+}
+</pre>
+                    </li>
+
+
+                </ul>
+            </div>
+
+<?php include_once('common/footer.phtml'); ?>
