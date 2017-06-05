@@ -101,12 +101,12 @@
             <td><span class="lead">Isha</span></td>
             <td><span class="lead">Imsak</span></td>
             <td><span class="lead">Midnight</span></td>
-            </tr>  
+            </tr>
         </thead>
         <tbody id="generatedCalendar">
 <?php foreach ($calendar[$y][$m]['days'] as $day) { ?>
             <tr>
-                <td class="<?php echo (date('d') == $calendar[$y][$m]['days'][$x]['gregorian']['day'] && date('m') == $calendar[$y][$m]['days'][$x]['gregorian']['month']['number'] && date('y') == $calendar[$y][$m]['days'][$x]['gregorian']['year'] ) ? 'danger' : '' ?>">
+                <td class="<?php echo (date('d') == $day['gregorian']['day'] && date('m') == $day['gregorian']['month']['number'] && date('Y') == $day['gregorian']['year'] ) ? 'danger' : '' ?>">
                 <?=$day['hijri']['day'];?> <?=$day['hijri']['month']['en'];?>, <?=$day['hijri']['year'];?> <small>(<?=$day['gregorian']['day'];?> <?=$day['gregorian']['month']['en'];?>, <?=$day['gregorian']['year'];?>)</small>
             </td>
 <?php foreach ($day['timings'] as $key => $time) { ?>
