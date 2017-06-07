@@ -73,7 +73,7 @@ jQuery( document ).ready( function( $ ) {
                             var dCalc = new Date(v.date.timestamp * 1000);
                             var dateCalc = dCalc.toDateString();
                             if (dateBrowser == dateCalc) {
-                                bgColor = 'bg-primary';
+                                bgColor = 'danger';
                             }
                             html += '<tr class="show-grid ' +  bgColor + '">';
                             html += '<td><span class="lead">' + v.date.readable + '</span></td>';
