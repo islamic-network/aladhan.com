@@ -105,8 +105,8 @@
         </thead>
         <tbody id="generatedCalendar">
 <?php foreach ($calendar[$y][$m]['days'] as $day) { ?>
-            <tr>
-                <td class="<?php echo (date('d') == $day['gregorian']['day'] && date('m') == $day['gregorian']['month']['number'] && date('Y') == $day['gregorian']['year'] ) ? 'danger' : '' ?>">
+            <tr class="<?php echo (date('d') == $day['gregorian']['day'] && date('m') == $day['gregorian']['month']['number'] && date('Y') == $day['gregorian']['year'] ) ? 'danger' : '' ?>">
+                <td>
                 <?=$day['hijri']['day'];?> <?=$day['hijri']['month']['en'];?>, <?=$day['hijri']['year'];?> <small>(<?=$day['gregorian']['day'];?> <?=$day['gregorian']['month']['en'];?>, <?=$day['gregorian']['year'];?>)</small>
             </td>
 <?php foreach ($day['timings'] as $key => $time) { ?>
