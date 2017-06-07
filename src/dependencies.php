@@ -2,7 +2,7 @@
 require_once(realpath($_SERVER['DOCUMENT_ROOT']) . '/../../api/vendor/autoload.php');
 
 // DIC configuration
-use AlAdhanApi\HijriCalendarService;
+use AlAdhanApi\Model\HijriCalendarService;
 
 $container = $app->getContainer();
 
@@ -21,7 +21,7 @@ $container['logger'] = function ($c) {
     return $logger;
 };
 
-// Hijri Cal Service 
+// Hijri Cal Service
 $container['HijriCalendarService'] = function($c) {
     return new HijriCalendarService();
 };
@@ -30,4 +30,4 @@ $container['HijriCalendarService'] = function($c) {
 $container['holyDay'] = function($c) {
     $cs = new HijriCalendarService();
     return $cs->nextHijriHoliday(30);
-}; 
+};
