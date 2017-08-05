@@ -105,7 +105,7 @@ asort($locations['South America']);
 asort($locations['Asia']);
 asort($locations['Africa']);
 asort($locations['Australia']);
-$cYears = [date('Y')-1, date('Y'), date('Y')+1];
+$cYears = [date('Y'), date('Y')+1, date('Y')+2];
 
 ?>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -141,7 +141,6 @@ $cYears = [date('Y')-1, date('Y'), date('Y')+1];
                         </li>
                         <?php } ?>
                         <li class="divider"></li>
-                        <li><a href="/locations">Browse All Locations</a></li>
                     </ul>
                 </li>
                 <li class="dropdown <?php echo $view == 'calendar' ? 'active' : ''; ?>">
@@ -160,7 +159,6 @@ $cYears = [date('Y')-1, date('Y'), date('Y')+1];
                         </li>
                         <?php } ?>
                         <li class="divider"></li>
-                        <li><a href="/locations">Browse All Locations</a></li>
                     </ul>
                 </li>
                  <li class="dropdown <?php echo $view == 'gToHCalendar' || $view == 'gToHCalendar' || $view == 'holydays' ? 'active' : ''; ?>">
