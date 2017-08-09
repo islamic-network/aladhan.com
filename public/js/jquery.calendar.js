@@ -17,6 +17,7 @@ jQuery( document ).ready( function( $ ) {
         _yearFieldId: 'year',
         _calendarButtonId: 'generateCalendar',
         _latitudeAdjustmentFieldId: 'latiudeAdjustment',
+        _apiUrl: 'https://api.aladhan.com/',
         init: function() {
             var gc = this;
             // Monitor button to generate calendar
@@ -57,7 +58,7 @@ jQuery( document ).ready( function( $ ) {
                 // Post to API
                 $.ajax({
                     type: "GET",
-                    url: "https://api.aladhan.com/calendarByAddress",
+                    url: gc._apiUrl + "calendarByAddress",
                     cache: false,
                     data: credentials,
                     dataType: 'json',

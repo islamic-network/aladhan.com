@@ -14,6 +14,7 @@ jQuery( document ).ready( function( $ ) {
         _adhanFile: 'https://jer3bg-bn1305.files.1drv.com/y4mCw0Bk38pmOQfULyBnvQRUSm1InaFUnsuMtEebnP7jtpnSCxZfAmGcKA7djB87xYaIEAYsROcpl1nXe2ZwPMRgM7Yq1yqWCgUiWrc3I35c06GHBgLL3xH366QjZ7bphEzsZC85mKJz37XM1nyCSDaMf0Oe5Oo1UmL1GDKmcCAxYnXg6wM0Y3CRgHWqysDuT9cNTIlm__XjxQgXoMKKOgDpQ',
         _latitudeAdjustment: '',
         _juristicSchool: '',
+        _apiUrl: 'https://api.aladhan.com/',
         _updated: '',
         _player: '',
         _nextPrayer: '',
@@ -111,7 +112,7 @@ jQuery( document ).ready( function( $ ) {
                 // Post to API
                 return $.ajax({
                     type: "GET",
-                    url: "https://api.aladhan.com/timingsByAddress/" + gc.calculateCurrentTimestamp(),
+                    url: gc._apiUrl + "/timingsByAddress/" + gc.calculateCurrentTimestamp(),
                     cache: false,
                     data: credentials,
                     dataType: 'json',
@@ -164,7 +165,7 @@ jQuery( document ).ready( function( $ ) {
                 // Get time from server.
                 $.ajax({
                     type: "GET",
-                    url: "https://api.aladhan.com/currentTimestamp",
+                    url: gc._apiUrl + "currentTimestamp",
                     cache: false,
                     data: credentials,
                     async: false, // This is required otherwise it proceeds to return without waiting for the response.
@@ -187,7 +188,7 @@ jQuery( document ).ready( function( $ ) {
                 };
                 $.ajax({
                     type: "GET",
-                    url: "https://api.aladhan.com/currentDate",
+                    url: gc._apiUrl + "currentDate",
                     cache: false,
                     data: credentials,
                     async: false, // This is required otherwise it proceeds to return without waiting for the response.
@@ -196,7 +197,7 @@ jQuery( document ).ready( function( $ ) {
                         theDate = data.data;
                     }
                 });
-            
+
             return theDate;
         },
         calculateCurrentTime: function() {
@@ -226,7 +227,7 @@ jQuery( document ).ready( function( $ ) {
                 };
                 $.ajax({
                     type: "GET",
-                    url: "https://api.aladhan.com/currentTime",
+                    url: gc._apiUrl + "currentTime",
                     cache: false,
                     data: credentials,
                     async: false, // This is required otherwise it proceeds to return without waiting for the response.
@@ -275,7 +276,7 @@ jQuery( document ).ready( function( $ ) {
           credentials = {address: gc._location};
           return $.ajax({
               type: "GET",
-              url: "https://api.aladhan.com/addressInfo",
+              url: gc._apiUrl + "addressInfo",
               cache: false,
               data: credentials,
               async: false, // This is required otherwise it proceeds to return without waiting for the response.
@@ -305,7 +306,7 @@ jQuery( document ).ready( function( $ ) {
             var theDate = gc.calculateCurrentDate();
             $.ajax({
                     type: "GET",
-                    url: "https://api.aladhan.com/gToH",
+                    url: gc._apiUrl + "gToH",
                     cache: false,
                     data: { date: theDate },
                     dataType: 'json',
@@ -339,7 +340,7 @@ jQuery( document ).ready( function( $ ) {
                 // Post to API
                 return $.ajax({
                     type: "GET",
-                    url: "https://api.aladhan.com/nextPrayerByAddress/" + gc.calculateCurrentTimestamp(),
+                    url: gc._apiUrl + "nextPrayerByAddress/" + gc.calculateCurrentTimestamp(),
                     cache: false,
                     data: credentials,
                     dataType: 'json',
@@ -366,7 +367,7 @@ jQuery( document ).ready( function( $ ) {
         setMEStatus: function() {
             var gc = this;
             $.each(gc._player.$media, function(i,v) {
-                gc._paused = v.paused;   
+                gc._paused = v.paused;
             });
         }
     }

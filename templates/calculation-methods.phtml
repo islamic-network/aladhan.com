@@ -1,0 +1,147 @@
+<?php include_once('common/header.phtml'); ?>
+<?php include_once('common/navigation.phtml'); ?>
+
+<div class="container panel">
+    <?php include_once('common/bismillah.phtml'); ?>
+    <div class="page-header">
+        <h2>Prayer Time Calculation Methods</h2>
+    </div>
+
+    <h3>Available Methods</h3>
+    <p>
+        The AlAdhan App and API both now support the following calculation methods:
+    </p>
+    <ol>
+        <li>Muslim World League</li>
+        <li>Islamic Society of North America</li>
+        <li>Egyptian General Authority of Survey</li>
+        <li>Umm Al-Qura University, Makkah</li>
+        <li>University of Islamic Sciences, Karachi</li>
+        <li>Institute of Geophysics, University of Tehran</li>
+        <li>Shia Ithna-Ashari, Leva Institute, Qum</li>
+        <li>Gulf Region</li>
+        <li>Kuwait</li>
+        <li>Qatar</li>
+        <li>Majlis Ugama Islam Singapura, Singapore</li>
+        <li>Union Organization islamic de France calculation method</li>
+    </ol>
+    <p>
+        If you understand how these work and want to see some detail, just see <a href="https://api.aladhan.com/methods" target="_blank">https://api.aladhan.com/methods</a>.
+        Have some kind of JSON formatter plugin installed on your browser to view this.
+    </p>
+
+    <h3>What really is a Method?</h3>
+    <p>
+        I believe the mathematical side of how the calculation should work. is generally agreed upon in the Islamic world.
+        Then again, this is an assumption I am making (and please note that I am not religiously or formally qualified and am providing
+        this information with absolute humility in the hope that it may be useful).
+        However, based on location, government preferences, and other 'factors', there are
+        differences in the methods that produce, sometimes, a substantial variation in timings. If the mathematical side
+        interests you, have a look at this excellent explanation: <a href="http://praytimes.org/wiki/Prayer_Times_Calculation" target="_blank">http://praytimes.org/wiki/Prayer_Times_Calculation</a>.
+    </p>
+    <p>
+        A calculation method is typically made up of the following:
+    </p>
+    <ul>
+        <li>The Fajr Angle</li>
+        <li>The Maghrib Angle or minutes after sunset that Maghrib should be</li>
+        <li>The Isha Angle or minutes after Maghrib that Isha should be</li>
+    </ul>
+    <p>
+        The AlAdhan API has default values for all 3, and most methods only specifically specify Fajr and Isha.
+    </p>
+    <p>
+        Most countries adhere to one of the above methods, and they then tune the timings further, by adding
+        a few minutes here and there, based on criteria that may seem completely arbitrary. So, even if you use
+        the Gulf Region method and compare the timings to Dubai's IACAD or the UAE's Awqaf, you will see a couple
+        of minutes differing. Usually this difference can be anywhere from 1 to 5 minutes.
+    </p>
+
+    <h3>How to Use the Methods</h3>
+    <p>
+        You should probably use the method associated with the issuing authority closest to where you are based. This
+        is because they have probably computed the angles, etc. based on their location and convention.
+    </p>
+    <p>
+        However, at all times, you should really be using common sense to do what makes most sense and feels right.
+        After all, you have to offer the prayers, not the authority that came up with the method.
+    </p>
+        <h4 id="#tuningTimes">How to Tune and Tweak Method Timings via the <a href="/prayer-times-api">API</a></h4>
+        <p>
+            Let's walk through an example of tuning the timings. We'll go with the GULF REGION method.
+            Here are it's parameters:
+        </p>
+        <ul>
+            <li>Method ID: 8</li>
+            <li>Fajr Angle: 19.5 degrees</li>
+            <li>Isha Time: 90 mins after Maghrib</li>
+        </ul>
+        <p>
+            Using this method, if we compute timings for the 9th of March, 2015 (<a href="https://api.aladhan.com/timingsByAddress/09-03-2015?address=Dubai,UAE&method=8" target="_blank">https://api.aladhan.com/timingsByAddress/09-03-2015?address=Dubai,UAE&method=8</a>), we get:
+        </p>
+        <p>
+        <code>
+            {
+            Fajr: "05:12",
+            Sunrise: "06:35",
+            Dhuhr: "12:30",
+            Asr: "15:52",
+            Sunset: "18:25",
+            Maghrib: "18:25",
+            Isha: "19:55",
+            Imsak: "05:02",
+            Midnight: "00:30"
+            }
+        </code>
+    </p>
+        <p>
+            We can further tune the timings by adding the tune parameter, which accepts comma separated values (denoting addition / substraction in minutes) in the following order:
+        </p>
+        <p>
+            <code>Imsak,Fajr,Sunrise,Zhuhr,Asr,Sunset,Maghrib,Isha,Midnight</code>
+        </p>
+        <p>So, if we now call</p>
+        <p><code><a href="https://api.aladhan.com/timingsByAddress/09-03-2015?address=Dubai,UAE&method=8&tune=2,3,4,5,2,3,4,5,-3" target="_blank">https://api.aladhan.com/timingsByAddress/09-03-2015?address=Dubai,UAE&method=8&tune=2,3,4,5,2,3,4,5,-3</a></code></p>
+        <p>
+            our result is:
+        </p>
+        <p>
+        <code>
+            {
+            Fajr: "05:15",
+            Sunrise: "06:39",
+            Dhuhr: "12:35",
+            Asr: "15:54",
+            Sunset: "18:29",
+            Maghrib: "18:28",
+            Isha: "20:00",
+            Imsak: "05:04",
+            Midnight: "00:27"
+            }
+        </code>
+    </p>
+        <p>
+            Please NOTE that tuning one prayer will not change another. So adding 3 mins to Maghrib will NOT automatically add 3 to Isha.
+        </p>
+
+    <h3 id="#customMethods">Customizing to create your own Method via the <a href="/prayer-times-api">API</a></h3>
+    <p>
+        If you're not happy with the angle defintions of any of the other methods, you can use the API to create your own.
+        To do this, you can use any timings related endpoint, like timings, timingsByAddress, timingsByCity, calendar, calendarByAddress, etc.
+        For the method, pass 99 - this means you'll be passing your own method parameters in the 'methodSettings' parameter.
+        The methodSettings parameter accepts comma separated values in the following order:</p>
+    <p>
+        <p><code>FajrAngle,MaghribAngleOrMinsAfterSunset,IshaAngleOrMinsAfterSunset</code></p>
+    </p>
+    <p>
+        Specify null for anyting you don't want to specify, or leave it empty. So, a custom method calculation with Fajr at 18.5 degrees and Isha at 17.5 degrees would look like:
+    </p>
+    <code><a href="https://api.aladhan.com/timingsByAddress?address=London, UK&method=99&methodSettings=18.5,null,17.5" target="_blank">https://api.aladhan.com/timingsByAddress?address=London, UK&method=99&methodSettings=18.5,null,17.5</a></code>
+    <p>
+        You can further tune your custom method with the tune parameter, as above. Here's an example:</p>
+    <p>
+        <code><a href="https://api.aladhan.com/timingsByAddress?address=London, UK&method=99&methodSettings=18.5,null,17.5&tune=1,2,3,4,5" target="_blank">https://api.aladhan.com/timingsByAddress?address=London, UK&method=99&methodSettings=18.5,null,17.5&tune=1,2,3,4,5</a></code>
+    </p>
+</div>
+
+<?php include_once('common/footer.phtml'); ?>

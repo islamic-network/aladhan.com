@@ -20,6 +20,16 @@ $app->get('/about', function ($request, $response, $args) {
     return $this->renderer->render($response, 'about.phtml', $args);
 });
 
+$app->get('/calculation-methods', function ($request, $response, $args) {
+
+    $this->logger->info("aladhan.com '/' calculation-methods");
+    $args['title'] = 'Prayer Time Calculation Methods';
+    $args['view'] = '';
+    $args['holydayFloater'] = $this->holyDay;
+
+    return $this->renderer->render($response, 'calculation-methods.phtml', $args);
+});
+
 $app->get('/contact', function ($request, $response, $args) {
 
     $this->logger->info("aladhan.com '/' contact");
