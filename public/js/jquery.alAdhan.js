@@ -11,7 +11,7 @@ jQuery( document ).ready( function( $ ) {
         _methodFieldId: 'method',
         _latitudeAdjustmentFieldId: 'latiudeAdjustment',
         _schoolFieldId: 'juristicSchool',
-        _adhanFile: 'https://jer3bg-bn1305.files.1drv.com/y4mCw0Bk38pmOQfULyBnvQRUSm1InaFUnsuMtEebnP7jtpnSCxZfAmGcKA7djB87xYaIEAYsROcpl1nXe2ZwPMRgM7Yq1yqWCgUiWrc3I35c06GHBgLL3xH366QjZ7bphEzsZC85mKJz37XM1nyCSDaMf0Oe5Oo1UmL1GDKmcCAxYnXg6wM0Y3CRgHWqysDuT9cNTIlm__XjxQgXoMKKOgDpQ',
+        _adhanFile: 'https://aladhan.com/media/a1.mp3',
         _latitudeAdjustment: '',
         _juristicSchool: '',
         _apiUrl: 'https://api.aladhan.com/',
