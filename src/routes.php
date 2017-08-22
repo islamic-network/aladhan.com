@@ -285,7 +285,7 @@ $app->get('/stats-api', function ($request, $response, $args) {
     $this->logger->info("aladhan.com '/' stats-api");
     $args['title'] = 'AlAdhan API Statistics';
     $args['view'] = 'api';
-    $args['days'] = (int) isset($_GET['days']) ? $_GET['days'] : 7;
+    $args['days'] = (int) isset($_GET['days']) ? $_GET['days'] : 1;
     $args['ipStats'] = isset($_GET['ip']) ? $_GET['ip'] : false;
     $args['origin'] = isset($_GET['origin']) ? $_GET['origin'] : false;
     $args['holydayFloater'] = $this->holyDay;
