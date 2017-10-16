@@ -1,7 +1,7 @@
 <?php
 require_once(realpath($_SERVER['DOCUMENT_ROOT']) . '/../../api/vendor/autoload.php');
 
-// DIC configuration
+// DIC configuration. Remove this dependency on an API class. Use the API instead.
 use AlAdhanApi\Model\HijriCalendarService;
 
 $container = $app->getContainer();
