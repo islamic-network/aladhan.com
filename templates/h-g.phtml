@@ -76,7 +76,9 @@ $days = [ 0 =>'Sunday', 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday', 4 => 'T
         <?php $x = 1; ?>
 		<?php for($row=0; $row<=$rows; $row++) { ?> 
             <tr>
-			<?php for($col=0; $col<$cols; $col++) {  ?>
+            <?php for($col=0; $col<$cols; $col++) {  
+                if (isset($calendar[$y][$m]['days'][$x])) {
+                ?>
                 <td class="<?php echo (date('d') == $calendar[$y][$m]['days'][$x]['gregorian']['day'] && date('m') == $calendar[$y][$m]['days'][$x]['gregorian']['month']['number'] ) ? 'danger' : '' ?>" style="padding-top: 10px; padding-bottom: 15px; padding-left: 3px;">
                 <?php if ($days[$col] == $calendar[$y][$m]['days'][$x]['gregorian']['weekday']['en']) { ?>
 					<?php if (isset($calendar[$y][$m]['days'][$x])) { ?>
@@ -92,7 +94,7 @@ $days = [ 0 =>'Sunday', 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday', 4 => 'T
 						<?php } ?>
 					<?php $x++; }} ?>
                 </td>
-			<?php } ?>
+			<?php }} ?>
             </tr>
 		<?php } ?>
             </tbody>

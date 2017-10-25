@@ -9,7 +9,7 @@
         "slim/slim": "^3.1",
         "slim/php-view": "^2.0",
         "monolog/monolog": "^1.17",
-        "aladhan/api-client": "^1.8",
+        "aladhan/api-client": "^1.9",
         "oscarotero/psr7-middlewares": "^3.20"
     },
     "require-dev": {

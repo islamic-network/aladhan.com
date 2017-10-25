@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a776eae42dd7d6b732335f74b5a9a30",
+    "content-hash": "6fd4854408496393c2d01258312a84ec",
     "packages": [
         {
             "name": "aladhan/api-client",
-            "version": "1.8",
+            "version": "1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/islamic-apps/aladhan-api-client-php.git",
-                "reference": "2b84bb6d43eb4b853af8cf80b5fed89e70939fb7"
+                "reference": "db25c491bcfebcdd01399c34321288b30c2677fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/islamic-apps/aladhan-api-client-php/zipball/2b84bb6d43eb4b853af8cf80b5fed89e70939fb7",
-                "reference": "2b84bb6d43eb4b853af8cf80b5fed89e70939fb7",
+                "url": "https://api.github.com/repos/islamic-apps/aladhan-api-client-php/zipball/db25c491bcfebcdd01399c34321288b30c2677fc",
+                "reference": "db25c491bcfebcdd01399c34321288b30c2677fc",
                 "shasum": ""
             },
             "require": {
@@ -40,7 +40,7 @@
                 }
             ],
             "description": "AlAdhan.com REST API Bundle",
-            "time": "2017-06-07T15:53:01+00:00"
+            "time": "2017-10-25T09:38:40+00:00"
         },
         {
             "name": "container-interop/container-interop",
