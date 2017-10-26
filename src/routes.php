@@ -112,7 +112,7 @@ $app->get('/ramadan-calendar', function ($request, $response, $args) {
     if ($m < 1) {
         $m = 1;
     }
-    $y = $cs->getCurrentIslamicYear();
+    $y = $cs->currentIslamicYear()['data'];
     $gy = date('Y');
 
     $days = 30; // Islamic months have 30 or less days - always.
@@ -124,8 +124,8 @@ $app->get('/ramadan-calendar', function ($request, $response, $args) {
 
     for($i=0; $i<=$days; $i++) {
         $curDate = $i . '-' . $m . '-' . $y;
-        $calendar[$y][$m]['days'][$i] = $cs->hToG($curDate);
-        $calendar[$y][$m]['days'][$i]['holidays'] = $cs->getHijriHolidays($calendar[$y][$m]['days'][$i]['hijri']['day'], $calendar[$y][$m]['days'][$i]['hijri']['month']['number']);
+        $calendar[$y][$m]['days'][$i] = $cs->hijriToGregorian($curDate)['data'];
+        $calendar[$y][$m]['days'][$i]['holidays'] = $cs->hijriHolidays($calendar[$y][$m]['days'][$i]['hijri']['day'], $calendar[$y][$m]['days'][$i]['hijri']['month']['number'])['data'];
         if ($calendar[$y][$m]['days'][$i]['hijri']['month']['number'] != $m) {
             unset($calendar[$y][$m]['days'][$i]);
         }
@@ -143,9 +143,7 @@ $app->get('/ramadan-calendar', function ($request, $response, $args) {
     $args['y']= $y;
     $args['gy']= $gy;
     $args['m']= $m;
-    $args['row'] = $row;
     $args['rows'] = $rows;
-    $args['col'] = $col;
     $args['cols'] = $cols;
     $args['view'] = 'ramadanCalendar';
     $args['holydayFloater'] = $this->holyDay;
@@ -171,7 +169,7 @@ $app->get('/ramadan-prayer-times/{year}/{city}/{country}', function ($request, $
     $latitudeAdjustmentMethod =  $request->getQueryParam('latitudeAdjustmentMethod') == null ? 3 : (int) $request->getQueryParam('latitudeAdjustmentMethod') ;
     $method = $request->getQueryParam('method') == null ? 2 : (int) $request->getQueryParam('method');
 
-    $y = $cs->getIslamicYearFromGregorianForRamadan($gy);
+    $y = $cs->islamicYearFromGregorianForRamadan($gy)['data'];
     $days = 30; // Islamic months have 30 or less days - always.
 
     $cols = 7;
@@ -182,8 +180,8 @@ $app->get('/ramadan-prayer-times/{year}/{city}/{country}', function ($request, $
 
     for($i=0; $i<=$days; $i++) {
         $curDate = $i . '-' . $m . '-' . $y;
-        $calendar[$y][$m]['days'][$i] = $cs->hToG($curDate);
-        $calendar[$y][$m]['days'][$i]['holidays'] = $cs->getHijriHolidays($calendar[$y][$m]['days'][$i]['hijri']['day'], $calendar[$y][$m]['days'][$i]['hijri']['month']['number']);
+        $calendar[$y][$m]['days'][$i] = $cs->hijriToGregorian($curDate)['data'];
+        $calendar[$y][$m]['days'][$i]['holidays'] = $cs->hijriHolidays($calendar[$y][$m]['days'][$i]['hijri']['day'], $calendar[$y][$m]['days'][$i]['hijri']['month']['number'])['data'];
         try {
     	    $pt = new \AlAdhanApi\Times(strtotime($calendar[$y][$m]['days'][$i]['gregorian']['date']), $location->timezone, $location->latitude, $location->longitude, $method, $latitudeAdjustmentMethod);
             $calendar[$y][$m]['days'][$i]['timings'] = $pt->get()['data']['timings'];
@@ -199,14 +197,10 @@ $app->get('/ramadan-prayer-times/{year}/{city}/{country}', function ($request, $
     $args['title'] = 'Ramadan Prayer Times for ' . $gy . ' in ' . $city . ', ' . $country;
     $args['calendar'] = $calendar;
     $args['days'] = $days;
-    $args['prevMonth'] = $prevMonth;
-    $args['nextMonth'] = $nextMonth;
     $args['y']= $y;
     $args['gy']= $gy;
     $args['m']= $m;
-    $args['row'] = $row;
     $args['rows'] = $rows;
-    $args['col'] = $col;
     $args['cols'] = $cols;
     $args['view'] = 'ramadanCalendar';
     $args['holydayFloater'] = $this->holyDay;
@@ -241,18 +235,17 @@ $app->get('/ramadan-calendar/{year}', function ($request, $response, $args) {
     $gy = $request->getAttribute('year');
     //$y = $cs->getCurrentIslamicYear();
 
-    $y = $cs->getIslamicYearFromGregorianForRamadan($gy);
+    $y = $cs->islamicYearFromGregorianForRamadan($gy)['data'];
     $days = 30; // Islamic months have 30 or less days - always.
 
     $cols = 7;
     $rows = $days/$cols;
-
     $calendar = [];
 
     for($i=0; $i<=$days; $i++) {
         $curDate = $i . '-' . $m . '-' . $y;
-        $calendar[$y][$m]['days'][$i] = $cs->hToG($curDate);
-        $calendar[$y][$m]['days'][$i]['holidays'] = $cs->getHijriHolidays($calendar[$y][$m]['days'][$i]['hijri']['day'], $calendar[$y][$m]['days'][$i]['hijri']['month']['number']);
+        $calendar[$y][$m]['days'][$i] = $cs->hijriToGregorian($curDate)['data'];
+        $calendar[$y][$m]['days'][$i]['holidays'] = $cs->hijriHolidays($calendar[$y][$m]['days'][$i]['hijri']['day'], $calendar[$y][$m]['days'][$i]['hijri']['month']['number'])['data'];
         if ($calendar[$y][$m]['days'][$i]['hijri']['month']['number'] != $m) {
             unset($calendar[$y][$m]['days'][$i]);
         }
@@ -271,9 +264,7 @@ $app->get('/ramadan-calendar/{year}', function ($request, $response, $args) {
     $args['y']= $y;
     $args['gy']= $gy;
     $args['m']= $m;
-    $args['row'] = $row;
     $args['rows'] = $rows;
-    $args['col'] = $col;
     $args['cols'] = $cols;
     $args['view'] = 'ramadanCalendar';
     $args['holydayFloater'] = $this->holyDay;
@@ -328,14 +319,14 @@ $app->get('/hijri-gregorian-calendar', function ($request, $response, $args) {
 
     $cs = $this->HijriCalendarService;
 
-    $m = isset($_GET['m']) ? (int) $_GET['m'] : $cs->getCurrentIslamicMonth();
+    $m = isset($_GET['m']) ? (int) $_GET['m'] : $cs->currentIslamicMonth()['data'];
     if ($m > 12) {
         $m = 12;
     }
     if ($m < 1) {
         $m = 1;
     }
-    $y = isset($_GET['y']) ? (int) $_GET['y'] : $cs->getCurrentIslamicYear();
+    $y = isset($_GET['y']) ? (int) $_GET['y'] : $cs->currentIslamicYear()['data'];
     if ($y < 1) {
         $y = date('Y');
     }
@@ -349,8 +340,8 @@ $app->get('/hijri-gregorian-calendar', function ($request, $response, $args) {
 
     for($i=0; $i<=$days; $i++) {
         $curDate = $i . '-' . $m . '-' . $y;
-        $calendar[$y][$m]['days'][$i] = $cs->hToG($curDate);
-        $calendar[$y][$m]['days'][$i]['holidays'] = $cs->getHijriHolidays($calendar[$y][$m]['days'][$i]['hijri']['day'], $calendar[$y][$m]['days'][$i]['hijri']['month']['number']);
+        $calendar[$y][$m]['days'][$i] = $cs->hijriToGregorian($curDate)['data'];
+        $calendar[$y][$m]['days'][$i]['holidays'] = $cs->hijriHolidays($calendar[$y][$m]['days'][$i]['hijri']['day'], $calendar[$y][$m]['days'][$i]['hijri']['month']['number'])['data'];
         if ($calendar[$y][$m]['days'][$i]['hijri']['month']['number'] != $m) {
             unset($calendar[$y][$m]['days'][$i]);
         }
@@ -376,9 +367,9 @@ $app->get('/hijri-gregorian-calendar', function ($request, $response, $args) {
     $args['nextMonth'] = $nextMonth;
     $args['y']= $y;
     $args['m']= $m;
-    $args['row'] = $row;
+    //$args['row'] = $row;
     $args['rows'] = $rows;
-    $args['col'] = $col;
+    //$args['col'] = $col;
     $args['cols'] = $cols;
     $args['view'] = 'gToHCalendar';
     $args['holydayFloater'] = $this->holyDay;
@@ -413,8 +404,8 @@ $app->get('/gregorian-hijri-calendar', function ($request, $response, $args) {
 
     for($i=0; $i<=$days; $i++) {
         $curDate = $i . '-' . $m . '-' . $y;
-        $calendar[$y][$m]['days'][$i] = $cs->gToH($curDate);
-        $calendar[$y][$m]['days'][$i]['holidays'] = $cs->getHijriHolidays($calendar[$y][$m]['days'][$i]['hijri']['day'], $calendar[$y][$m]['days'][$i]['hijri']['month']['number']);
+        $calendar[$y][$m]['days'][$i] = $cs->gregorianToHijri($curDate)['data'];
+        $calendar[$y][$m]['days'][$i]['holidays'] = $cs->hijriHolidays($calendar[$y][$m]['days'][$i]['hijri']['day'], $calendar[$y][$m]['days'][$i]['hijri']['month']['number'])['data'];
     }
 
     $x = 0;
@@ -437,9 +428,7 @@ $app->get('/gregorian-hijri-calendar', function ($request, $response, $args) {
     $args['nextMonth'] = $nextMonth;
     $args['y']= $y;
     $args['m']= $m;
-    $args['row'] = $row;
     $args['rows'] = $rows;
-    $args['col'] = $col;
     $args['cols'] = $cols;
     $args['view'] = 'gToHCalendar';
     $args['holydayFloater'] = $this->holyDay;
@@ -457,9 +446,9 @@ $app->get('/islamic-holidays', function ($request, $response, $args) {
     $years[$current_year + 1] = $current_year + 1;
 
     $cs = $this->HijriCalendarService;
-    $days = $cs->specialDays();
-    $months = $cs->getIslamicMonths();
-    $currentIslamicYear = $cs->getCurrentIslamicYear();
+    $days = $cs->specialDays()['data'];
+    $months = $cs->islamicMonths()['data'];
+    $currentIslamicYear = $cs->currentIslamicYear()['data'];
     $islamicYears[] = $currentIslamicYear - 2;
     $islamicYears[] = $currentIslamicYear - 1;
     $islamicYears[] = $currentIslamicYear;
@@ -469,7 +458,7 @@ $app->get('/islamic-holidays', function ($request, $response, $args) {
     foreach ($days as $dkey => $d) {
         foreach ($islamicYears as $y) {
             // Compute date.
-            $gDay = $cs->hToG($d['day'] . '-' . $d['month'] . '-' . $y);
+            $gDay = $cs->hijriToGregorian($d['day'] . '-' . $d['month'] . '-' . $y)['data'];
             foreach ($years as $year) {
                 if ($gDay['gregorian']['year'] == $year) {
                     $days[$dkey][$year] = $gDay['gregorian'];

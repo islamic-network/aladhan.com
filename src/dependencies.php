@@ -1,8 +1,7 @@
 <?php
-require_once(realpath($_SERVER['DOCUMENT_ROOT']) . '/../../api/vendor/autoload.php');
 
 // DIC configuration. Remove this dependency on an API class. Use the API instead.
-use AlAdhanApi\Model\HijriCalendarService;
+use AlAdhanApi\HijriGregorianCalendar;
 
 $container = $app->getContainer();
 
@@ -23,11 +22,11 @@ $container['logger'] = function ($c) {
 
 // Hijri Cal Service
 $container['HijriCalendarService'] = function($c) {
-    return new HijriCalendarService();
+    return new HijriGregorianCalendar();
 };
 
-//
+
 $container['holyDay'] = function($c) {
-    $cs = new HijriCalendarService();
-    return $cs->nextHijriHoliday(30);
+    $cs = new HijriGregorianCalendar();
+    return $cs->nextHijriHoliday()['data'];
 };
