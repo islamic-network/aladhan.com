@@ -281,7 +281,7 @@ $app->get('/stats-api', function ($request, $response, $args) {
     $args['view'] = 'api';
     $args['days'] = (int) isset($_GET['days']) ? $_GET['days'] : 1;
     $args['node'] = (int) isset($_GET['node']) ? $_GET['node'] : 1;
-    if (!in_array($arg['node'], [1, 2])) {
+    if (!in_array($args['node'], [1, 2])) {
         $args['node'] = 1;
     }
     $args['ipStats'] = isset($_GET['ip']) ? $_GET['ip'] : false;
