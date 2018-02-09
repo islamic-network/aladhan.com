@@ -280,6 +280,10 @@ $app->get('/stats-api', function ($request, $response, $args) {
     $args['title'] = 'AlAdhan API Statistics';
     $args['view'] = 'api';
     $args['days'] = (int) isset($_GET['days']) ? $_GET['days'] : 1;
+    $args['node'] = (int) isset($_GET['node']) ? $_GET['node'] : 1;
+    if (!in_array($arg['node'], [1, 2])) {
+        $args['node'] = 1;
+    }
     $args['ipStats'] = isset($_GET['ip']) ? $_GET['ip'] : false;
     $args['origin'] = isset($_GET['origin']) ? $_GET['origin'] : false;
     $args['holydayFloater'] = $this->holyDay;
@@ -291,7 +295,7 @@ $app->get('/stats-api', function ($request, $response, $args) {
         $args['origin'] = false;
     }
     // Read stats
-    $args['lines'] = array_reverse(file(realpath($_SERVER['DOCUMENT_ROOT'] . '/../../stats/') . '//statistics.log'));
+    $args['lines'] = array_reverse(file(realpath($_SERVER['DOCUMENT_ROOT'] . '/../../stats/') . '/statistics' . $args['node']. '.log'));
 
     return $this->renderer->render($response, 'stats-api.phtml', $args);
 });
