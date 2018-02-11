@@ -100,105 +100,31 @@ $app->get('/download-adhans', function ($request, $response, $args) {
 $app->get('/ramadan-calendar/', function ($request, $response, $args) {
     return $response->withStatus(301)->withHeader('Location', '/ramadan-calendar/' . date('Y'));
 });
+
 $app->get('/ramadan-calendar', function ($request, $response, $args) {
 
     return $response->withStatus(302)->withHeader('Location', '/ramadan-calendar/' . date('Y'));
 
-    $this->logger->info("aladhan.com '/' ramadan-calendar");
-
-    $cs = $this->HijriCalendarService;
-
-    $m = 9;
-    if ($m > 12) {
-        $m = 12;
-    }
-    if ($m < 1) {
-        $m = 1;
-    }
-    $y = $cs->currentIslamicYear()['data'];
-    $gy = date('Y');
-
-    $days = 30; // Islamic months have 30 or less days - always.
-
-    $cols = 7;
-    $rows = $days/$cols;
-
-    $calendar = [];
-
-    for($i=0; $i<=$days; $i++) {
-        $curDate = $i . '-' . $m . '-' . $y;
-        $calendar[$y][$m]['days'][$i] = $cs->hijriToGregorian($curDate)['data'];
-        $calendar[$y][$m]['days'][$i]['holidays'] = $cs->hijriHolidays($calendar[$y][$m]['days'][$i]['hijri']['day'], $calendar[$y][$m]['days'][$i]['hijri']['month']['number'])['data'];
-        if ($calendar[$y][$m]['days'][$i]['hijri']['month']['number'] != $m) {
-            unset($calendar[$y][$m]['days'][$i]);
-        }
-    }
-
-    $x = 0;
-    $nextMonth = '/ramadan-calendar/' . ($gy+1);
-    $prevMonth = '/ramadan-calendar/' . ($gy-1);
-
-    $args['title'] = 'Ramadan Calendar - ' . $calendar[$y][$m]['days'][1]['gregorian']['month']['en'] . ' ' . $y;
-    $args['calendar'] = $calendar;
-    $args['days'] = $days;
-    $args['prevMonth'] = $prevMonth;
-    $args['nextMonth'] = $nextMonth;
-    $args['y']= $y;
-    $args['gy']= $gy;
-    $args['m']= $m;
-    $args['rows'] = $rows;
-    $args['cols'] = $cols;
-    $args['view'] = 'ramadanCalendar';
-    $args['holydayFloater'] = $this->holyDay;
-
-    return $this->renderer->render($response, 'ramadan-calendar.phtml', $args);
 });
 
 $app->get('/ramadan-prayer-times/{year}/{city}/{country}', function ($request, $response, $args) {
     $this->logger->info("aladhan.com '/' ramadan-prayer-times");
 
-    $cs = $this->HijriCalendarService;
-
-    $m = 9;
-    if ($m > 12) {
-        $m = 12;
-    }
-    if ($m < 1) {
-        $m = 1;
-    }
+    $m = 9; // For Ramadan
     $gy = (int) $request->getAttribute('year');
     $city = (string) $request->getAttribute('city');
     $country = (string) $request->getAttribute('country');
     $latitudeAdjustmentMethod =  $request->getQueryParam('latitudeAdjustmentMethod') == null ? 3 : (int) $request->getQueryParam('latitudeAdjustmentMethod') ;
     $method = $request->getQueryParam('method') == null ? 2 : (int) $request->getQueryParam('method');
 
-    $y = $cs->islamicYearFromGregorianForRamadan($gy)['data'];
+    $y = $this->HijriCalendarService->islamicYearFromGregorianForRamadan($gy)['data'];
+    $c = new \AlAdhanApi\CalendarByCity($city, $country, $m, $y, null, $method, true);
     $days = 30; // Islamic months have 30 or less days - always.
-
     $cols = 7;
     $rows = $days/$cols;
 
-    $calendar = [];
-    $location = new \AlAdhanApi\Location($city . ', ' . $country);
-
-    for($i=0; $i<=$days; $i++) {
-        $curDate = $i . '-' . $m . '-' . $y;
-        $calendar[$y][$m]['days'][$i] = $cs->hijriToGregorian($curDate)['data'];
-        $calendar[$y][$m]['days'][$i]['holidays'] = $cs->hijriHolidays($calendar[$y][$m]['days'][$i]['hijri']['day'], $calendar[$y][$m]['days'][$i]['hijri']['month']['number'])['data'];
-        try {
-    	    $pt = new \AlAdhanApi\Times(strtotime($calendar[$y][$m]['days'][$i]['gregorian']['date']), $location->timezone, $location->latitude, $location->longitude, $method, $latitudeAdjustmentMethod);
-            $calendar[$y][$m]['days'][$i]['timings'] = $pt->get()['data']['timings'];
-        } catch (Exception $e) {
-
-        }
-        if ($calendar[$y][$m]['days'][$i]['hijri']['month']['number'] != $m) {
-            unset($calendar[$y][$m]['days'][$i]);
-        }
-    }
-    $x = 0;
-
     $args['title'] = 'Ramadan Prayer Times for ' . $gy . ' in ' . $city . ', ' . $country;
-    $args['calendar'] = $calendar;
+    $args['calendar'] = $c->get()['data'];
     $args['days'] = $days;
     $args['y']= $y;
     $args['gy']= $gy;
@@ -227,40 +153,19 @@ $app->get('/ramadan-calendar/{year}', function ($request, $response, $args) {
     $this->logger->info("aladhan.com '/' ramadan-calendar");
 
     $cs = $this->HijriCalendarService;
-
     $m = 9;
-    if ($m > 12) {
-        $m = 12;
-    }
-    if ($m < 1) {
-        $m = 1;
-    }
     $gy = $request->getAttribute('year');
-    //$y = $cs->getCurrentIslamicYear();
 
     $y = $cs->islamicYearFromGregorianForRamadan($gy)['data'];
+    $c = new \AlAdhanApi\CalendarByCity('London', 'UK', $m, $y, null, \AlAdhanApi\Methods::MWL, true);
     $days = 30; // Islamic months have 30 or less days - always.
-
     $cols = 7;
     $rows = $days/$cols;
-    $calendar = [];
-
-    for($i=0; $i<=$days; $i++) {
-        $curDate = $i . '-' . $m . '-' . $y;
-        $calendar[$y][$m]['days'][$i] = $cs->hijriToGregorian($curDate)['data'];
-        $calendar[$y][$m]['days'][$i]['holidays'] = $cs->hijriHolidays($calendar[$y][$m]['days'][$i]['hijri']['day'], $calendar[$y][$m]['days'][$i]['hijri']['month']['number'])['data'];
-        if ($calendar[$y][$m]['days'][$i]['hijri']['month']['number'] != $m) {
-            unset($calendar[$y][$m]['days'][$i]);
-        }
-    }
-
-    $x = 0;
-
     $nextMonth = '/ramadan-calendar/' . ($gy+1);
     $prevMonth = '/ramadan-calendar/' . ($gy-1);
 
     $args['title'] = 'Ramadan Calendar - ' . $gy;
-    $args['calendar'] = $calendar;
+    $args['calendar'] = $c->get()['data'];
     $args['days'] = $days;
     $args['prevMonth'] = $prevMonth;
     $args['nextMonth'] = $nextMonth;
