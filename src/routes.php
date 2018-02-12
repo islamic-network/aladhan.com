@@ -123,7 +123,7 @@ $app->get('/ramadan-prayer-times/{year}/{city}/{country}', function ($request, $
     $cols = 7;
     $rows = $days/$cols;
 
-    $args['title'] = 'Ramadan Prayer Times for ' . $gy . ' in ' . $city . ', ' . $country;
+    $args['title'] = 'Ramadan Prayer Times / Timetable for ' . $gy . ' in ' . $city . ', ' . $country;
     $args['calendar'] = $c->get()['data'];
     $args['days'] = $days;
     $args['y']= $y;
