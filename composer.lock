@@ -11,12 +11,12 @@
             "version": "1.10",
             "source": {
                 "type": "git",
-                "url": "https://github.com/islamic-apps/aladhan-api-client-php.git",
+                "url": "https://github.com/islamic-network/aladhan-api-client-php.git",
                 "reference": "e5c58862dc189f89dd568e849c5cb979a7e7d801"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/islamic-apps/aladhan-api-client-php/zipball/e5c58862dc189f89dd568e849c5cb979a7e7d801",
+                "url": "https://api.github.com/repos/islamic-network/aladhan-api-client-php/zipball/e5c58862dc189f89dd568e849c5cb979a7e7d801",
                 "reference": "e5c58862dc189f89dd568e849c5cb979a7e7d801",
                 "shasum": ""
             },
