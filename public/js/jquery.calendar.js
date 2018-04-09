@@ -24,10 +24,6 @@ jQuery( document ).ready( function( $ ) {
             $('#' + gc._calendarButtonId).on('click', function() {
                 gc.fetchCalendar();
             });
-            // Run once anyway on load after 2 seconds, we'll have a caledar on page load if the stuff is filled in via the URL.
-            setTimeout(function() {
-                gc.fetchCalendar();
-            }, 2000);
 
             // Show calendar settings when button is clicked.
             $('#showCalendarConfigFormButton').on('click', function() {
@@ -77,12 +73,12 @@ jQuery( document ).ready( function( $ ) {
                                 bgColor = 'danger';
                             }
                             html += '<tr class="show-grid ' +  bgColor + '">';
-                            html += '<td><span class="lead">' + v.date.readable + '</span></td>';
+                            html += '<td>' + v.date.readable + '</td>';
                             $.each(v.timings, function(name, time) {
-                                if (name != 'Sunrise' && name != 'Sunset' && name !== 'Imsak' && name != 'Midnight') {
-                                    html += '<td><span class="lead">';
+                                if ( name != 'Sunset' && name !== 'Imsak') {
+                                    html += '<td>';
                                     html +=  time;
-                                    html += '</span></td>';
+                                    html += '</td>';
                                 }
                             });
 

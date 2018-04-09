@@ -5,9 +5,8 @@
 <div class="container panel">
     <?php include_once('common/bismillah.phtml'); ?>
     <div class="page-header">
-      <h2>Prayer Times Calendar <small id="calendarHeading"></small></h2>
+        <h2>Prayer Times Calendar <small id="calendarHeading"><?=isset($calendar[0]) ? $city . ', ' . $country . ' - ' . $calendar[0]['date']['gregorian']['month']['en'] . ', ' . $cyear : ''?></small></h2>
       </div>
-
 
     <form role="form" id="calendarConfigForm">
       <div class="row">
@@ -100,15 +99,32 @@
     <table class="table table-hover table-striped table-bordered">
         <thead>
             <tr>
-            <td><span class="lead">Date</span></td>
-            <td><span class="lead">Fajr (فجر)</span></td>
-            <td><span class="lead">Zhuhr (ظهر)</span></td>
-            <td><span class="lead">Asr (عصر)</span></td>
-            <td><span class="lead">Maghrib (مغرب)</span></td>
-            <td><span class="lead">Isha (عشاء)</span></td>
+            <td><span>Date</span></td>
+            <td><span class="lead">Fajr</span></td>
+            <td><span class="lead">Sunrise</span></td>
+            <td><span class="lead">Zhuhr</span></td>
+            <td><span class="lead">Asr</span></td>
+            <td><span class="lead">Maghrib</span></td>
+            <td><span class="lead">Isha</span></td>
+            <td><span class="lead">Midnight</span></td>
             </tr>
         </thead>
-        <tbody id="generatedCalendar"></tbody>
+        <tbody id="generatedCalendar">
+        <?php if(!empty($calendar)) { ?>
+            <?php foreach ($calendar as $cD) { ?>
+                <tr class="show-grid <?=$cD['date']['readable'] == $currentDate ? 'danger' : '';?>">
+                <td ><?=$cD['date']['readable'];?></td>
+                    <td><?=$cD['timings']['Fajr'];?></td>
+                    <td><?=$cD['timings']['Sunrise'];?></td>
+                    <td><?=$cD['timings']['Dhuhr'];?></td>
+                    <td><?=$cD['timings']['Asr'];?></td>
+                    <td><?=$cD['timings']['Maghrib'];?></td>
+                    <td><?=$cD['timings']['Isha'];?></td>
+                    <td><?=$cD['timings']['Midnight'];?></td>
+                </tr>
+            <?php } ?>
+        <?php } ?>
+        </tbody>
     </table>
 
 </div>
@@ -121,6 +137,10 @@
 <script>
 $(function(){
   $.nsCalendar.init();
+  <?php if(!empty($calendar)) { ?>
+  $('#calendarConfigForm').hide();
+  $('#showCalendarConfigForm').slideDown();
+  <?php } ?>
 });
 </script>
 

@@ -488,9 +488,16 @@ $app->get('/calendar', function ($request, $response, $args) {
 $app->get('/calendar/{city}/{country}', function ($request, $response, $args) {
     $city = $request->getAttribute('city');
     $country = $request->getAttribute('country');
+    $calendar = [];
+    $month = date('m');
+    $year = date('Y');
+    if ($city != null && $country != null) {
+        $t = new \AlAdhanApi\CalendarByCity($city, $country, $month, $year);
+        $calendar = $t->get()['data'];
+    }
 
     $this->logger->info("aladhan.com '/' calendar");
-    $args['title'] = 'Prayer Times Calendar | ' . $city . ' ' . $country;
+    $args['title'] = 'Prayer Times Calendar | ' . $city . ' ' . $country . ' | ' . $calendar[0]['date']['gregorian']['month']['en'] . ', ' . $year;
     $args['city'] = $city;
     $args['country'] = $country;
     $args['months'] = array(
@@ -518,8 +525,10 @@ $app->get('/calendar/{city}/{country}', function ($request, $response, $args) {
         '2021' => '2021',
     );
 
-    $args['cmonth'] = date('m');
-    $args['cyear'] = date('Y');
+    $args['cmonth'] = $month;
+    $args['cyear'] = $year;
+    $args['currentDate'] = date('d') . ' ' . date('M') . ' ' . $year; 
+    $args['calendar'] = $calendar;
     $args['view'] = 'calendar';
     $args['holydayFloater'] = $this->holyDay;
 
