@@ -406,12 +406,18 @@ $app->get('/play', function ($request, $response, $args) {
 $app->get('/play/{city}/{country}', function ($request, $response, $args) {
     $city = $request->getAttribute('city');
     $country = $request->getAttribute('country');
+    $times = [];
+    if ($city != null && $country != null) {
+        $t = new \AlAdhanApi\TimesByCity($city, $country);
+        $times = $t->get()['data'];
+    }
     $this->logger->info("aladhan.com '/' play");
     $args['title'] = 'Adhan Player and Prayer Times Today | ' . $city . ' '. $country;
     $args['city'] = $city;
     $args['country'] = $country;
     $args['view'] = 'play';
     $args['holydayFloater'] = $this->holyDay;
+    $args['times'] = $times;
 
     return $this->renderer->render($response, 'play.phtml', $args);
 

@@ -6,20 +6,26 @@
 <div class="container">
     <div class="row">
       <div class="col-lg-3 col-md-12 col-sm-12 timings" style="">
-        <h4 class="pt-heading">Prayer Times <small></small><br /><small></small></h4>
+      <h4 class="pt-heading">Prayer Times <small>for</small><br /><small><?=$times['date']['gregorian']['day'];?> <?=$times['date']['gregorian']['month']['en'];?>, <?=$times['date']['gregorian']['year'];?> <?=$times['date']['gregorian']['designation']['abbreviated'];?><br />
+<?=$times['date']['hijri']['day'];?> <?=$times['date']['hijri']['month']['en'];?>, <?=$times['date']['hijri']['year'];?> <?=$times['date']['hijri']['designation']['abbreviated'];?><br />
+ in <?=$city;?>, <?=$country;?></small></h4>
         <img class="minimise-icon" width="21" style="display: none;" src="https://cdn.aladhan.com/images/minimize-icon.png" style="">
         <img class="settings-icon" width="25" style="display: none;" src="https://cdn.aladhan.com/images/settings-icon.png" style="">
         <dl class="inline-flex">
           <dt>Fajr (فجر)</dt>
-          <dd class="timeFajr"></dd>
+          <dd class="timeFajr"><?=$times['timings']['Fajr'];?></dd>
+          <dt>Sunrise (شروق)</dt>
+          <dd class="timeSunrise"><?=$times['timings']['Sunrise'];?></dd>
           <dt>Zhuhr (ظهر)</dt>
-          <dd class="timeDhuhr"></dd>
+          <dd class="timeDhuhr"><?=$times['timings']['Dhuhr'];?></dd>
           <dt>Asr (عصر)</dt>
-          <dd class="timeAsr"></dd>
+          <dd class="timeAsr"><?=$times['timings']['Asr'];?></dd>
           <dt>Maghrib (مغرب)</dt>
-          <dd class="timeMaghrib"></dd>
+          <dd class="timeMaghrib"><?=$times['timings']['Maghrib'];?></dd>
           <dt>Isha (عشاء)</dt>
-          <dd class="timeIsha"></dd>
+          <dd class="timeIsha"><?=$times['timings']['Isha'];?></dd>
+          <dt>Midnight</dt>
+          <dd class="timeMidnight"><?=$times['timings']['Midnight'];?></dd>
         </dl>
         <form role="form">
             <div class="form-group">
