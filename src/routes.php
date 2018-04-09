@@ -501,7 +501,6 @@ $app->get('/play/{city}/{country}', function ($request, $response, $args) {
     if ($city != null && $country != null) {
         $t = new \AlAdhanApi\TimesByCity($city, $country);
         $times = $t->get()['data'];
-        //echo '<pre>';print_r($times);exit;
     }
     $this->logger->info("aladhan.com '/' play");
     $args['title'] = 'Adhan Player and Prayer Times Today | ' . $city . ' '. $country;
