@@ -33,13 +33,10 @@ jQuery( document ).ready( function( $ ) {
             setInterval(function() {
                 gc.monitor();
                 gc.playAdhan();
+                gc.getNextPrayerTime();
             }, 2000);
             setTimeout(function() {
-                //gc.calculateCurrentDate();
-                gc.getAndDisplayDate();
                 gc.adhanFileMonitor();
-               // gc.playAdhan();
-                gc.getNextPrayerTime();
             }, 3000);
             // Update the tmings from the API once every 5 minutes. Setting timings to empty will do it via the monitor method.
             setInterval(function() {
