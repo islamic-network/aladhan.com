@@ -10,7 +10,7 @@ $(document).ready( function() {
   var maxImg = bgsJson.end;
   var bgInt = Math.floor(Math.random() * maxImg) + 1;
   setInterval(function() {
-  //  var cdnurl = 'https://cdn.meezaan.net/backgrounds/jpg/';
+    var cdnurl = 'https://cdn.aladhan.com/images/backgrounds/';
     if (bgInt == maxImg) {
         // Reset
         bgInt = minImg - 1;
@@ -20,7 +20,7 @@ $(document).ready( function() {
         bgInt = bgInt + 1;
     }
     var bgImg = bgsJson.files[bgInt];
-    $("body").css("background-image", "url(" + bgImg + ")");
+    $("body").css("background-image", "url(" + cdnurl + bgImg + ")");
   }, 18000);
 
 });
