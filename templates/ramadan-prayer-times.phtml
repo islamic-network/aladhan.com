@@ -110,10 +110,10 @@
             </tr>
         </thead>
         <tbody id="generatedCalendar">
-<?php foreach ($calendar[$y][$m]['days'] as $day) { ?>
-            <tr class="<?php echo (date('d') == $day['gregorian']['day'] && date('m') == $day['gregorian']['month']['number'] && date('Y') == $day['gregorian']['year'] ) ? 'danger' : '' ?>">
+<?php foreach ($calendar as $day) { ?>
+            <tr class="<?php echo (date('d') == $day['date']['gregorian']['day'] && date('m') == $day['date']['gregorian']['month']['number'] && date('Y') == $day['date']['gregorian']['year'] ) ? 'danger' : '' ?>">
                 <td>
-                <?=$day['hijri']['day'];?> <?=$day['hijri']['month']['en'];?>, <?=$day['hijri']['year'];?> <small>(<?=$day['gregorian']['day'];?> <?=$day['gregorian']['month']['en'];?>, <?=$day['gregorian']['year'];?>)</small>
+                <?=$day['date']['hijri']['day'];?> <?=$day['date']['hijri']['month']['en'];?>, <?=$day['date']['hijri']['year'];?> <small>(<?=$day['date']['gregorian']['day'];?> <?=$day['date']['gregorian']['month']['en'];?>, <?=$day['date']['gregorian']['year'];?>)</small>
             </td>
 <?php foreach ($day['timings'] as $key => $time) { ?>
             <td><?=$time;?></td>

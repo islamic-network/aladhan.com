@@ -9,13 +9,9 @@ RewriteEngine On
 #<IfModule mod_rewrite.c>
 #RewriteCond %{HTTPS} off
 #RewriteCond %{HTTP_HOST} ^aladhan.com$ [OR]
-#RewriteCond %{HTTP_HOST} ^www.aladhan.com$
-#RewriteRule (.*)$ https://aladhan.com/$1 [R=301,L]
+RewriteCond %{HTTP_HOST} ^www.aladhan.com$
+RewriteRule (.*)$ https://aladhan.com/$1 [R=301,L]
 #</IfModule>
-# Rules for locations
-#RewriteRule ^locations$ http://legacy.aladhan.com/locations [R=301,L]
-#RewriteRule ^locations/(.*)$ http://legacy.aladhan.com/locations/$1 [R=301,NC,L,QSA]
-#RewriteRule ^locations/(.*)/(.*)$ http://legacy.aladhan.com/locations/$1/$2 [R=301,NC,L,QSA]
 # Default rules for Slim
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [QSA,L]
