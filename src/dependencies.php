@@ -30,3 +30,19 @@ $container['holyDay'] = function($c) {
     return $cs->nextHijriHoliday()['data'];
 };
 
+$container['errorHandler'] = function ($c) {
+    return function ($request, $response, $exception) use ($c) {
+        return $c['response']->withStatus(400)
+                            ->withHeader('Content-Type', 'text/html')
+                            ->write('Sorry, we could not find the location or URL you are after. ');
+    };
+};
+
+$container['notFoundHandler'] = function ($c) {
+    return function ($request, $response) use ($c) {
+        return $c['response']
+            ->withStatus(404)
+            ->withHeader('Content-Type', 'text/html')
+            ->write('Sorry, we could not find the URL you are after');
+    };
+};
