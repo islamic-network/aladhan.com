@@ -32,7 +32,7 @@ $container['holyDay'] = function($c) {
 
 $container['errorHandler'] = function ($c) {
     return function ($request, $response, $exception) use ($c) {
-        return $c['response']->withStatus(400)
+        return $c['response']->withStatus(404)
                             ->withHeader('Content-Type', 'text/html')
                             ->write('Sorry, we could not find the location or URL you are after. ');
     };
