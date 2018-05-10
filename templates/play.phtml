@@ -8,8 +8,8 @@
       <div class="col-lg-3 col-md-12 col-sm-12 timings" style="">
       <h4 class="pt-heading">Prayer Times <small>for</small><br /><small><?=isset($times['timings']) ?  $times['date']['gregorian']['day'] . ' ' . $times['date']['gregorian']['month']['en'] . ', ' . $times['date']['gregorian']['year'] . ' ' . $times['date']['gregorian']['designation']['abbreviated'] . '<br />' .
 $times['date']['hijri']['day'] . ' ' . $times['date']['hijri']['month']['en'] . ', ' . $times['date']['hijri']['year'] . ' ' . $times['date']['hijri']['designation']['abbreviated'] . '<br /> in ' . $city . ', ' . $country : '';?></small></h4>
-        <img class="minimise-icon" width="21" style="display: none;" src="https://islamcdn.com/aladhan.com/images/minimize-icon.png" style="">
-        <img class="settings-icon" width="25" style="display: none;" src="https://islamcdn.com/aladhan.com/images/settings-icon.png" style="">
+        <img class="minimise-icon" width="21" style="display: none;" src="https://cdn.aladhan.com/images/minimize-icon.png" style="">
+        <img class="settings-icon" width="25" style="display: none;" src="https://cdn.aladhan.com/images/settings-icon.png" style="">
         <dl class="inline-flex">
           <dt>Fajr (فجر)</dt>
           <dd class="timeFajr"><?=isset($times['timings']) ? $times['timings']['Fajr'] : '';?></dd>
@@ -30,25 +30,25 @@ $times['date']['hijri']['day'] . ' ' . $times['date']['hijri']['month']['en'] . 
             <div class="form-group">
                 <label for="adhanfile">Select Adhan to play when it's time</label>
                 <select id="adhanfile" name="adhanfile" class="form-control">
-                    <option value="https://islamcdn.com/aladhan.com/audio/adhans/a1.mp3" selected="">Adhan by Ahmad al Nafees</option>
-                    <option value="https://islamcdn.com/aladhan.com/audio/adhans/a2.mp3">Adhan by Hafiz Mustafa Özcan from Turkey</option>
-                    <option value="https://islamcdn.com/aladhan.com/audio/adhans/a3.mp3">Adhan from Karl Jenkins' Mass for Peace"</option>
-                    <option value="https://islamcdn.com/aladhan.com/audio/adhans/a4.mp3">Adhan from Dubai's One TV by Mishary Rashid Alafasy</option>
-                    <option value="https://islamcdn.com/aladhan.com/audio/adhans/a7.mp3">Another Adhan by Mishary Rashid Alafasy</option>
-                    <option value="https://islamcdn.com/aladhan.com/audio/adhans/a9.mp3">Another Adhan by Mishary Rashid Alafasy</option>
+                    <option value="https://cdn.aladhan.com/audio/adhans/a1.mp3" selected="">Adhan by Ahmad al Nafees</option>
+                    <option value="https://cdn.aladhan.com/audio/adhans/a2.mp3">Adhan by Hafiz Mustafa Özcan from Turkey</option>
+                    <option value="https://cdn.aladhan.com/audio/adhans/a3.mp3">Adhan from Karl Jenkins' Mass for Peace"</option>
+                    <option value="https://cdn.aladhan.com/audio/adhans/a4.mp3">Adhan from Dubai's One TV by Mishary Rashid Alafasy</option>
+                    <option value="https://cdn.aladhan.com/audio/adhans/a7.mp3">Another Adhan by Mishary Rashid Alafasy</option>
+                    <option value="https://cdn.aladhan.com/audio/adhans/a9.mp3">Another Adhan by Mishary Rashid Alafasy</option>
                 </select>
             </div>
         </form>
         <hr />
         <div id="holidays" class="hidden"></div>
-        <audio id="adhanplayer" src="https://islamcdn.com/aladhan.com/audio/adhans/a1.mp3" type="audio/mp3" controls="controls"></audio>
+        <audio id="adhanplayer" src="https://cdn.aladhan.com/audio/adhans/a1.mp3" type="audio/mp3" controls="controls"></audio>
       </div>
       <div class="col-lg-9 col-md-12 col-sm-12 timings-settings" style="background-color: black; opacity: 0.8; margin: 10 0 0 0;">
         <div class="loader">
             <img src="/images/loader.svg" />
             <div>Loading</div>
         </div>
-        <img class="settings-close-icon" width="25" src="https://islamcdn.com/aladhan.com/images/close-icon.png">
+        <img class="settings-close-icon" width="25" src="https://cdn.aladhan.com/images/close-icon.png">
 <?php include_once('common/bismillah.phtml'); ?>
         <div class="page-header">
             <h4>Adhan Player <small>Just select a method and enter a location</small></h2>
