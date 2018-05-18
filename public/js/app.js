@@ -10,7 +10,7 @@ $(document).ready( function() {
   var maxImg = bgsJson.end;
   var bgInt = Math.floor(Math.random() * maxImg) + 1;
   setInterval(function() {
-    var cdnurl = 'https://images.aladhan.com/backgrounds/';
+    var cdnurl = 'https://cdn.aladhan.com/images/backgrounds/';
     if (bgInt == maxImg) {
         // Reset
         bgInt = minImg - 1;

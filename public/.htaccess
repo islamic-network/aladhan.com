@@ -1,17 +1,16 @@
+FileETag  MTime Size
+
+ExpiresActive on
+ExpiresByType image/jpeg "access plus 1 hour"
+ExpiresByType image/png "access plus 1 hour"
+ExpiresByType application/javascript "access plus 1 hour"
+ExpiresByType text/html "access plus 1 hour"
+
 RewriteEngine On
-
-# Some hosts may require you to use the `RewriteBase` directive.
-# If you need to use the `RewriteBase` directive, it should be the
-# absolute physical path to the directory that contains this htaccess file.
-#
 # RewriteBase /
-
-#<IfModule mod_rewrite.c>
-#RewriteCond %{HTTPS} off
-#RewriteCond %{HTTP_HOST} ^aladhan.com$ [OR]
 RewriteCond %{HTTP_HOST} ^www.aladhan.com$
 RewriteRule (.*)$ https://aladhan.com/$1 [R=301,L]
-#</IfModule>
+
 # Default rules for Slim
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [QSA,L]
