@@ -243,7 +243,7 @@ $app->get('/hijri-gregorian-calendar', function ($request, $response, $args) {
         $y = date('Y');
     }
 
-    $days = 30; // Islamic months have 30 or less days - always.
+    $days = 29; // Islamic months have 30 or less days - always.
 
     $cols = 7;
     $rows = $days/$cols;
