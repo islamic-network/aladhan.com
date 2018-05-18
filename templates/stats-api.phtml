@@ -10,8 +10,9 @@ ini_set('memory_limit','1048M');
         <h2>API Usage Statistics</h2>
     </div>
     <p>
+      <!--STATS HAVE BEEN DISABLED. THE WAF AND LOGGING TOOL DOES A MUCH BETTER JOB.-->
     <b>NOTE: These statistics only display 24 hour activity for a single node at a time. Current node: <?=$node;?>.</b>
-    </p>    
+    </p>
     <p>
         This page lists the AlAdhan API usage statistics by date. This data is only informational and as such is simply a gauge to assess any capacity management requirements.
     </p>
@@ -42,7 +43,7 @@ ini_set('memory_limit','1048M');
             <!-- IPs -->
             <?php if ($ipStats) { ?>
             <tr class="primary ipRow" id="<?php echo $date; ?>">
-            
+
                 <td class="bold">Unique IP Addresses</td>
                 <td>
                     <?php echo number_format($data->ip->count); ?>
@@ -55,7 +56,7 @@ ini_set('memory_limit','1048M');
                             <th>IP Address</th>
                             <th>Queries</th>
                         </tr>
-                        <?php foreach ($data->ip as $epName => $epCount) { 
+                        <?php foreach ($data->ip as $epName => $epCount) {
                         if ($epName !== 'count') {
                         ?>
                         <tr>
@@ -71,11 +72,11 @@ ini_set('memory_limit','1048M');
                 </td>
             </tr>
             <?php } ?>
-            
+
             <!-- Origin -->
             <?php if ($origin && isset($data->origin)) { ?>
             <tr class="primary originRow" id="<?php echo $date; ?>">
-            
+
                 <td class="bold">Http Origins</td>
                 <td>
                     <?php echo number_format($data->origin->count); ?>
@@ -88,7 +89,7 @@ ini_set('memory_limit','1048M');
                             <th>Origin</th>
                             <th>Queries</th>
                         </tr>
-                        <?php foreach ($data->origin as $originName => $originCount) { 
+                        <?php foreach ($data->origin as $originName => $originCount) {
                         if ($originName !== 'count') {
                         ?>
                         <tr>
@@ -104,8 +105,8 @@ ini_set('memory_limit','1048M');
                 </td>
             </tr>
             <?php } ?>
-            
-            
+
+
             <!-- Useragent -->
             <?php if (isset($data->useragent)) { ?>
             <tr class="primary useragentRow" id="<?php echo $date; ?>">
@@ -121,7 +122,7 @@ ini_set('memory_limit','1048M');
                             <th>Name</th>
                             <th>Queries</th>
                         </tr>
-                        <?php foreach ($data->useragent as $uaName => $uaCount) { 
+                        <?php foreach ($data->useragent as $uaName => $uaCount) {
                         if ($uaName !== 'count') {
                         ?>
                         <tr>
@@ -137,7 +138,7 @@ ini_set('memory_limit','1048M');
                 </td>
             </tr>
             <?php } ?>
-            
+
             <!-- Endpoints -->
             <tr class="primary endpointRow" id="<?php echo $date; ?>">
                 <td class="bold">Endpoints</td>
@@ -152,7 +153,7 @@ ini_set('memory_limit','1048M');
                             <th>Name</th>
                             <th>Queries</th>
                         </tr>
-                        <?php foreach ($data->endpoint as $epName => $epCount) { 
+                        <?php foreach ($data->endpoint as $epName => $epCount) {
                         if ($epName !== 'count') {
                         ?>
                         <tr>
@@ -182,7 +183,7 @@ ini_set('memory_limit','1048M');
                             <th>Name</th>
                             <th>Queries</th>
                         </tr>
-                        <?php foreach ($data->timezone as $epName => $epCount) { 
+                        <?php foreach ($data->timezone as $epName => $epCount) {
                         if ($epName !== 'count') {
                         ?>
                         <tr>
@@ -211,7 +212,7 @@ ini_set('memory_limit','1048M');
                             <th>Name</th>
                             <th>Queries</th>
                         </tr>
-                        <?php foreach ($data->location as $epName => $epCount) { 
+                        <?php foreach ($data->location as $epName => $epCount) {
                         if ($epName !== 'count') {
                         ?>
                         <tr>
@@ -229,7 +230,7 @@ ini_set('memory_limit','1048M');
         </table>
             </td>
     </tr>
-        <?php } 
+        <?php }
             }
         ?>
     </table>
@@ -240,74 +241,74 @@ $(function() {
     $('.dateRow').on('click', function() {
        var id = $(this).attr('id');
        if ($('#stats-' + id).hasClass('hidden')) {
-            $('#stats-' + id).removeClass('hidden'); 
-            $('#stats-' + id).addClass('shown'); 
+            $('#stats-' + id).removeClass('hidden');
+            $('#stats-' + id).addClass('shown');
        } else {
-            $('#stats-' + id).removeClass('shown'); 
-            $('#stats-' + id).addClass('hidden'); 
+            $('#stats-' + id).removeClass('shown');
+            $('#stats-' + id).addClass('hidden');
        }
     });
     $('.endpointRow').on('click', function() {
        var id = $(this).attr('id');
        if ($('#endpoint-' + id).hasClass('hidden')) {
-            $('#endpoint-' + id).removeClass('hidden'); 
-            $('#endpoint-' + id).addClass('shown'); 
+            $('#endpoint-' + id).removeClass('hidden');
+            $('#endpoint-' + id).addClass('shown');
        } else {
-            $('#endpoint-' + id).removeClass('shown'); 
-            $('#endpoint-' + id).addClass('hidden'); 
+            $('#endpoint-' + id).removeClass('shown');
+            $('#endpoint-' + id).addClass('hidden');
        }
     });
     $('.timezoneRow').on('click', function() {
        var id = $(this).attr('id');
        if ($('#timezone-' + id).hasClass('hidden')) {
-            $('#timezone-' + id).removeClass('hidden'); 
-            $('#timezone-' + id).addClass('shown'); 
+            $('#timezone-' + id).removeClass('hidden');
+            $('#timezone-' + id).addClass('shown');
        } else {
-            $('#timezone-' + id).removeClass('shown'); 
-            $('#timezone-' + id).addClass('hidden'); 
+            $('#timezone-' + id).removeClass('shown');
+            $('#timezone-' + id).addClass('hidden');
        }
     });
     $('.locationRow').on('click', function() {
        var id = $(this).attr('id');
        if ($('#location-' + id).hasClass('hidden')) {
-            $('#location-' + id).removeClass('hidden'); 
-            $('#location-' + id).addClass('shown'); 
+            $('#location-' + id).removeClass('hidden');
+            $('#location-' + id).addClass('shown');
        } else {
-            $('#location-' + id).removeClass('shown'); 
-            $('#location-' + id).addClass('hidden'); 
+            $('#location-' + id).removeClass('shown');
+            $('#location-' + id).addClass('hidden');
        }
     });
     $('.ipRow').on('click', function() {
        var id = $(this).attr('id');
        if ($('#ip-' + id).hasClass('hidden')) {
-            $('#ip-' + id).removeClass('hidden'); 
-            $('#ip-' + id).addClass('shown'); 
+            $('#ip-' + id).removeClass('hidden');
+            $('#ip-' + id).addClass('shown');
        } else {
-            $('#ip-' + id).removeClass('shown'); 
-            $('#ip-' + id).addClass('hidden'); 
+            $('#ip-' + id).removeClass('shown');
+            $('#ip-' + id).addClass('hidden');
        }
     });
     $('.originRow').on('click', function() {
        var id = $(this).attr('id');
        if ($('#origin-' + id).hasClass('hidden')) {
-            $('#origin-' + id).removeClass('hidden'); 
-            $('#origin-' + id).addClass('shown'); 
+            $('#origin-' + id).removeClass('hidden');
+            $('#origin-' + id).addClass('shown');
        } else {
-            $('#origin-' + id).removeClass('shown'); 
-            $('#origin-' + id).addClass('hidden'); 
+            $('#origin-' + id).removeClass('shown');
+            $('#origin-' + id).addClass('hidden');
        }
     });
     $('.useragentRow').on('click', function() {
        var id = $(this).attr('id');
        if ($('#useragent-' + id).hasClass('hidden')) {
-            $('#useragent-' + id).removeClass('hidden'); 
-            $('#useragent-' + id).addClass('shown'); 
+            $('#useragent-' + id).removeClass('hidden');
+            $('#useragent-' + id).addClass('shown');
        } else {
-            $('#useragent-' + id).removeClass('shown'); 
-            $('#useragent-' + id).addClass('hidden'); 
+            $('#useragent-' + id).removeClass('shown');
+            $('#useragent-' + id).addClass('hidden');
        }
     });
-    
+
 });
 </script>
 
