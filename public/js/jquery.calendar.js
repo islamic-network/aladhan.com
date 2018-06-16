@@ -7,6 +7,19 @@ jQuery( document ).ready( function( $ ) {
         _location: '',
         _month: '',
         _year: '',
+        _midnightMode: '',
+        _customFajrAngle: '',
+        _customMaghribAngle: '',
+        _customIshaAngle: '',
+        _tuneImsak: '',
+        _tuneFajr: '',
+        _tuneSunrise: '',
+        _tuneZhuhr: '',
+        _tuneAsr: '',
+        _tuneMaghrib: '',
+        _tuneSunset: '',
+        _tuneIsha: '',
+        _tuneMidnight: '',
         _latitudeAdjustment: '',
         _latitudeFieldId: 'latitude',
         _longitudeFieldId: 'longitude',
@@ -30,6 +43,14 @@ jQuery( document ).ready( function( $ ) {
                 $('#calendarConfigForm').slideDown();
                 $('#showCalendarConfigForm').slideUp();
             });
+
+            $('#' + gc._methodFieldId).on('change', function() {
+                if ($(this).find('option:selected').attr('value') == '99') {
+                    $('.customSettingsForm').removeClass('hidden');
+                } else {
+                    $('.customSettingsForm').addClass('hidden');
+                }
+            });
         },
         fetchCalendar: function() {
             var gc = this;
@@ -41,15 +62,55 @@ jQuery( document ).ready( function( $ ) {
             gc._year = $('#' + gc._yearFieldId).val();
             gc._latitudeAdjustment = $('#' + gc._latitudeAdjustmentFieldId).val();
             var locationName = $('#location').val();
+            gc._midnightMode = $('#midnightMode').find('option:selected').attr('name');
+            gc._customFajrAngle = $('#customFajrAngle').val();
+            gc._customMaghribAngle = $('#customMaghribAngle').val();
+            gc._customIshaAngle = $('#customIshaAngle').val();
+            gc._tuneImsak = $('#tuneImsak').val();
+            gc._tuneFajr = $('#tuneFajr').val();
+            gc._tuneSunrise = $('#tuneSunrise').val();
+            gc._tuneZhuhr = $('#tuneZhuhr').val();
+            gc._tuneAsr = $('#tuneAsr').val();
+            gc._tuneMaghrib = $('#tuneMaghrib').val();
+            gc._tuneSunset = $('#tuneSunset').val();
+            gc._tuneIsha = $('#tuneIsha').val();
+            gc._tuneMidnight = $('#tuneMidnight').val();
+            var tuneString = gc._tuneImsak + ',' +
+            gc._tuneFajr + ',' +
+            gc._tuneSunrise + ',' +
+            gc._tuneZhuhr + ',' +
+            gc._tuneAsr + ',' +
+            gc._tuneSunset + ',' +
+            gc._tuneMaghrib + ',' +
+            gc._tuneIsha + ',' +
+            gc._tuneMidnight;
+            var methodSettings = gc._customFajrAngle + ',' +
+            gc._customMaghribAngle + ',' +
+            gc._customIshaAngle;
 
             if (gc._location != '') {
                 $('.loader').show();
-                var credentials = {
-                    address: gc._location,
-                    method: gc._method,
-                    month: gc._month,
-                    year: gc._year,
-                    latitudeAdjustmentMethod: gc._latitudeAdjustment
+                if (gc._method == 99) {
+                    var credentials = {
+                        address: gc._location,
+                        method: gc._method,
+                        month: gc._month,
+                        year: gc._year,
+                        latitudeAdjustmentMethod: gc._latitudeAdjustment,
+                        midnightMode: gc._midnightMode,
+                        tune: tuneString,
+                        methodSettings: methodSettings
+                    }
+                } else {
+                    var credentials = {
+                        address: gc._location,
+                        method: gc._method,
+                        month: gc._month,
+                        year: gc._year,
+                        latitudeAdjustmentMethod: gc._latitudeAdjustment,
+                        midnightMode: gc._midnightMode,
+                        tune: tuneString
+                    }
                 };
                 // Post to API
                 $.ajax({

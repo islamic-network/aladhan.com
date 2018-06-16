@@ -34,7 +34,7 @@ jQuery( document ).ready( function( $ ) {
                 gc.monitor();
                 gc.playAdhan();
                 gc.getNextPrayerTime();
-            }, 2000);
+            }, 3000);
             setTimeout(function() {
                 gc.adhanFileMonitor();
             }, 3000);
