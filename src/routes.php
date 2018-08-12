@@ -352,6 +352,10 @@ $app->get('/islamic-holidays', function ($request, $response, $args) {
 
     $this->logger->info("aladhan.com '/' islamic-holidays");
 
+    // Add days adjustment here
+    $adjustment = 1;
+    // Add days adjustment above
+
     $current_year = date('Y');
     $years[$current_year - 1] = $current_year - 1;
     $years[$current_year] = $current_year;
@@ -370,9 +374,13 @@ $app->get('/islamic-holidays', function ($request, $response, $args) {
     foreach ($days as $dkey => $d) {
         foreach ($islamicYears as $y) {
             // Compute date.
-            $gDay = $cs->hijriToGregorian($d['day'] . '-' . $d['month'] . '-' . $y, 1)['data'];
+            $gDay = $cs->hijriToGregorian($d['day'] . '-' . $d['month'] . '-' . $y, $adjustment)['data'];
             foreach ($years as $year) {
                 if ($gDay['gregorian']['year'] == $year) {
+                    // NOTE / TODO: Adjustment greogiran the other way by 1 day. This may have to become a proper date object as the month name may need adjustment too! This is only tweaking the display, not the actual date object/array.
+                    if ($year == $current_year) {
+                        $gDay['gregorian']['day'] = $gDay['gregorian']['day'] - $adjustment;
+                    }
                     $days[$dkey][$year] = $gDay['gregorian'];
                 }
             }
