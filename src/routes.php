@@ -229,6 +229,8 @@ $app->get('/hijri-gregorian-calendar', function ($request, $response, $args) {
 
     $this->logger->info("aladhan.com '/' hijri-gregorian-calendar");
 
+    $adjustment = 1;
+
     $cs = $this->HijriCalendarService;
 
     $m = isset($_GET['m']) ? (int) $_GET['m'] : $cs->currentIslamicMonth()['data'];
@@ -252,7 +254,7 @@ $app->get('/hijri-gregorian-calendar', function ($request, $response, $args) {
 
     for($i=0; $i<=$days; $i++) {
         $curDate = $i . '-' . $m . '-' . $y;
-        $calendar[$y][$m]['days'][$i] = $cs->hijriToGregorian($curDate, 1)['data'];
+        $calendar[$y][$m]['days'][$i] = $cs->hijriToGregorian($curDate, $adjustment)['data'];
         $calendar[$y][$m]['days'][$i]['holidays'] = $cs->hijriHolidays($calendar[$y][$m]['days'][$i]['hijri']['day'], $calendar[$y][$m]['days'][$i]['hijri']['month']['number'])['data'];
         if ($calendar[$y][$m]['days'][$i]['hijri']['month']['number'] != $m) {
             unset($calendar[$y][$m]['days'][$i]);
@@ -293,6 +295,8 @@ $app->get('/gregorian-hijri-calendar', function ($request, $response, $args) {
 
     $this->logger->info("aladhan.com '/' gregorian-hijri-calendar");
 
+    $adjustment = 1;
+
     $m = isset($_GET['m']) ? (int) $_GET['m'] : date('m');
     if ($m > 12) {
         $m = 12;
@@ -316,7 +320,7 @@ $app->get('/gregorian-hijri-calendar', function ($request, $response, $args) {
 
     for($i=0; $i<=$days; $i++) {
         $curDate = $i . '-' . $m . '-' . $y;
-        $calendar[$y][$m]['days'][$i] = $cs->gregorianToHijri($curDate, 1)['data'];
+        $calendar[$y][$m]['days'][$i] = $cs->gregorianToHijri($curDate, $adjustment)['data'];
         $calendar[$y][$m]['days'][$i]['holidays'] = $cs->hijriHolidays($calendar[$y][$m]['days'][$i]['hijri']['day'], $calendar[$y][$m]['days'][$i]['hijri']['month']['number'])['data'];
     }
 
