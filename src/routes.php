@@ -252,7 +252,7 @@ $app->get('/hijri-gregorian-calendar', function ($request, $response, $args) {
 
     for($i=0; $i<=$days; $i++) {
         $curDate = $i . '-' . $m . '-' . $y;
-        $calendar[$y][$m]['days'][$i] = $cs->hijriToGregorian($curDate)['data'];
+        $calendar[$y][$m]['days'][$i] = $cs->hijriToGregorian($curDate, 1)['data'];
         $calendar[$y][$m]['days'][$i]['holidays'] = $cs->hijriHolidays($calendar[$y][$m]['days'][$i]['hijri']['day'], $calendar[$y][$m]['days'][$i]['hijri']['month']['number'])['data'];
         if ($calendar[$y][$m]['days'][$i]['hijri']['month']['number'] != $m) {
             unset($calendar[$y][$m]['days'][$i]);
@@ -316,7 +316,7 @@ $app->get('/gregorian-hijri-calendar', function ($request, $response, $args) {
 
     for($i=0; $i<=$days; $i++) {
         $curDate = $i . '-' . $m . '-' . $y;
-        $calendar[$y][$m]['days'][$i] = $cs->gregorianToHijri($curDate)['data'];
+        $calendar[$y][$m]['days'][$i] = $cs->gregorianToHijri($curDate, 1)['data'];
         $calendar[$y][$m]['days'][$i]['holidays'] = $cs->hijriHolidays($calendar[$y][$m]['days'][$i]['hijri']['day'], $calendar[$y][$m]['days'][$i]['hijri']['month']['number'])['data'];
     }
 
@@ -370,7 +370,7 @@ $app->get('/islamic-holidays', function ($request, $response, $args) {
     foreach ($days as $dkey => $d) {
         foreach ($islamicYears as $y) {
             // Compute date.
-            $gDay = $cs->hijriToGregorian($d['day'] . '-' . $d['month'] . '-' . $y)['data'];
+            $gDay = $cs->hijriToGregorian($d['day'] . '-' . $d['month'] . '-' . $y, 1)['data'];
             foreach ($years as $year) {
                 if ($gDay['gregorian']['year'] == $year) {
                     $days[$dkey][$year] = $gDay['gregorian'];

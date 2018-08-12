@@ -27,7 +27,7 @@ $container['HijriCalendarService'] = function($c) {
 
 $container['holyDay'] = function($c) {
     $cs = new HijriGregorianCalendar();
-    return $cs->nextHijriHoliday()['data'];
+    return $cs->nextHijriHoliday(1)['data'];
 };
 
 $container['errorHandler'] = function ($c) {
