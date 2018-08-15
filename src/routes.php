@@ -245,7 +245,7 @@ $app->get('/hijri-gregorian-calendar', function ($request, $response, $args) {
         $y = date('Y');
     }
 
-    $days = 29; // Islamic months have 30 or less days - always.
+    $days = 30; // Islamic months have 30 or less days - always.
 
     $cols = 7;
     $rows = $days/$cols;
@@ -381,9 +381,15 @@ $app->get('/islamic-holidays', function ($request, $response, $args) {
             $gDay = $cs->hijriToGregorian($d['day'] . '-' . $d['month'] . '-' . $y, $adjustment)['data'];
             foreach ($years as $year) {
                 if ($gDay['gregorian']['year'] == $year) {
-                    // NOTE / TODO: Adjustment greogiran the other way by 1 day. This may have to become a proper date object as the month name may need adjustment too! This is only tweaking the display, not the actual date object/array.
                     if ($year == $current_year) {
-                        $gDay['gregorian']['day'] = $gDay['gregorian']['day'] - $adjustment;
+                        $nDate = new DateTime($gDay['gregorian']['date']);
+                        $nDate->modify('-' . $adjustment . ' day');
+                        $gDay['gregorian']['day'] = $nDate->format('d');
+                        $gDay['gregorian']['date'] = $nDate->format('d-m-Y');
+                        $gDay['gregorian']['month']['number'] = $nDate->format('m');
+                        $gDay['gregorian']['month']['en'] = $nDate->format('F');
+                        $gDay['gregorian']['year'] = $nDate->format('Y');
+                        $gDay['gregorian']['weekday']['en'] = $nDate->format('l');
                     }
                     $days[$dkey][$year] = $gDay['gregorian'];
                 }
