@@ -229,7 +229,7 @@ $app->get('/hijri-gregorian-calendar', function ($request, $response, $args) {
 
     $this->logger->info("aladhan.com '/' hijri-gregorian-calendar");
 
-    $adjustment = 1;
+    $adjustment = -1;
 
     $cs = $this->HijriCalendarService;
 
@@ -357,7 +357,7 @@ $app->get('/islamic-holidays', function ($request, $response, $args) {
     $this->logger->info("aladhan.com '/' islamic-holidays");
 
     // Add days adjustment here
-    $adjustment = 1;
+    $adjustment = -1;
     // Add days adjustment above
 
     $current_year = date('Y');
@@ -381,7 +381,7 @@ $app->get('/islamic-holidays', function ($request, $response, $args) {
             $gDay = $cs->hijriToGregorian($d['day'] . '-' . $d['month'] . '-' . $y, $adjustment)['data'];
             foreach ($years as $year) {
                 if ($gDay['gregorian']['year'] == $year) {
-                    if ($year == $current_year) {
+                    /*if ($year == $current_year) {
                         $nDate = new DateTime($gDay['gregorian']['date']);
                         $nDate->modify('-' . $adjustment . ' day');
                         $gDay['gregorian']['day'] = $nDate->format('d');
@@ -390,7 +390,7 @@ $app->get('/islamic-holidays', function ($request, $response, $args) {
                         $gDay['gregorian']['month']['en'] = $nDate->format('F');
                         $gDay['gregorian']['year'] = $nDate->format('Y');
                         $gDay['gregorian']['weekday']['en'] = $nDate->format('l');
-                    }
+                    }*/
                     $days[$dkey][$year] = $gDay['gregorian'];
                 }
             }
