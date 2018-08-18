@@ -426,7 +426,8 @@ $app->get('/play/{city}/{country}', function ($request, $response, $args) {
     $country = $request->getAttribute('country');
     $times = [];
     if ($city != null && $country != null) {
-        $t = new \AlAdhanApi\TimesByCity($city, $country);
+	// ISNA is default method. Adjustment of +1 day added for Dhul Hijjah 2018.
+        $t = new \AlAdhanApi\TimesByCity($city, $country, null, null, 2, 1);
         $times = $t->get()['data'];
     }
     $this->logger->info("aladhan.com '/' play");
@@ -510,7 +511,7 @@ $app->get('/calendar/{city}/{country}', function ($request, $response, $args) {
     $month = date('m');
     $year = date('Y');
     if ($city != null && $country != null) {
-        $t = new \AlAdhanApi\CalendarByCity($city, $country, $month, $year);
+        $t = new \AlAdhanApi\CalendarByCity($city, $country, $month, $year, null, 2, false, 1);
         $calendar = $t->get()['data'];
     }
 
