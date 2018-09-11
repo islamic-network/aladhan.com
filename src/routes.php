@@ -274,7 +274,7 @@ $app->get('/hijri-gregorian-calendar', function ($request, $response, $args) {
         $prevMonth = '?m=' . ($m - 1) . '&y=' . $y;
     }
 
-    $args['title'] = 'Gregorian to Hijri / Islamic Calendar - ' . $calendar[$y][$m]['days'][1]['gregorian']['month']['en'] . ' ' . $y;
+    $args['title'] = 'Hijri / Islamic to Gregorian Calendar - ' . $calendar[$y][$m]['days'][1]['gregorian']['month']['en'] . ' ' . $y;
     $args['calendar'] = $calendar;
     $args['days'] = $days;
     $args['prevMonth'] = $prevMonth;
