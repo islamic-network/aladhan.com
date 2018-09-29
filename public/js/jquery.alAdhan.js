@@ -305,7 +305,7 @@ jQuery( document ).ready( function( $ ) {
                     type: "GET",
                     url: gc._apiUrl + "gToH",
                     cache: false,
-                    data: { date: theDate },
+                    data: { date: theDate, adjustment: 1 },
                     dataType: 'json',
                     success: function(data) {
                         // Update timings
