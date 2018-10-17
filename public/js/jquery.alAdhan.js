@@ -20,6 +20,7 @@ jQuery( document ).ready( function( $ ) {
         _nextPrayer: '',
         _paused: true,
         _timestamp: '',
+        _daysAdjustment: 1,
         init: function() {
             var gc = this;
             gc._location = $('#' + gc._locationFieldId).val();
@@ -102,7 +103,8 @@ jQuery( document ).ready( function( $ ) {
                     address: gc._location,
                     method: gc._method,
                     latitudeAdjustmentMethod: gc._latitudeAdjustment,
-                    school: gc._school
+                    school: gc._school,
+                    adjustment: gc._daysAdjustment
                 };
 
                 $('.loader').show();
@@ -305,7 +307,7 @@ jQuery( document ).ready( function( $ ) {
                     type: "GET",
                     url: gc._apiUrl + "gToH",
                     cache: false,
-                    data: { date: theDate, adjustment: 1 },
+                    data: { date: theDate, adjustment: gc._daysAdjustment },
                     dataType: 'json',
                     success: function(data) {
                         // Update timings

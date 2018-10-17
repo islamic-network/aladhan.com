@@ -22,4 +22,9 @@ $(function() {
     $('.nextPrayer').hide();
     $('.timings').show();
   });
+
+  $('.nextPrayer#time').on('click', function() {
+      $('.nextPrayer').hide();
+      $('.timings').show();
+  });
 });
