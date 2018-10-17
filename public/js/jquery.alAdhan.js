@@ -14,7 +14,7 @@ jQuery( document ).ready( function( $ ) {
         _adhanFile: 'https://aladhan.com/media/a1.mp3',
         _latitudeAdjustment: '',
         _juristicSchool: '',
-        _apiUrl: 'https://api.aladhan.com/',
+        _apiUrl: 'https://api.aladhan.com/v1/',
         _updated: '',
         _player: '',
         _nextPrayer: '',
