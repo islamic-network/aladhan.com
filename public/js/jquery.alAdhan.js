@@ -111,7 +111,7 @@ jQuery( document ).ready( function( $ ) {
                 // Post to API
                 return $.ajax({
                     type: "GET",
-                    url: gc._apiUrl + "/timingsByAddress/" + gc.calculateCurrentTimestamp(),
+                    url: gc._apiUrl + "timingsByAddress/" + gc.calculateCurrentTimestamp(),
                     cache: false,
                     data: credentials,
                     dataType: 'json',
