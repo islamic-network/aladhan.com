@@ -16,7 +16,7 @@ $container['logger'] = function ($c) {
     $settings = $c->get('settings')['logger'];
     $logger = new Monolog\Logger($settings['name']);
     $logger->pushProcessor(new Monolog\Processor\UidProcessor());
-    $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
+    $logger->pushHandler(new \Monolog\Handler\ErrorLogHandler());
     return $logger;
 };
 
@@ -32,7 +32,7 @@ $container['holyDay'] = function($c) {
 
 $container['errorHandler'] = function ($c) {
     return function ($request, $response, $exception) use ($c) {
-        return $c['response']->withStatus(404)
+        return $c['response']->withStatus(500)
                             ->withHeader('Content-Type', 'text/html')
                             ->write('Sorry, we could not find the location or URL you are after. ');
     };
