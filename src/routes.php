@@ -2,7 +2,7 @@
 // Routes
 $app->get('/', function ($request, $response, $args) {
 
-    $this->logger->info("aladhan.com '/' home");
+    // $this->logger->info("aladhan.com '/' home");
     $args['title'] = 'Home';
     $args['view'] = 'home';
     $args['holydayFloater'] = $this->holyDay;
@@ -12,7 +12,7 @@ $app->get('/', function ($request, $response, $args) {
 
 $app->get('/about', function ($request, $response, $args) {
 
-    $this->logger->info("aladhan.com '/' about");
+    // $this->logger->info("aladhan.com '/' about");
     $args['title'] = 'About';
     $args['view'] = 'about';
     $args['holydayFloater'] = $this->holyDay;
@@ -22,7 +22,7 @@ $app->get('/about', function ($request, $response, $args) {
 
 $app->get('/calculation-methods', function ($request, $response, $args) {
 
-    $this->logger->info("aladhan.com '/' calculation-methods");
+    // $this->logger->info("aladhan.com '/' calculation-methods");
     $args['title'] = 'Prayer Time Calculation Methods';
     $args['view'] = '';
     $args['holydayFloater'] = $this->holyDay;
@@ -32,7 +32,7 @@ $app->get('/calculation-methods', function ($request, $response, $args) {
 
 $app->get('/contact', function ($request, $response, $args) {
 
-    $this->logger->info("aladhan.com '/' contact");
+    // $this->logger->info("aladhan.com '/' contact");
     $args['title'] = 'Contact';
     $args['view'] = 'contact';
     $args['holydayFloater'] = $this->holyDay;
@@ -42,7 +42,7 @@ $app->get('/contact', function ($request, $response, $args) {
 
 $app->get('/asma-al-husna-api', function ($request, $response, $args) {
 
-    $this->logger->info("aladhan.com '/' asma-al-husna-api");
+    // $this->logger->info("aladhan.com '/' asma-al-husna-api");
     $args['apidocs'] = json_decode(file_get_contents('../html/apidocs/asmaAlHusna/api_data.json'));
     $args['title'] = 'Asma Al Husna  API';
     $args['view'] = 'api';
@@ -53,7 +53,7 @@ $app->get('/asma-al-husna-api', function ($request, $response, $args) {
 
 $app->get('/prayer-times-api', function ($request, $response, $args) {
 
-    $this->logger->info("aladhan.com '/' prayer-times-api");
+    // $this->logger->info("aladhan.com '/' prayer-times-api");
     $args['apidocs'] = json_decode(file_get_contents('../html/apidocs/timings/api_data.json'));
     $args['title'] = 'Prayer Times API';
     $args['view'] = 'api';
@@ -72,13 +72,13 @@ $app->get('/play/', function ($request, $response, $args) {
 
 $app->get('/rest-api', function ($request, $response, $args) {
 
-    $this->logger->info("aladhan.com '/' rest-api");
+    // $this->logger->info("aladhan.com '/' rest-api");
     return $response->withStatus(301)->withHeader('Location', '/prayer-times-api');
 });
 
 $app->get('/islamic-calendar-api', function ($request, $response, $args) {
 
-    $this->logger->info("aladhan.com '/' islamic-calendar-api");
+    // $this->logger->info("aladhan.com '/' islamic-calendar-api");
     $args['apidocs'] = json_decode(file_get_contents('../html/apidocs/hijri/api_data.json'));
     $args['title'] = 'Islamic / Hijri Calendar API';
     $args['view'] = 'api';
@@ -89,7 +89,7 @@ $app->get('/islamic-calendar-api', function ($request, $response, $args) {
 
 $app->get('/download-adhans', function ($request, $response, $args) {
 
-    $this->logger->info("aladhan.com '/' download-adhans");
+    // $this->logger->info("aladhan.com '/' download-adhans");
     $args['title'] = 'Download Adhans';
     $args['view'] = 'api';
     $args['holydayFloater'] = $this->holyDay;
@@ -108,7 +108,7 @@ $app->get('/ramadan-calendar', function ($request, $response, $args) {
 });
 
 $app->get('/ramadan-prayer-times/{year}/{city}/{country}', function ($request, $response, $args) {
-    $this->logger->info("aladhan.com '/' ramadan-prayer-times");
+    // $this->logger->info("aladhan.com '/' ramadan-prayer-times");
 
     $m = 9; // For Ramadan
     $gy = (int) $request->getAttribute('year');
@@ -150,7 +150,7 @@ $app->get('/ramadan-prayer-times/{year}/{city}/{country}', function ($request, $
 });
 $app->get('/ramadan-calendar/{year}', function ($request, $response, $args) {
 
-    $this->logger->info("aladhan.com '/' ramadan-calendar");
+    // $this->logger->info("aladhan.com '/' ramadan-calendar");
 
     $cs = $this->HijriCalendarService;
     $m = 9;
@@ -181,7 +181,7 @@ $app->get('/ramadan-calendar/{year}', function ($request, $response, $args) {
 });
 
 $app->get('/stats-api', function ($request, $response, $args) {
-    $this->logger->info("aladhan.com '/' stats-api");
+    // $this->logger->info("aladhan.com '/' stats-api");
     $args['title'] = 'AlAdhan API Statistics';
     $args['view'] = 'api';
     $args['days'] = (int) isset($_GET['days']) ? $_GET['days'] : 1;
@@ -207,7 +207,7 @@ $app->get('/stats-api', function ($request, $response, $args) {
 
 $app->get('/consumers-api', function ($request, $response, $args) {
 
-    $this->logger->info("aladhan.com '/' consumers-api");
+    // $this->logger->info("aladhan.com '/' consumers-api");
     $args['title'] = 'Apps and Websites using the AlAdhan API';
     $args['view'] = 'api';
     $args['holydayFloater'] = $this->holyDay;
@@ -217,7 +217,7 @@ $app->get('/consumers-api', function ($request, $response, $args) {
 
 $app->get('/clients-api', function ($request, $response, $args) {
 
-    $this->logger->info("aladhan.com '/' clients-api");
+    // $this->logger->info("aladhan.com '/' clients-api");
     $args['title'] = 'API Clients';
     $args['view'] = 'api';
     $args['holydayFloater'] = $this->holyDay;
@@ -227,7 +227,7 @@ $app->get('/clients-api', function ($request, $response, $args) {
 
 $app->get('/hijri-gregorian-calendar', function ($request, $response, $args) {
 
-    $this->logger->info("aladhan.com '/' hijri-gregorian-calendar");
+    // $this->logger->info("aladhan.com '/' hijri-gregorian-calendar");
 
     $adjustment = -1;
 
@@ -293,7 +293,7 @@ $app->get('/hijri-gregorian-calendar', function ($request, $response, $args) {
 
 $app->get('/gregorian-hijri-calendar', function ($request, $response, $args) {
 
-    $this->logger->info("aladhan.com '/' gregorian-hijri-calendar");
+    // $this->logger->info("aladhan.com '/' gregorian-hijri-calendar");
 
     $adjustment = 1;
 
@@ -354,7 +354,7 @@ $app->get('/gregorian-hijri-calendar', function ($request, $response, $args) {
 
 $app->get('/islamic-holidays', function ($request, $response, $args) {
 
-    $this->logger->info("aladhan.com '/' islamic-holidays");
+    // $this->logger->info("aladhan.com '/' islamic-holidays");
 
     // Add days adjustment here
     $adjustment = -1;
@@ -411,7 +411,7 @@ $app->get('/islamic-holidays', function ($request, $response, $args) {
 
 $app->get('/play', function ($request, $response, $args) {
 
-    $this->logger->info("aladhan.com '/' play");
+    // $this->logger->info("aladhan.com '/' play");
     $args['title'] = 'Adhan Player and Prayer Times Today';
     $args['city'] = '';
     $args['country'] = '';
@@ -430,7 +430,7 @@ $app->get('/play/{city}/{country}', function ($request, $response, $args) {
         $t = new \AlAdhanApi\TimesByCity($city, $country, null, null, 2, 1);
         $times = $t->get()['data'];
     }
-    $this->logger->info("aladhan.com '/' play");
+    // $this->logger->info("aladhan.com '/' play");
     $args['title'] = 'Adhan Player and Prayer Times Today | ' . $city . ' '. $country;
     $args['city'] = $city;
     $args['country'] = $country;
@@ -457,7 +457,7 @@ $app->get('/calendar/{city}/{country}/{a}/{b}', function ($request, $response, $
 });
 
 $app->get('/credits-and-terms', function ($request, $response, $args) {
-    $this->logger->info("aladhan.com '/' credits-and-terms");
+    // $this->logger->info("aladhan.com '/' credits-and-terms");
     $args['title'] = 'Credits, Terms and Conditions';
     $args['view'] = 'terms';
     $args['holydayFloater'] = $this->holyDay;
@@ -467,7 +467,7 @@ $app->get('/credits-and-terms', function ($request, $response, $args) {
 
 $app->get('/calendar', function ($request, $response, $args) {
 
-    $this->logger->info("aladhan.com '/' calendar");
+    // $this->logger->info("aladhan.com '/' calendar");
     $args['title'] = 'Prayer Times Calendar';
     $args['city'] = '';
     $args['country'] = '';
@@ -515,7 +515,7 @@ $app->get('/calendar/{city}/{country}', function ($request, $response, $args) {
         $calendar = $t->get()['data'];
     }
 
-    $this->logger->info("aladhan.com '/' calendar");
+    // $this->logger->info("aladhan.com '/' calendar");
     $args['title'] = 'Prayer Times Calendar | ' . $city . ' ' . $country . ' | ' . $calendar[0]['date']['gregorian']['month']['en'] . ', ' . $year;
     $args['city'] = $city;
     $args['country'] = $country;
