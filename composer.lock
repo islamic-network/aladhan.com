@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "85c88adf16c0fa02aa461b7dde515e0b",
+    "content-hash": "8995c996a759dae74492f54184eeeafa",
     "packages": [
         {
             "name": "aladhan/api-client",
-            "version": "1.13",
+            "version": "1.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/islamic-network/aladhan-api-client-php.git",
-                "reference": "f1de4041c1611ded50826b6cc64f2bfa4de3882e"
+                "reference": "73c142674db406ca2b0c74a8c0b446462d1ff979"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/islamic-network/aladhan-api-client-php/zipball/f1de4041c1611ded50826b6cc64f2bfa4de3882e",
-                "reference": "f1de4041c1611ded50826b6cc64f2bfa4de3882e",
+                "url": "https://api.github.com/repos/islamic-network/aladhan-api-client-php/zipball/73c142674db406ca2b0c74a8c0b446462d1ff979",
+                "reference": "73c142674db406ca2b0c74a8c0b446462d1ff979",
                 "shasum": ""
             },
             "require": {
@@ -40,7 +40,7 @@
                 }
             ],
             "description": "AlAdhan.com REST API Bundle",
-            "time": "2018-08-18T16:05:51+00:00"
+            "time": "2018-11-29T14:08:25+00:00"
         },
         {
             "name": "container-interop/container-interop",

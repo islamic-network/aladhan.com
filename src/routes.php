@@ -47,7 +47,7 @@ $app->get('/asma-al-husna-api', function ($request, $response, $args) {
     $args['title'] = 'Asma Al Husna  API';
     $args['view'] = 'api';
     $args['holydayFloater'] = $this->holyDay;
-    
+
     return $this->renderer->render($response, 'asma-al-husna-api.phtml', $args);
 });
 
@@ -375,27 +375,17 @@ $app->get('/islamic-holidays', function ($request, $response, $args) {
     $islamicYears[] = $currentIslamicYear + 1;
     $islamicYears[] = $currentIslamicYear + 2;
 
-    foreach ($days as $dkey => $d) {
-        foreach ($islamicYears as $y) {
-            // Compute date.
-            $gDay = $cs->hijriToGregorian($d['day'] . '-' . $d['month'] . '-' . $y, $adjustment)['data'];
-            foreach ($years as $year) {
-                if ($gDay['gregorian']['year'] == $year) {
-                    /*if ($year == $current_year) {
-                        $nDate = new DateTime($gDay['gregorian']['date']);
-                        $nDate->modify('-' . $adjustment . ' day');
-                        $gDay['gregorian']['day'] = $nDate->format('d');
-                        $gDay['gregorian']['date'] = $nDate->format('d-m-Y');
-                        $gDay['gregorian']['month']['number'] = $nDate->format('m');
-                        $gDay['gregorian']['month']['en'] = $nDate->format('F');
-                        $gDay['gregorian']['year'] = $nDate->format('Y');
-                        $gDay['gregorian']['weekday']['en'] = $nDate->format('l');
-                    }*/
-                    $days[$dkey][$year] = $gDay['gregorian'];
+    foreach ($islamicYears as $y) {
+        $hols = $cs->hijriHolidaysByYear($y, $adjustment)['data'];
+        foreach ($hols as $dkey => $h) {
+            foreach($years as $year) {
+                if ($year == $h['gregorian']['year']) {
+                    $days[$dkey][$year] = $h['gregorian'];
                 }
             }
         }
     }
+
     $args['title'] = 'Islamic Holidays and Holy Days';
     $args['years'] = $years;
     $args['current_year'] = $current_year;
@@ -546,7 +536,7 @@ $app->get('/calendar/{city}/{country}', function ($request, $response, $args) {
 
     $args['cmonth'] = $month;
     $args['cyear'] = $year;
-    $args['currentDate'] = date('d') . ' ' . date('M') . ' ' . $year; 
+    $args['currentDate'] = date('d') . ' ' . date('M') . ' ' . $year;
     $args['calendar'] = $calendar;
     $args['view'] = 'calendar';
     $args['holydayFloater'] = $this->holyDay;
