@@ -67,15 +67,15 @@ $days = [ 0 =>'Sunday', 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday', 4 => 'T
         <?php foreach ($days as $wday) {?>
             <td>
                 <?=$wday;?>
-            </td>    
+            </td>
         <?php } ?>
             </tr>
         </thead>
         <tbody>
         <?php $x = 0; ?>
-		<?php for($row=0; $row<=$rows; $row++) { ?> 
+		<?php for($row=0; $row<=$rows; $row++) { ?>
             <tr>
-            <?php for($col=0; $col<$cols; $col++) { 
+            <?php for($col=0; $col<$cols; $col++) {
                 if(isset($calendar[$y][$m]['days'][$x])) { ?>
                 <td class="<?php echo (date('d') == $calendar[$y][$m]['days'][$x]['gregorian']['day'] && date('m') == $m) ? 'danger' : '' ?>" style="padding-top: 10px; padding-bottom: 15px; padding-left: 3px;">
                 <?php if ($days[$col] == $calendar[$y][$m]['days'][$x]['gregorian']['weekday']['en']) { ?>
@@ -83,9 +83,9 @@ $days = [ 0 =>'Sunday', 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday', 4 => 'T
                     <span class="bg-active"><?php echo $calendar[$y][$m]['days'][$x]['gregorian']['day'] ; ?> <?php echo $calendar[$y][$m]['days'][$x]['gregorian']['month']['en'] ; ?> - <?php echo date('l', strtotime($calendar[$y][$m]['days'][$x]['gregorian']['date'])) ; ?></span>
 					<br />
                     <span class="bg-primary"><?php echo $calendar[$y][$m]['days'][$x]['hijri']['day'] ; ?> <?php echo $calendar[$y][$m]['days'][$x]['hijri']['month']['en'] ; ?> - <?php echo $calendar[$y][$m]['days'][$x]['hijri']['weekday']['ar'] ; ?></span>
-						<?php if (isset($calendar[$y][$m]['days'][$x]['holidays']) && !empty($calendar[$y][$m]['days'][$x]['holidays'])) { ?>
+						<?php if (!empty($calendar[$y][$m]['days'][$x]['hijri']['holidays'])) { ?>
 							<br />
-							<?php foreach ($calendar[$y][$m]['days'][$x]['holidays'] as $h) { ?>
+							<?php foreach ($calendar[$y][$m]['days'][$x]['hijri']['holidays'] as $h) { ?>
 							<span class="bg-danger"><?php echo $h; ?></span>
 							<br />
 							<?php } ?>

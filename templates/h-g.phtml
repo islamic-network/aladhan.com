@@ -10,7 +10,7 @@
 	<div class="page-header">
         <h2>Hijri to Gregorian Calendar - <?php echo $calendar[$y][$m]['days'][1]['hijri']['month']['en'] . ' ' . $y; ?> AH</h2>
     </div>
-	
+
 	<form role="form" action="/hijri-gregorian-calendar" method="GET" class="hidden" id="calconfig">
 		<div class="row">
 			<div class="col-md-6">
@@ -52,12 +52,12 @@
 			<span class="btn btn-primary" title="Configuration Options" id="configBtn">+</span>
 		</div>
 	</div>
-	
+
     <div class="row">
 		<div class="col-md-1 col-sm-12 col-xs-12">
 			<a href="<?php echo $prevMonth; ?>" class="btn btn-large glyphicon glyphicon-chevron-left"></a>
 		</div>
-		
+
 <?php
 $days = [ 0 =>'Sunday', 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday', 4 => 'Thursday', 5 => 'Friday', 6 => 'Saturday'];
 ?>
@@ -68,15 +68,15 @@ $days = [ 0 =>'Sunday', 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday', 4 => 'T
         <?php foreach ($days as $wday) {?>
             <td>
                 <?=$wday;?>
-            </td>    
+            </td>
         <?php } ?>
             </tr>
         </thead>
         <tbody>
         <?php $x = 1; ?>
-		<?php for($row=0; $row<=$rows; $row++) { ?> 
+		<?php for($row=0; $row<=$rows; $row++) { ?>
             <tr>
-            <?php for($col=0; $col<$cols; $col++) {  
+            <?php for($col=0; $col<$cols; $col++) {
                 if (isset($calendar[$y][$m]['days'][$x])) {
                 ?>
                 <td class="<?php echo (date('d') == $calendar[$y][$m]['days'][$x]['gregorian']['day'] && date('m') == $calendar[$y][$m]['days'][$x]['gregorian']['month']['number'] ) ? 'danger' : '' ?>" style="padding-top: 10px; padding-bottom: 15px; padding-left: 3px;">
@@ -85,9 +85,9 @@ $days = [ 0 =>'Sunday', 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday', 4 => 'T
                     <span class="bg-active"><?php echo $calendar[$y][$m]['days'][$x]['hijri']['day'] ; ?> <?php echo $calendar[$y][$m]['days'][$x]['hijri']['month']['en'] ; ?> - <?php echo $calendar[$y][$m]['days'][$x]['hijri']['weekday']['ar']; ?></span>
 					<br />
                     <span class="bg-primary"><?php echo $calendar[$y][$m]['days'][$x]['gregorian']['day'] ; ?> <?php echo $calendar[$y][$m]['days'][$x]['gregorian']['month']['en'] ; ?> - <?php echo $calendar[$y][$m]['days'][$x]['gregorian']['weekday']['en'] ; ?></span>
-						<?php if (isset($calendar[$y][$m]['days'][$x]['holidays']) && !empty($calendar[$y][$m]['days'][$x]['holidays'])) { ?>
+						<?php if (!empty($calendar[$y][$m]['days'][$x]['hijri']['holidays'])) { ?>
 							<br />
-							<?php foreach ($calendar[$y][$m]['days'][$x]['holidays'] as $h) { ?>
+							<?php foreach ($calendar[$y][$m]['days'][$x]['hijri']['holidays'] as $h) { ?>
 							<span class="bg-danger"><?php echo $h; ?></span>
 							<br />
 							<?php } ?>

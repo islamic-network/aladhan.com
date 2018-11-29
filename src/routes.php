@@ -227,8 +227,6 @@ $app->get('/clients-api', function ($request, $response, $args) {
 
 $app->get('/hijri-gregorian-calendar', function ($request, $response, $args) {
 
-    // $this->logger->info("aladhan.com '/' hijri-gregorian-calendar");
-
     $adjustment = -1;
 
     $cs = $this->HijriCalendarService;
@@ -250,18 +248,10 @@ $app->get('/hijri-gregorian-calendar', function ($request, $response, $args) {
     $cols = 7;
     $rows = $days/$cols;
 
-    $calendar = [];
+    $calDays = $cs->hijriToGregorianCalendar($m, $y, $adjustment)['data'];
 
-    for($i=0; $i<=$days; $i++) {
-        $curDate = $i . '-' . $m . '-' . $y;
-        $calendar[$y][$m]['days'][$i] = $cs->hijriToGregorian($curDate, $adjustment)['data'];
-        $calendar[$y][$m]['days'][$i]['holidays'] = $cs->hijriHolidays($calendar[$y][$m]['days'][$i]['hijri']['day'], $calendar[$y][$m]['days'][$i]['hijri']['month']['number'])['data'];
-        if ($calendar[$y][$m]['days'][$i]['hijri']['month']['number'] != $m) {
-            unset($calendar[$y][$m]['days'][$i]);
-        }
-    }
+    $calendar[$y][$m]['days'] = array_combine(range(1, count($calDays)), array_values($calDays));
 
-    $x = 0;
 
     if ($m == '12') {
         $nextMonth = '?m=1&y=' . ($y + 1);
@@ -293,8 +283,6 @@ $app->get('/hijri-gregorian-calendar', function ($request, $response, $args) {
 
 $app->get('/gregorian-hijri-calendar', function ($request, $response, $args) {
 
-    // $this->logger->info("aladhan.com '/' gregorian-hijri-calendar");
-
     $adjustment = 1;
 
     $m = isset($_GET['m']) ? (int) $_GET['m'] : date('m');
@@ -316,15 +304,7 @@ $app->get('/gregorian-hijri-calendar', function ($request, $response, $args) {
     $cols = 7;
     $rows = $days/$cols;
 
-    $calendar = [];
-
-    for($i=0; $i<=$days; $i++) {
-        $curDate = $i . '-' . $m . '-' . $y;
-        $calendar[$y][$m]['days'][$i] = $cs->gregorianToHijri($curDate, $adjustment)['data'];
-        $calendar[$y][$m]['days'][$i]['holidays'] = $cs->hijriHolidays($calendar[$y][$m]['days'][$i]['hijri']['day'], $calendar[$y][$m]['days'][$i]['hijri']['month']['number'])['data'];
-    }
-
-    $x = 0;
+    $calendar[$y][$m]['days'] = $cs->gregorianToHijriCalendar($m, $y, $adjustment)['data'];
 
     if ($m == '12') {
         $nextMonth = '?m=1&y=' . ($y + 1);
