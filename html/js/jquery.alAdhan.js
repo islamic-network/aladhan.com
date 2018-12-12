@@ -11,7 +11,7 @@ jQuery( document ).ready( function( $ ) {
         _methodFieldId: 'method',
         _latitudeAdjustmentFieldId: 'latiudeAdjustment',
         _schoolFieldId: 'juristicSchool',
-        _adhanFile: 'https://aladhan.com/media/a1.mp3',
+        _adhanFile: 'https://cdn.aladhan.com/audio/adhans/a1.mp3',
         _latitudeAdjustment: '',
         _juristicSchool: '',
         _apiUrl: 'https://api.aladhan.com/v1/',
