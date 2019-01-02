@@ -30,12 +30,12 @@ jQuery( document ).ready( function( $ ) {
             gc._device = $("input[name=currenttimedevice]:radio:checked").val();
             // We want to fetch prayer times initially, but this won't work as the latitude and longitude take time to come back from the Google API.
             // So instead of calling gc.fetchPrayerTimes(), we will simply let monitorLatLng run every 5 seconds, it won't find the timings so will try itself.
-            // See if the adhan needs playing every 2 seconds.
+            // See if the adhan needs playing every 5 seconds.
             setInterval(function() {
                 gc.monitor();
                 gc.playAdhan();
                 gc.getNextPrayerTime();
-            }, 3000);
+            }, 5000);
             setTimeout(function() {
                 gc.adhanFileMonitor();
             }, 3000);
