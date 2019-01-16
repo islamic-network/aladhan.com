@@ -1,3 +1,5 @@
+## بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
+
 # Al Adhan App
 
 This is the code you see deployed on https://aladhan.com. This documentation explains how you can get setup
