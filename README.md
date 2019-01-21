@@ -33,7 +33,7 @@ You can now visit http://localhost:8082/ and start using it.
 
 ### Build and Contribute
 
-** Please note that the Dockerfile included builds a production ready container which has opcache switched on and xdebug turned off, so you will only see your changes every 5 minutes if you are developing. To actively develop, change the ```FROM vesica/php72:latest``` line to ```vesica/php72:dev```. **
+**Please note that the Dockerfile included builds a production ready container which has opcache switched on and xdebug turned off, so you will only see your changes every 5 minutes if you are developing. To actively develop, change the ```FROM vesica/php72:latest``` line to ```vesica/php72:dev```.**
 
 1. Clone this repository
 2. Run ```docker build . -t vesica/aladhan.com```. This will build an image with production dependencies only.
