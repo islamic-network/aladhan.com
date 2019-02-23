@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8995c996a759dae74492f54184eeeafa",
+    "content-hash": "2a1cebfe3fcad00ff41a539fb85fca80",
     "packages": [
         {
             "name": "aladhan/api-client",
@@ -791,6 +791,51 @@
                 "router"
             ],
             "time": "2018-04-19T19:29:08+00:00"
+        },
+        {
+            "name": "tonirilix/nested-json-flattener",
+            "version": "v2.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tonirilix/nested-json-flattener.git",
+                "reference": "20396e7dfd040b6061a5b85e72fe4e187f3d499f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tonirilix/nested-json-flattener/zipball/20396e7dfd040b6061a5b85e72fe4e187f3d499f",
+                "reference": "20396e7dfd040b6061a5b85e72fe4e187f3d499f",
+                "shasum": ""
+            },
+            "require-dev": {
+                "peekmo/jsonpath": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "NestedJsonFlattener\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "tonirilix",
+                    "email": "jesusmontes.mx@hotmail.com"
+                }
+            ],
+            "description": "A php package to flatten nested json objects and nested arrays. It also allows you to create csv files from the flattened data.",
+            "keywords": [
+                "Flatten nested json",
+                "convert json to csv",
+                "csv",
+                "csv writer",
+                "json",
+                "json flattener",
+                "nested json"
+            ],
+            "time": "2018-09-04T06:58:04+00:00"
         }
     ],
     "packages-dev": [
@@ -1499,6 +1544,7 @@
                 "mock",
                 "xunit"
             ],
+            "abandoned": true,
             "time": "2017-06-30T09:13:00+00:00"
         },
         {
@@ -2016,7 +2062,7 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.9.0",
+            "version": "v1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",

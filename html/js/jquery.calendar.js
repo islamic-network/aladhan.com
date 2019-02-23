@@ -31,6 +31,7 @@ jQuery( document ).ready( function( $ ) {
         _calendarButtonId: 'generateCalendar',
         _latitudeAdjustmentFieldId: 'latiudeAdjustment',
         _apiUrl: 'https://api.aladhan.com/',
+        _storedTimings: '',
         init: function() {
             var gc = this;
             // Monitor button to generate calendar
@@ -51,6 +52,24 @@ jQuery( document ).ready( function( $ ) {
                     $('.customSettingsForm').addClass('hidden');
                 }
             });
+
+            $('#downloadAsCsv').on('click', function() {
+                gc.downloadAsCsv();
+            });
+        },
+        downloadAsCsv: function() {
+            var gc = this;
+                var form = $('<form/>', {
+                    action: '/download/csv',
+                    method: "POST"
+                });
+                    form.append($('<input/>', {
+                        type: 'hidden',
+                        name: 'data',
+                        value: JSON.stringify(gc._storedTimings)
+                }));
+                form.appendTo('body').submit();
+
         },
         fetchCalendar: function() {
             var gc = this;
@@ -112,6 +131,7 @@ jQuery( document ).ready( function( $ ) {
                         tune: tuneString
                     }
                 };
+
                 // Post to API
                 $.ajax({
                     type: "GET",
@@ -125,6 +145,7 @@ jQuery( document ).ready( function( $ ) {
                         var dateBrowser = dBrowser.toDateString();
 
                         var html = '';
+                        gc._storedTimings = data.data;
                         $.each(data.data, function(i, v) {
                             //console.log(v.date.readable);
                             var bgColor = '';

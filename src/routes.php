@@ -1,4 +1,5 @@
 <?php
+
 // Routes
 $app->get('/', function ($request, $response, $args) {
 
@@ -525,7 +526,23 @@ $app->get('/calendar/{city}/{country}', function ($request, $response, $args) {
 });
 
 
-$app->get('/locations', function ($request, $response, $args) {
+$app->post('/download/{format}', function (\Slim\Http\Request $request, $response, $args) {
+    $format = $request->getAttribute('format');
+    $data = $request->getParsedBodyParam('data');
+    $timings = json_decode($data);
 
-
+    if ($format === 'csv' && is_array($timings)) {
+        $flattener = new \NestedJsonFlattener\Flattener\Flattener();
+        $flattener->setArrayData($timings);
+        $file = 'csv'.rand();
+        $flattener->writeCsv($file);
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="'.basename($file).'"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        readfile($file.'.csv');
+        unlink($file.'.csv');
+    }
 });

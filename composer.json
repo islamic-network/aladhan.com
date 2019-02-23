@@ -10,7 +10,8 @@
         "slim/php-view": "^2.0",
         "monolog/monolog": "^1.17",
         "aladhan/api-client": "^1.14",
-        "oscarotero/psr7-middlewares": "^3.20"
+        "oscarotero/psr7-middlewares": "^3.20",
+        "tonirilix/nested-json-flattener": "^2.1"
     },
     "require-dev": {
         "phpunit/phpunit": ">=4.8 < 6.0"

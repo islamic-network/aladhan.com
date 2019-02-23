@@ -179,6 +179,7 @@
     <div class="row" id="showCalendarConfigForm" style="display: none">
         <div class="col-md-12 col-centered" >
             <a href="#" id ="showCalendarConfigFormButton" class="btn btn-primary">Show Calendar Settings</a>
+            <a href="#" id ="downloadAsCsv" class="btn btn-primary">Download Timings as CSV</a>
         </div>
     </div>
     <hr />
@@ -220,13 +221,14 @@
     <img src="/images/loader.svg" />
     <div>Loading</div>
 </div>
-<script src="/js/jquery.calendar.js?v1" type="text/javascript"></script>
+<script src="/js/jquery.calendar.js?<?=time();?>" type="text/javascript"></script>
 <script>
 $(function(){
   $.nsCalendar.init();
   <?php if(!empty($calendar)) { ?>
   $('#calendarConfigForm').hide();
   $('#showCalendarConfigForm').slideDown();
+  $.nsCalendar._storedTimings = <?=json_encode($calendar);?>;
   <?php } ?>
 });
 </script>
