@@ -18,6 +18,7 @@
                         <option value="<?php echo $key;  ?>" name="<?php echo $val; ?>"
                     <?php echo $key == $cmonth ? 'selected' : ''; ?> ><?php echo $val; ?></option>
                     <?php } ?>
+                        <option value="annual">Annual</option>
                     </select>
                 </div>
             </div>
@@ -129,8 +130,8 @@
         <div class="row">
             <div class="form-group">
                 <div class="col-md-1">
-                    <label for="tuneImask">Imask</label>
-                    <input class="form-control" name="tuneImask" id="tuneImask" value="0" />
+                    <label for="tuneImsak">Imask</label>
+                    <input class="form-control" name="tuneImsak" id="tuneImsak" value="0" />
                 </div>
                 <div class="col-md-1">
                     <label for="tuneFajr">Fajr</label>
@@ -221,7 +222,7 @@
     <img src="/images/loader.svg" />
     <div>Loading</div>
 </div>
-<script src="/js/jquery.calendar.js?v=3" type="text/javascript"></script>
+<script src="/js/jquery.calendar.js?v=5" type="text/javascript"></script>
 <script>
 $(function(){
   $.nsCalendar.init();

@@ -530,12 +530,22 @@ $app->post('/download/{format}', function (\Slim\Http\Request $request, $respons
     $format = $request->getAttribute('format');
     $data = $request->getParsedBodyParam('data');
     $timings = json_decode($data);
+    if (is_object($timings)) {
+        $ts = [];
+        foreach ($timings as $month => $tx) {
+            foreach ($tx as $ty) {
+                $ts[] = (array) $ty;
+            }
+        }
+        $timings = $ts;
+    }
 
     if ($format === 'csv' && is_array($timings)) {
         $flattener = new \NestedJsonFlattener\Flattener\Flattener();
         $flattener->setArrayData($timings);
         $file = 'csv'.rand();
         $flattener->writeCsv($file);
+
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
         header('Content-Disposition: attachment; filename="'.basename($file).'.csv"');

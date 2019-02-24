@@ -95,17 +95,21 @@ jQuery( document ).ready( function( $ ) {
             gc._tuneIsha = $('#tuneIsha').val();
             gc._tuneMidnight = $('#tuneMidnight').val();
             var tuneString = gc._tuneImsak + ',' +
-            gc._tuneFajr + ',' +
-            gc._tuneSunrise + ',' +
-            gc._tuneZhuhr + ',' +
-            gc._tuneAsr + ',' +
-            gc._tuneSunset + ',' +
-            gc._tuneMaghrib + ',' +
-            gc._tuneIsha + ',' +
-            gc._tuneMidnight;
+                gc._tuneFajr + ',' +
+                gc._tuneSunrise + ',' +
+                gc._tuneZhuhr + ',' +
+                gc._tuneAsr + ',' +
+                gc._tuneSunset + ',' +
+                gc._tuneMaghrib + ',' +
+                gc._tuneIsha + ',' +
+                gc._tuneMidnight;
             var methodSettings = gc._customFajrAngle + ',' +
             gc._customMaghribAngle + ',' +
             gc._customIshaAngle;
+            annual = 'false';
+            if (gc._month == 'annual') {
+                annual = 'true';
+            }
 
             if (gc._location != '') {
                 $('.loader').show();
@@ -118,7 +122,8 @@ jQuery( document ).ready( function( $ ) {
                         latitudeAdjustmentMethod: gc._latitudeAdjustment,
                         midnightMode: gc._midnightMode,
                         tune: tuneString,
-                        methodSettings: methodSettings
+                        methodSettings: methodSettings,
+                        annual: annual
                     }
                 } else {
                     var credentials = {
@@ -128,7 +133,8 @@ jQuery( document ).ready( function( $ ) {
                         year: gc._year,
                         latitudeAdjustmentMethod: gc._latitudeAdjustment,
                         midnightMode: gc._midnightMode,
-                        tune: tuneString
+                        tune: tuneString,
+                        annual: annual
                     }
                 };
 
@@ -140,46 +146,94 @@ jQuery( document ).ready( function( $ ) {
                     data: credentials,
                     dataType: 'json',
                     success: function(data) {
-                        // Update timings
-                        var dBrowser = new Date();
-                        var dateBrowser = dBrowser.toDateString();
-
-                        var html = '';
-                        gc._storedTimings = data.data;
-                        $.each(data.data, function(i, v) {
-                            //console.log(v.date.readable);
-                            var bgColor = '';
-                            var dCalc = new Date(v.date.timestamp * 1000);
-                            var dateCalc = dCalc.toDateString();
-                            if (dateBrowser == dateCalc) {
-                                bgColor = 'danger';
-                            }
-                            html += '<tr class="show-grid ' +  bgColor + '">';
-                            html += '<td>' + v.date.readable + '</td>';
-                            $.each(v.timings, function(name, time) {
-                                if ( name != 'Sunset' && name !== 'Imsak') {
-                                    html += '<td>';
-                                    html +=  time;
-                                    html += '</td>';
-                                }
-                            });
-
-                            html += '</tr>';
-                        });
-                        $('.timesLoader').hide();
-                        $('#generatedCalendar').html(html);
-                        // Slide up calendar config
-                        $('#calendarConfigForm').slideUp();
-                        $('#showCalendarConfigForm').slideDown();
-                        // Change calendar heading
-                        $('#calendarHeading').html(locationName + ' - ' + gc._monthName
-                                + ', ' + gc._year);
+                        if (annual == 'true') {
+                            gc.renderYearly(data, locationName);
+                        } else {
+                            gc.renderMonthly(data, locationName);
+                        }
                     }
                 });
                 $('.loader').hide();
             } else {
                 //alert('Sorry! Unable to access Aladhan API.');
             }
+        },
+        renderYearly: function(data, locationName) {
+            var gc = this;
+            // Update timings
+            var dBrowser = new Date();
+            var dateBrowser = dBrowser.toDateString();
+
+            var html = '';
+            gc._storedTimings = data.data;
+            $.each(data.data, function(w, x) {
+                $.each(x, function(i, v) {
+
+                    var bgColor = '';
+                    var dCalc = new Date(v.date.timestamp * 1000);
+                    var dateCalc = dCalc.toDateString();
+                    if (dateBrowser == dateCalc) {
+                        bgColor = 'danger';
+                    }
+                    html += '<tr class="show-grid ' + bgColor + '">';
+                    html += '<td>' + v.date.readable + '</td>';
+                    $.each(v.timings, function (name, time) {
+                        if (name != 'Sunset' && name !== 'Imsak') {
+                            html += '<td>';
+                            html += time;
+                            html += '</td>';
+                        }
+                    });
+                });
+
+                html += '</tr>';
+            });
+            $('.timesLoader').hide();
+            $('#generatedCalendar').html(html);
+            // Slide up calendar config
+            $('#calendarConfigForm').slideUp();
+            $('#showCalendarConfigForm').slideDown();
+            // Change calendar heading
+            $('#calendarHeading').html(locationName + ' - ' + gc._year);
+
+        },
+        renderMonthly: function(data, locationName) {
+            var gc = this;
+            // Update timings
+            var dBrowser = new Date();
+            var dateBrowser = dBrowser.toDateString();
+
+            var html = '';
+            gc._storedTimings = data.data;
+            $.each(data.data, function(i, v) {
+
+                var bgColor = '';
+                var dCalc = new Date(v.date.timestamp * 1000);
+                var dateCalc = dCalc.toDateString();
+                if (dateBrowser == dateCalc) {
+                    bgColor = 'danger';
+                }
+                html += '<tr class="show-grid ' + bgColor + '">';
+                html += '<td>' + v.date.readable + '</td>';
+                $.each(v.timings, function (name, time) {
+                    if (name != 'Sunset' && name !== 'Imsak') {
+                        html += '<td>';
+                        html += time;
+                        html += '</td>';
+                    }
+                });
+
+                html += '</tr>';
+            });
+            $('.timesLoader').hide();
+            $('#generatedCalendar').html(html);
+            // Slide up calendar config
+            $('#calendarConfigForm').slideUp();
+            $('#showCalendarConfigForm').slideDown();
+            // Change calendar heading
+            $('#calendarHeading').html(locationName + ' - ' + gc._monthName
+                + ', ' + gc._year);
+
         },
         updateTimesDisplay: function() {
             $.each(this._timings, function(i, v) {
