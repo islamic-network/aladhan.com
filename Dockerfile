@@ -7,3 +7,5 @@ COPY /etc/apache2/mods-enabled/mpm_prefork.conf /etc/apache2/mods-enabled/mpm_pr
 
 # Run Composer
 RUN cd /var/www && composer install --no-dev
+
+RUN chown -R www-data:www-data /var/www
