@@ -538,7 +538,7 @@ $app->post('/download/{format}', function (\Slim\Http\Request $request, $respons
         $flattener->writeCsv($file);
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename="'.basename($file).'"');
+        header('Content-Disposition: attachment; filename="'.basename($file).'.csv"');
         header('Expires: 0');
         header('Cache-Control: must-revalidate');
         header('Pragma: public');
