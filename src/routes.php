@@ -228,7 +228,7 @@ $app->get('/clients-api', function ($request, $response, $args) {
 
 $app->get('/hijri-gregorian-calendar', function ($request, $response, $args) {
 
-    $adjustment = -1;
+    $adjustment = 0;
 
     $cs = $this->HijriCalendarService;
 
@@ -284,7 +284,7 @@ $app->get('/hijri-gregorian-calendar', function ($request, $response, $args) {
 
 $app->get('/gregorian-hijri-calendar', function ($request, $response, $args) {
 
-    $adjustment = 1;
+    $adjustment = 0;
 
     $m = isset($_GET['m']) ? (int) $_GET['m'] : date('m');
     if ($m > 12) {
@@ -338,7 +338,7 @@ $app->get('/islamic-holidays', function ($request, $response, $args) {
     // $this->logger->info("aladhan.com '/' islamic-holidays");
 
     // Add days adjustment here
-    $adjustment = -1;
+    $adjustment = 0;
     // Add days adjustment above
 
     $current_year = date('Y');
@@ -395,10 +395,11 @@ $app->get('/play', function ($request, $response, $args) {
 $app->get('/play/{city}/{country}', function ($request, $response, $args) {
     $city = $request->getAttribute('city');
     $country = $request->getAttribute('country');
+    $adjustment = 0;
     $times = [];
     if ($city != null && $country != null) {
 	// ISNA is default method. Adjustment of +1 day added for Dhul Hijjah 2018.
-        $t = new \AlAdhanApi\TimesByCity($city, $country, null, null, 2, 1);
+        $t = new \AlAdhanApi\TimesByCity($city, $country, null, null, 2, $adjustment);
         $times = $t->get()['data'];
     }
     // $this->logger->info("aladhan.com '/' play");
@@ -478,11 +479,12 @@ $app->get('/calendar', function ($request, $response, $args) {
 $app->get('/calendar/{city}/{country}', function ($request, $response, $args) {
     $city = $request->getAttribute('city');
     $country = $request->getAttribute('country');
+    $adjustment = 0;
     $calendar = [];
     $month = date('m');
     $year = date('Y');
     if ($city != null && $country != null) {
-        $t = new \AlAdhanApi\CalendarByCity($city, $country, $month, $year, null, 2, false, 1);
+        $t = new \AlAdhanApi\CalendarByCity($city, $country, $month, $year, null, 2, false, 0);
         $calendar = $t->get()['data'];
     }
 

@@ -32,6 +32,7 @@ jQuery( document ).ready( function( $ ) {
         _latitudeAdjustmentFieldId: 'latiudeAdjustment',
         _apiUrl: 'https://api.aladhan.com/',
         _storedTimings: '',
+        _daysAdjustment: 0,
         init: function() {
             var gc = this;
             // Monitor button to generate calendar
@@ -123,7 +124,8 @@ jQuery( document ).ready( function( $ ) {
                         midnightMode: gc._midnightMode,
                         tune: tuneString,
                         methodSettings: methodSettings,
-                        annual: annual
+                        annual: annual,
+                        adjustment: gc._daysAdjustment
                     }
                 } else {
                     var credentials = {
@@ -134,7 +136,8 @@ jQuery( document ).ready( function( $ ) {
                         latitudeAdjustmentMethod: gc._latitudeAdjustment,
                         midnightMode: gc._midnightMode,
                         tune: tuneString,
-                        annual: annual
+                        annual: annual,
+                        adjustment: gc._daysAdjustment
                     }
                 };
 
