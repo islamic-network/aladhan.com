@@ -100,8 +100,8 @@ jQuery( document ).ready( function( $ ) {
                 gc._tuneSunrise + ',' +
                 gc._tuneZhuhr + ',' +
                 gc._tuneAsr + ',' +
-                gc._tuneSunset + ',' +
                 gc._tuneMaghrib + ',' +
+                gc._tuneSunset + ',' +
                 gc._tuneIsha + ',' +
                 gc._tuneMidnight;
             var methodSettings = gc._customFajrAngle + ',' +
