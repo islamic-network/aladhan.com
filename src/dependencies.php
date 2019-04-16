@@ -2,6 +2,10 @@
 
 // DIC configuration. Remove this dependency on an API class. Use the API instead.
 use AlAdhanApi\HijriGregorianCalendar;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 $container = $app->getContainer();
 
@@ -14,27 +18,33 @@ $container['renderer'] = function ($c) {
 // monolog
 $container['logger'] = function ($c) {
     $settings = $c->get('settings')['logger'];
-    $logger = new Monolog\Logger($settings['name']);
-    $logger->pushProcessor(new Monolog\Processor\UidProcessor());
-    $logger->pushHandler(new \Monolog\Handler\ErrorLogHandler());
+    $logger = new Logger($settings['name']);
+    $logger->pushHandler(new StreamHandler('php://stdout', $settings['name']));
     return $logger;
 };
 
 // Hijri Cal Service
 $container['HijriCalendarService'] = function($c) {
+
     return new HijriGregorianCalendar();
 };
 
 $container['holyDay'] = function($c) {
-    $cs = new HijriGregorianCalendar();
-    return $cs->nextHijriHoliday(0)['data'];
+    try {
+        $cs = $c->HijriCalendarService;
+
+        return $cs->nextHijriHoliday(0)['data'];
+    } catch (Exception $e) {
+        $c->logger->error('Unable to get Holy Day', ['code' => $e->getCode(), 'message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
+    }
 };
 
 $container['errorHandler'] = function ($c) {
-    return function ($request, $response, $exception) use ($c) {
-        return $c['response']->withStatus(500)
+    return function (Request $request, Response $response, Exception $e) use ($c) {
+        $c->logger->error('Slim Error Handler Triggered', ['code' => $e->getCode(), 'message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
+        return $c['response']->withStatus($e->getCode())
                             ->withHeader('Content-Type', 'text/html')
-                            ->write('Sorry, we could not find the location or URL you are after. ');
+                            ->write($e->getMessage());
     };
 };
 
@@ -43,6 +53,6 @@ $container['notFoundHandler'] = function ($c) {
         return $c['response']
             ->withStatus(404)
             ->withHeader('Content-Type', 'text/html')
-            ->write('Sorry, we could not find the URL you are after');
+            ->write('Sorry, we could not find the URL you are after.');
     };
 };

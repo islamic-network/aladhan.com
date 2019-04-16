@@ -1,0 +1,7 @@
+.git
+.circleci
+.idea
+logs
+.gitignore
+phpunit.xml
+README.xml

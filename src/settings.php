@@ -1,4 +1,6 @@
 <?php
+use Psr\Log\LogLevel;
+
 return [
     'settings' => [
         'displayErrorDetails' => false, // set to false in production
@@ -11,9 +13,8 @@ return [
 
         // Monolog settings
         'logger' => [
-            'name' => 'slim-app',
-            'path' => __DIR__ . '/../logs/app.log',
-            'level' => \Monolog\Logger::DEBUG,
+            'name' => 'AlAdhanApp',
+            'level' => LogLevel::INFO,
         ],
     ],
 ];
