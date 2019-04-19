@@ -33,7 +33,7 @@ $container['holyDay'] = function($c) {
     try {
         $cs = $c->HijriCalendarService;
 
-        return $cs->nextHijriHoliday(0)['data'];
+        return $cs->nextHijriHoliday(1)['data'];
     } catch (Exception $e) {
         $c->logger->error('Unable to get Holy Day', ['code' => $e->getCode(), 'message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
     }
