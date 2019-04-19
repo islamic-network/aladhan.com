@@ -338,7 +338,7 @@ $app->get('/islamic-holidays', function ($request, $response, $args) {
     // $this->logger->info("aladhan.com '/' islamic-holidays");
 
     // Add days adjustment here
-    $adjustment = 1;
+    $adjustment = -1;
     // Add days adjustment above
 
     $current_year = date('Y');
