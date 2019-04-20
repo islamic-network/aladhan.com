@@ -29,11 +29,19 @@ $container['HijriCalendarService'] = function($c) {
     return new HijriGregorianCalendar();
 };
 
+$container['gToHAdjustment'] = function($c) {
+    return 1;
+};
+
+$container['hToGAdjustment'] = function($c) {
+    return -1;
+};
+
 $container['holyDay'] = function($c) {
     try {
         $cs = $c->HijriCalendarService;
 
-        return $cs->nextHijriHoliday(1)['data'];
+        return $cs->nextHijriHoliday($c->gToHAdjustment)['data'];
     } catch (Exception $e) {
         $c->logger->error('Unable to get Holy Day', ['code' => $e->getCode(), 'message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
     }
@@ -56,3 +64,22 @@ $container['notFoundHandler'] = function ($c) {
             ->write('Sorry, we could not find the URL you are after.');
     };
 };
+
+/** Invoke Middleware for Load Balancer Checks */
+$app->add(function (Request $request, Response $response, $next) {
+    $lbMode = (bool) getenv('LOAD_BALANCER_MODE');
+    if ($lbMode) {
+        // Validate Key
+        if (isset($request->getHeader('X-LOAD-BALANCER')[0]) && $request->getHeader('X-LOAD-BALANCER')[0] === getenv('LOAD_BALANCER_KEY')) {
+            $response = $next($request, $response);
+
+            return $response;
+        }
+
+        throw new \Exception('Invalid Load Balancer Key.', 403);
+    }
+
+    $response = $next($request, $response);
+
+    return $response;
+});
