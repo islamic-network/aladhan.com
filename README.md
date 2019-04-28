@@ -26,12 +26,12 @@ to deploy your own instance and contribute code.
 
 The app is fully Dockerised. You **just need docker** to spin it up.
 
-A production ready Docker image of the app is published as vesica/aladhan.com on Docker Hub (https://hub.docker.com/r/vesica/aladhan.com/).
+A production ready Docker image of the app is published as quay.io/islamic-network/aladhan.com on Docker Hub (https://quay.io/repository/islamic-network/aladhan.com).
 
 To get your own instance up, simply run:
 
 ```
-docker run -it -p 8082:8080  vesica/aladhan.com:latest
+docker run -it -p 8082:8080  quay.io/vesica/aladhan.com:latest
 ``` 
 
 You can now visit http://localhost:8082/ and start using it.
