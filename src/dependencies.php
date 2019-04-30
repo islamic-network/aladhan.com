@@ -31,18 +31,18 @@ $container['HijriCalendarService'] = function($c) {
 };
 
 $container['gToHAdjustment'] = function($c) {
-    return 1;
+    return 0;
 };
 
 $container['hToGAdjustment'] = function($c) {
-    return -1;
+    return -0;
 };
 
 $container['holyDay'] = function($c) {
     try {
         $cs = $c->HijriCalendarService;
 
-        return $cs->nextHijriHoliday(0)['data'];
+        return $cs->nextHijriHoliday($c->hToGAdjustment)['data'];
     } catch (Exception $e) {
         $c->logger->error('Unable to get Holy Day', ['code' => $e->getCode(), 'message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
     }
