@@ -7,6 +7,11 @@ ExpiresByType application/javascript "access plus 1 hour"
 ExpiresByType text/html "access plus 1 hour"
 
 RewriteEngine On
+
+<If "%{ENV:LOAD_BALANCER_MODE} == '1' && %{HTTP:X-LOAD-BALANCER} != %{ENV:LOAD_BALANCER_KEY}">
+    RewriteRule .* - [F]
+</If>
+
 # RewriteBase /
 RewriteCond %{HTTP_HOST} ^www.aladhan.com$
 RewriteRule (.*)$ https://aladhan.com/$1 [R=301,L]
