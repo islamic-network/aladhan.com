@@ -14,6 +14,7 @@ RewriteEngine On
 
 # RewriteBase /
 RewriteCond %{HTTP_HOST} ^www.aladhan.com$
+RewriteCond %{HTTPS} off
 RewriteRule (.*)$ https://aladhan.com/$1 [R=301,L]
 
 # Default rules for Slim
