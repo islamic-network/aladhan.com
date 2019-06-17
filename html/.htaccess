@@ -14,9 +14,14 @@ RewriteEngine On
 </If>
 
 # RewriteBase /
-RewriteCond %{HTTP_HOST} ^www.aladhan.com$
-RewriteCond %{HTTPS} off
-RewriteRule (.*)$ https://aladhan.com/$1 [R=301,L]
+RewriteEngine On
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,NE,R=301]
+#RewriteCond %{HTTP_HOST} ^www.aladhan.com$
+#RewriteCond %{HTTPS} off
+#RewriteRule (.*)$ https://aladhan.com/$1 [R=301,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.php [QSA,L]
