@@ -13,12 +13,12 @@ RewriteEngine On
     RewriteRule .* - [F]
 </If>
 
-
 # RewriteBase /
 RewriteCond %{HTTP_HOST} ^www.aladhan.com$
-RewriteCond %{HTTPS} off
+RewriteCond %{HTTPS} !=on
 RewriteRule (.*)$ https://aladhan.com/$1 [R=301,L]
 
 # Default rules for Slim
 RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.php [QSA,L]
