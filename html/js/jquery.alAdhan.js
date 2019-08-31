@@ -20,7 +20,7 @@ jQuery( document ).ready( function( $ ) {
         _nextPrayer: '',
         _paused: true,
         _timestamp: '',
-        _daysAdjustment: 1,
+        _daysAdjustment: 2,
         init: function() {
             var gc = this;
             gc._location = $('#' + gc._locationFieldId).val();
