@@ -26,5 +26,23 @@ $(function() {
   $('#time').on('click', function() {
       $('.nextPrayer').hide();
       $('.timings').show();
+      $('#fullscreen').removeClass('hidden');
+      $('#normalscreen').addClass('hidden');
+      $('#footer').show();
+      $('#navigation').show();
+  });
+
+  $('#fullscreen').on('click', function() {
+      $(this).addClass('hidden');
+      $('#normalscreen').removeClass('hidden');
+      $('#footer').hide();
+      $('#navigation').hide();
+  });
+
+  $('#normalscreen').on('click', function() {
+      $(this).addClass('hidden');
+      $('#fullscreen').removeClass('hidden');
+      $('#footer').show();
+      $('#navigation').show();
   });
 });

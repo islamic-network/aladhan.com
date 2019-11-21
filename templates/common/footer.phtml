@@ -1,6 +1,6 @@
 <div id="footer">
     <div class="container">
-        <p class="text-muted">&copy; 2013 - <?=date('Y'); ?> Respective contributors. Read the <a href="/credits-and-terms">credits, terms and conditons</a> for more information.</p>
+        <p class="text-muted">&copy; 2013 - <?=date('Y'); ?> <a href="https://islamic.network" target="_blank">Islamic Network</a> and respective contributors. Read the <a href="/credits-and-terms">credits, terms and conditons</a> for more information.</p>
     </div>
 </div>
 <?php if ($holydayFloater) { ?>
@@ -9,7 +9,7 @@
         <span class="btn btn-danger btn-red">
             Upcoming Holy Day: <b><?php echo implode(', ', $holydayFloater['hijri']['holidays']); ?></b> on <?php echo $holydayFloater['gregorian']['day']; ?> <?php echo $holydayFloater['gregorian']['month']['en']; ?> <?php echo $holydayFloater['gregorian']['year']; ?> 
         </span></a>
-    <span class="caret linkify" id="hideHolydayFloater"></span>    
+    <span class="glyphicon glyphicon-chevron-down btn" id="hideHolydayFloater"></span>    
 </div>
 <!-- Include all compiled bootstrap plugins (below), or include individual files as needed-->
 
@@ -23,10 +23,9 @@ $(function() {
 <?php } ?>
 
 <div class="nextPrayer panel">
-        <span id="time" class="btn"></span>
-<span class="dropup">
-    <span class="caret linkify" id="hideNextPrayer"></span>
-</span>    
+    <span id="time" class="btn"></span>
+    <span class="glyphicon glyphicon-resize-full btn" id="fullscreen" ria-hidden="true"></span>
+    <span class="glyphicon glyphicon-resize-small hidden btn" id="normalscreen" ria-hidden="true"></span>
 </div>
 
 <script src="/js/app.js" type="text/javascript"></script>
