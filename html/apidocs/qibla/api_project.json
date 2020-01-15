@@ -1,0 +1,1 @@
+{  "name": "Qibla Calculation API by AlAdhan",  "version": "1.0.0",  "description": "A REST API (over HTTP and HTTPS) providing Qibla direction Calculations",  "sampleUrl": false,  "defaultVersion": "0.0.0",  "apidoc": "0.3.0",  "generator": {    "name": "apidoc",    "time": "2020-01-15T08:22:07.191Z",    "url": "http://apidocjs.com",    "version": "0.17.6"  }}

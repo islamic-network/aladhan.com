@@ -72,14 +72,19 @@ $app->get('/play/', function ($request, $response, $args) {
 });
 
 $app->get('/rest-api', function ($request, $response, $args) {
-
-    // $this->logger->info("aladhan.com '/' rest-api");
     return $response->withStatus(301)->withHeader('Location', '/prayer-times-api');
 });
 
-$app->get('/islamic-calendar-api', function ($request, $response, $args) {
+$app->get('/qibla-api', function ($request, $response, $args) {
+    $args['apidocs'] = json_decode(file_get_contents('../html/apidocs/qibla/api_data.json'));
+    $args['title'] = 'Qibla Direction API';
+    $args['view'] = 'api';
+    $args['holydayFloater'] = $this->holyDay;
 
-    // $this->logger->info("aladhan.com '/' islamic-calendar-api");
+    return $this->renderer->render($response, 'qibla-api.phtml', $args);
+});
+
+$app->get('/islamic-calendar-api', function ($request, $response, $args) {
     $args['apidocs'] = json_decode(file_get_contents('../html/apidocs/hijri/api_data.json'));
     $args['title'] = 'Islamic / Hijri Calendar API';
     $args['view'] = 'api';
@@ -89,8 +94,6 @@ $app->get('/islamic-calendar-api', function ($request, $response, $args) {
 });
 
 $app->get('/download-adhans', function ($request, $response, $args) {
-
-    // $this->logger->info("aladhan.com '/' download-adhans");
     $args['title'] = 'Download Adhans';
     $args['view'] = 'api';
     $args['holydayFloater'] = $this->holyDay;
