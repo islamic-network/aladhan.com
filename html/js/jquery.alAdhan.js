@@ -11,6 +11,7 @@ jQuery( document ).ready( function( $ ) {
         _methodFieldId: 'method',
         _latitudeAdjustmentFieldId: 'latiudeAdjustment',
         _schoolFieldId: 'juristicSchool',
+        _customAdhanFile: null,
         _adhanFile: 'https://cdn.aladhan.com/audio/adhans/a1.mp3',
         _latitudeAdjustment: '',
         _juristicSchool: '',
@@ -294,10 +295,25 @@ jQuery( document ).ready( function( $ ) {
                 defaultAudioWidth: 250
             });
             gc._player.setSrc(gc._adhanFile);
-            $('#adhanfile').on('change', function() {
-                gc._adhanFile = $(this).val();
-                // Now also update the source of the player with this file.
+            $('#customAdhanFile').on('change', function() {
+                gc._adhanFile = gc._customAdhanFile = URL.createObjectURL($(this).prop('files')[0]);
                 gc._player.setSrc(gc._adhanFile);
+            });
+            $('#adhanfile').on('change', function() {
+                var val = $(this).val();
+                if (val === 'custom') {
+                    $('#customAdhanFile').trigger('click');
+                } else {
+                    gc._adhanFile = val;
+                    // Now also update the source of the player with this file.
+                    gc._player.setSrc(gc._adhanFile);
+
+                    if (gc._customAdhanFile !== null) {
+                        URL.revokeObjectURL(gc._customAdhanFile);
+                        gc._customAdhanFile = null;
+                        $('#customAdhanFile').val('');
+                    }
+                }
             });
         },
         getAndDisplayDate: function() {
