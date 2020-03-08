@@ -13,6 +13,8 @@ jQuery( document ).ready( function( $ ) {
         _schoolFieldId: 'juristicSchool',
         _customAdhanFile: null,
         _adhanFile: 'https://cdn.aladhan.com/audio/adhans/a1.mp3',
+        // from http://www.assabile.com/adhan-call-prayer
+        _fajrAdhanFile: 'https://media.sd.ma/assabile/adhan_3435370/ddb21f7363eb.mp3',
         _latitudeAdjustment: '',
         _juristicSchool: '',
         _apiUrl: 'https://api.aladhan.com/v1/',
@@ -140,11 +142,15 @@ jQuery( document ).ready( function( $ ) {
         playAdhan: function() {
             var gc = this;
             var currentTime = gc.calculateCurrentTime();
-            var match = gc.doesPrayerTimeMatch(currentTime);
-            if (match) {
+            var match = gc.getMatchingTiming(currentTime);
+            if (match !== null) {
                 gc.setMEStatus();
                 if (gc._currentlyPlaying !== true && gc._paused === true) {
-                    gc._player.setSrc(gc._adhanFile);
+                    if (match === 'Fajr' && $("#different_fajr_adhan").is(':checked')) {
+                        gc._player.setSrc(gc._fajrAdhanFile);
+                    } else {
+                        gc._player.setSrc(gc._adhanFile);
+                    }
                     gc._player.play();
                     gc._currentlyPlaying = true;
                 }
@@ -244,9 +250,9 @@ jQuery( document ).ready( function( $ ) {
             }
             return theTime;
         },
-        doesPrayerTimeMatch: function(currentTime) {
+        getMatchingTiming: function(currentTime) {
             var gc = this;
-            var result = false;
+            var result = null;
             $.each(gc._timings, function(i, v) {
                 pT = v.split(":");
                 var prayerTime = {
@@ -262,7 +268,7 @@ jQuery( document ).ready( function( $ ) {
                         // Check that this value is not for sunset or sunrise or imsask or midnight.
                         if (i != 'Sunset' && i != 'Sunrise' && i != 'Imsak' && i != 'Midnight') {
                             //console.log('Prayer time matched');
-                            result = true;
+                            result = i;
                             //return false;
                         }
                     }
