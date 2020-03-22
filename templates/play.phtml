@@ -28,7 +28,6 @@ $times['date']['hijri']['day'] . ' ' . $times['date']['hijri']['month']['en'] . 
         </dl>
         <form role="form">
             <div class="form-group">
-                <input type="file" id="customAdhanFile" accept="audio/*" style="display: none">
                 <label for="adhanfile">Select Adhan to play when it's time</label>
                 <select id="adhanfile" name="adhanfile" class="form-control">
                     <option value="https://cdn.aladhan.com/audio/adhans/a1.mp3" selected="">Adhan by Ahmad al Nafees</option>
@@ -38,8 +37,11 @@ $times['date']['hijri']['day'] . ' ' . $times['date']['hijri']['month']['en'] . 
                     <option value="https://cdn.aladhan.com/audio/adhans/a7.mp3">Another Adhan by Mishary Rashid Alafasy</option>
                     <option value="https://cdn.aladhan.com/audio/adhans/a9.mp3">Another Adhan by Mishary Rashid Alafasy</option>
                 </select>
-                <label for="different_fajr_adhan">Play different Adhan at Fajr? </label>
-                <input type="checkbox" id="different_fajr_adhan" name="different_fajr_adhan" checked>
+                <label for="different_fajr_adhan">Play different Adhan at Fajr?</label>
+                <input type="checkbox" id="different_fajr_adhan" name="different_fajr_adhan">
+                <select id="fajrAdhanfile" name="fajrAdhanfile" class="form-control" style="display: none;">
+                    <option value="https://cdn.aladhan.com/audio/adhans/fajr/f1.mp3" selected="">Fajr Adhan</option>
+                </select>
             </div>
         </form>
         <hr />

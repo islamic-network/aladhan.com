@@ -11,10 +11,10 @@ jQuery( document ).ready( function( $ ) {
         _methodFieldId: 'method',
         _latitudeAdjustmentFieldId: 'latiudeAdjustment',
         _schoolFieldId: 'juristicSchool',
-        _customAdhanFile: null,
         _adhanFile: 'https://cdn.aladhan.com/audio/adhans/a1.mp3',
-        // from http://www.assabile.com/adhan-call-prayer
-        _fajrAdhanFile: 'https://media.sd.ma/assabile/adhan_3435370/ddb21f7363eb.mp3',
+        // Fajr adhan from  http://www.assabile.com/adhan-call-prayer
+        _fajrAdhanFile: 'https://cdn.aladhan.com/audio/adhans/fajr/f1.mp3',
+        _matchedPrayer: '',
         _latitudeAdjustment: '',
         _juristicSchool: '',
         _apiUrl: 'https://api.aladhan.com/v1/',
@@ -142,11 +142,11 @@ jQuery( document ).ready( function( $ ) {
         playAdhan: function() {
             var gc = this;
             var currentTime = gc.calculateCurrentTime();
-            var match = gc.getMatchingTiming(currentTime);
-            if (match !== null) {
+            var match = gc.doesPrayerTimeMatch(currentTime);
+            if (match) {
                 gc.setMEStatus();
                 if (gc._currentlyPlaying !== true && gc._paused === true) {
-                    if (match === 'Fajr' && $("#different_fajr_adhan").is(':checked')) {
+                    if (gc._matchedPrayer === 'Fajr' && $("#different_fajr_adhan").is(':checked')) {
                         gc._player.setSrc(gc._fajrAdhanFile);
                     } else {
                         gc._player.setSrc(gc._adhanFile);
@@ -250,9 +250,9 @@ jQuery( document ).ready( function( $ ) {
             }
             return theTime;
         },
-        getMatchingTiming: function(currentTime) {
+        doesPrayerTimeMatch: function(currentTime) {
             var gc = this;
-            var result = null;
+            var result = false;
             $.each(gc._timings, function(i, v) {
                 pT = v.split(":");
                 var prayerTime = {
@@ -268,7 +268,8 @@ jQuery( document ).ready( function( $ ) {
                         // Check that this value is not for sunset or sunrise or imsask or midnight.
                         if (i != 'Sunset' && i != 'Sunrise' && i != 'Imsak' && i != 'Midnight') {
                             //console.log('Prayer time matched');
-                            result = i;
+                            result = true;
+                            gc._matchedPrayer = i;
                             //return false;
                         }
                     }
@@ -301,25 +302,13 @@ jQuery( document ).ready( function( $ ) {
                 defaultAudioWidth: 250
             });
             gc._player.setSrc(gc._adhanFile);
-            $('#customAdhanFile').on('change', function() {
-                gc._adhanFile = gc._customAdhanFile = URL.createObjectURL($(this).prop('files')[0]);
+            $('#adhanfile').on('change', function() {
+                gc._adhanFile = $(this).val();
+                // Now also update the source of the player with this file.
                 gc._player.setSrc(gc._adhanFile);
             });
-            $('#adhanfile').on('change', function() {
-                var val = $(this).val();
-                if (val === 'custom') {
-                    $('#customAdhanFile').trigger('click');
-                } else {
-                    gc._adhanFile = val;
-                    // Now also update the source of the player with this file.
-                    gc._player.setSrc(gc._adhanFile);
-
-                    if (gc._customAdhanFile !== null) {
-                        URL.revokeObjectURL(gc._customAdhanFile);
-                        gc._customAdhanFile = null;
-                        $('#customAdhanFile').val('');
-                    }
-                }
+            $('#fajrAdhanfile').on('change', function() {
+                gc._fajrAdhanFile = $(this).val();
             });
         },
         getAndDisplayDate: function() {
