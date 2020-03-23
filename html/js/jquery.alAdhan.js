@@ -12,6 +12,9 @@ jQuery( document ).ready( function( $ ) {
         _latitudeAdjustmentFieldId: 'latiudeAdjustment',
         _schoolFieldId: 'juristicSchool',
         _adhanFile: 'https://cdn.aladhan.com/audio/adhans/a1.mp3',
+        // Fajr adhan from  http://www.assabile.com/adhan-call-prayer
+        _fajrAdhanFile: 'https://cdn.aladhan.com/audio/adhans/fajr/f1.mp3',
+        _matchedPrayer: '',
         _latitudeAdjustment: '',
         _juristicSchool: '',
         _apiUrl: 'https://api.aladhan.com/v1/',
@@ -143,7 +146,11 @@ jQuery( document ).ready( function( $ ) {
             if (match) {
                 gc.setMEStatus();
                 if (gc._currentlyPlaying !== true && gc._paused === true) {
-                    gc._player.setSrc(gc._adhanFile);
+                    if (gc._matchedPrayer === 'Fajr' && $("#different_fajr_adhan").is(':checked')) {
+                        gc._player.setSrc(gc._fajrAdhanFile);
+                    } else {
+                        gc._player.setSrc(gc._adhanFile);
+                    }
                     gc._player.play();
                     gc._currentlyPlaying = true;
                 }
@@ -262,6 +269,7 @@ jQuery( document ).ready( function( $ ) {
                         if (i != 'Sunset' && i != 'Sunrise' && i != 'Imsak' && i != 'Midnight') {
                             //console.log('Prayer time matched');
                             result = true;
+                            gc._matchedPrayer = i;
                             //return false;
                         }
                     }
@@ -298,6 +306,9 @@ jQuery( document ).ready( function( $ ) {
                 gc._adhanFile = $(this).val();
                 // Now also update the source of the player with this file.
                 gc._player.setSrc(gc._adhanFile);
+            });
+            $('#fajrAdhanfile').on('change', function() {
+                gc._fajrAdhanFile = $(this).val();
             });
         },
         getAndDisplayDate: function() {
