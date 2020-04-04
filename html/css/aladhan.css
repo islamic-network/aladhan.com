@@ -115,6 +115,14 @@
     border-radius:0px
 }
 
+.hide-error {
+  visibility: hidden;
+}
+
+.form-control-error {
+  color: red;
+}
+
 body {
     -webkit-background-size: cover;
     -moz-background-size: cover;
