@@ -103,7 +103,7 @@ $times['date']['hijri']['day'] . ' ' . $times['date']['hijri']['month']['en'] . 
 
 <div class="row">
     <div class="col-md-12">
-        <div class="form-group">
+        <div id="location-group" class="form-group">
             <label for="location">Location</label>
             <?php
               $locationValue = '';
@@ -112,6 +112,7 @@ $times['date']['hijri']['day'] . ' ' . $times['date']['hijri']['month']['en'] . 
               }
             ?>
                 <input class="form-control" name="location" id="location" value="<?=$locationValue;?>" placeholder="Example: London, UK">
+                <span class="form-control-error hide-error" id="location-error">Sorry, we are unable to find this location. Please try another one.</span>
             </div>
     </div>
 </div>

@@ -27,6 +27,10 @@ jQuery( document ).ready( function( $ ) {
         init: function() {
             var gc = this;
             gc._location = $('#' + gc._locationFieldId).val();
+            $('#' + gc._locationFieldId).on('input', function() {
+              $('#location-group').removeClass("has-error");
+              $('#location-error').addClass("hide-error");
+            });
             gc._method = $('#' + gc._methodFieldId).val();
             gc._latitudeAdjustment = $('#' + gc._latitudeAdjustmentFieldId).val();
             gc._school = $('#' + gc._schoolFieldId).val();
@@ -99,9 +103,18 @@ jQuery( document ).ready( function( $ ) {
               this._updated = 'n';
             }
         },
+        showLocationError: function() {
+          if ($('#location-error').hasClass("hide-error")) {
+            $('#location-group').addClass("has-error");
+            $('#location-error').removeClass("hide-error");
+          }
+        },
+        hasValidLocation: function() {
+          return this._location != '' && !$('#location-group').hasClass("has-error");
+        },
         fetchPrayerTimes: function() {
             var gc = this;
-            if (gc._location != '') {
+            if (gc.hasValidLocation()) {
                 var credentials = {
                     address: gc._location,
                     method: gc._method,
@@ -124,7 +137,8 @@ jQuery( document ).ready( function( $ ) {
                         gc._timings = data.data.timings;
                     },
                     error: function() {
-                      console.log('API threw an error!');
+                      $('.loader').hide();
+                      gc.showLocationError();
                     }
                 });
             }
@@ -279,20 +293,20 @@ jQuery( document ).ready( function( $ ) {
         },
         getTimeZone: function() {
           var gc = this;
-          if (gc._location != '') {
-          credentials = {address: gc._location};
-          return $.ajax({
-              type: "GET",
-              url: gc._apiUrl + "addressInfo",
-              cache: false,
-              data: credentials,
-              async: false, // This is required otherwise it proceeds to return without waiting for the response.
-              dataType: 'json',
-              success: function(data) {
-                  result = data.data;
-                  gc._timezonename = result.timezone;
-              }
-          });
+          if (gc.hasValidLocation()) {
+            credentials = {address: gc._location};
+            return $.ajax({
+                type: "GET",
+                url: gc._apiUrl + "addressInfo",
+                cache: false,
+                data: credentials,
+                async: false, // This is required otherwise it proceeds to return without waiting for the response.
+                dataType: 'json',
+                success: function(data) {
+                    result = data.data;
+                    gc._timezonename = result.timezone;
+                }
+            });
           }
         },
         adhanFileMonitor: function() {
@@ -340,7 +354,7 @@ jQuery( document ).ready( function( $ ) {
         },
         getNextPrayerTime: function() {
             var gc = this;
-            if (gc._location != '') {
+            if (gc.hasValidLocation()) {
                 var credentials = {
                     address: gc._location,
                     method: gc._method,
@@ -368,7 +382,8 @@ jQuery( document ).ready( function( $ ) {
                         $('.nextPrayer span#time').html('Next Prayer: ' + pName + ' @ ' + pTime);
                     },
                     error: function() {
-                      console.log('API threw an error!');
+                      $('.loader').hide();
+                      gc.showLocationError();
                     }
                 });
             }
