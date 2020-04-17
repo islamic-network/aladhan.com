@@ -392,6 +392,7 @@ jQuery( document ).ready( function( $ ) {
         setMEStatus: function() {
             var gc = this;
             $.each(gc._player.$media, function(i,v) {
+                v.muted = false;
                 gc._paused = v.paused;
             });
         }
