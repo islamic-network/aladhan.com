@@ -24,12 +24,14 @@ jQuery( document ).ready( function( $ ) {
         _paused: true,
         _timestamp: '',
         _daysAdjustment: 1,
+        _invalidLocation: false,
         init: function() {
             var gc = this;
             gc._location = $('#' + gc._locationFieldId).val();
-            $('#' + gc._locationFieldId).on('input', function() {
-              $('#location-group').removeClass("has-error");
-              $('#location-error').addClass("hide-error");
+            gc.hideLocationError();
+            $('#' + gc._locationFieldId).on('change', function() {
+                gc.hideLocationError();
+                gc._invalidLocation = false;
             });
             gc._method = $('#' + gc._methodFieldId).val();
             gc._latitudeAdjustment = $('#' + gc._latitudeAdjustmentFieldId).val();
@@ -48,9 +50,9 @@ jQuery( document ).ready( function( $ ) {
             }, 3000);
             // Update the tmings from the API once every 5 minutes. Setting timings to empty will do it via the monitor method.
             setInterval(function() {
-              gc._timings = '';
-              gc.getNextPrayerTime();
-              gc.getAndDisplayDate();
+                gc._timings = '';
+                gc.getNextPrayerTime();
+                gc.getAndDisplayDate();
             }, 300000);
         },
         monitor: function() {
@@ -64,16 +66,16 @@ jQuery( document ).ready( function( $ ) {
                 this._school = $('#' + this._schoolFieldId).val();
             }
             if (this._latitudeAdjustment == '') {
-              this._latitudeAdjustment = $('#' + this._latitudeAdjustmentFieldId).val();
+                this._latitudeAdjustment = $('#' + this._latitudeAdjustmentFieldId).val();
             }
             if (this._device == '') {
                 this._device = $("input[name=currenttimedevice]:radio:checked").val();
             }
 
             if (this._timings != '') {
-              if (this._updated == 'y') {
-                this.updateTimesDisplay();
-              }
+                if (this._updated == 'y') {
+                    this.updateTimesDisplay();
+                }
             }
 
             // If all propertes are not empty.
@@ -84,7 +86,7 @@ jQuery( document ).ready( function( $ ) {
                     || this._device != $("input[name=currenttimedevice]:radio:checked").val()
                     || this._latitudeAdjustment !=  $('#' + this._latitudeAdjustmentFieldId).val()
                     || this._school != $('#' + this._schoolFieldId).val()
-                  ) {
+                ) {
                     // If it has, update the object properties.
                     this._location = $('#' + this._locationFieldId).val();
                     this._method = $('#' + this._methodFieldId).val();
@@ -96,21 +98,21 @@ jQuery( document ).ready( function( $ ) {
                 //console.log(this._timings);
             }
             if (this._timings == '') {
-              this.getTimeZone();
-              this.fetchPrayerTimes();
-              this._updated = 'y';
+                this.getTimeZone();
+                this.fetchPrayerTimes();
+                this._updated = 'y';
             } else {
-              this._updated = 'n';
+                this._updated = 'n';
             }
         },
         showLocationError: function() {
-          if ($('#location-error').hasClass("hide-error")) {
-            $('#location-group').addClass("has-error");
             $('#location-error').removeClass("hide-error");
-          }
+        },
+        hideLocationError: function() {
+            $('#location-error').addClass("hide-error");
         },
         hasValidLocation: function() {
-          return this._location != '' && !$('#location-group').hasClass("has-error");
+            return this._location != '' && this._invalidLocation == false;
         },
         fetchPrayerTimes: function() {
             var gc = this;
@@ -125,33 +127,38 @@ jQuery( document ).ready( function( $ ) {
 
                 $('.loader').show();
                 // Post to API
-                return $.ajax({
-                    type: "GET",
-                    url: gc._apiUrl + "timingsByAddress/" + gc.calculateCurrentTimestamp(),
-                    cache: false,
-                    data: credentials,
-                    dataType: 'json',
-                    timeout: 5000,
-                    success: function(data) {
-                        // Update timings
-                        gc._timings = data.data.timings;
-                    },
-                    error: function() {
-                      $('.loader').hide();
-                      gc.showLocationError();
-                    }
-                });
+                return $.ajax(
+                    {
+                        type: "GET",
+                        url: gc._apiUrl + "timingsByAddress/" + gc.calculateCurrentTimestamp(),
+                        cache: false,
+                        data: credentials,
+                        dataType: 'json',
+                        timeout: 5000,
+                        success: function(data) {
+                            // Update timings
+                            gc._timings = data.data.timings;
+                            gc._invalidLocation = false;  
+                        },
+                        error: function(data, status, errorThrown) {
+                            $('.loader').hide();
+                            if (errorThrown == "Bad Request") {
+                                gc._invalidLocation = true;
+                                gc.showLocationError();
+                            }
+                        }
+                    });
             }
         },
         updateTimesDisplay: function() {
-          if (this._timings != '') {
-            $.each(this._timings, function(i, v) {
-                // v has our times.
-                $('.time' + i).empty().html(v);
-            });
-            $('.loader').hide();
-            $('.pt-heading span#timingLoc').html('<small> in ' + this._location + '</small>' );
-          }
+            if (this._timings != '') {
+                $.each(this._timings, function(i, v) {
+                    // v has our times.
+                    $('.time' + i).empty().html(v);
+                });
+                $('.loader').hide();
+                $('.pt-heading span#timingLoc').html('<small> in ' + this._location + '</small>' );
+            }
         },
         playAdhan: function() {
             var gc = this;
@@ -180,7 +187,7 @@ jQuery( document ).ready( function( $ ) {
             } else {
                 //gc._analytics('send', 'event', 'API', 'CurrentTimeStamp', 'Getting current timestamp from server.');
                 var credentials = {
-                        zone: gc._timezonename
+                    zone: gc._timezonename
                 };
                 // Get time from server.
                 $.ajax({
@@ -203,20 +210,20 @@ jQuery( document ).ready( function( $ ) {
         calculateCurrentDate: function() {
             var gc = this;
             var theDate; // DD-MM-YYYY format
-                var credentials = {
-                        zone: gc._timezonename
-                };
-                $.ajax({
-                    type: "GET",
-                    url: gc._apiUrl + "currentDate",
-                    cache: false,
-                    data: credentials,
-                    async: false, // This is required otherwise it proceeds to return without waiting for the response.
-                    dataType: 'json',
-                    success: function(data) {
-                        theDate = data.data;
-                    }
-                });
+            var credentials = {
+                zone: gc._timezonename
+            };
+            $.ajax({
+                type: "GET",
+                url: gc._apiUrl + "currentDate",
+                cache: false,
+                data: credentials,
+                async: false, // This is required otherwise it proceeds to return without waiting for the response.
+                dataType: 'json',
+                success: function(data) {
+                    theDate = data.data;
+                }
+            });
 
             return theDate;
         },
@@ -238,12 +245,12 @@ jQuery( document ).ready( function( $ ) {
                 var currentTime = hours + ':' + minutes;
                 cT = currentTime.split(":");
                 theTime = {
-                  hh: cT[0],
-                  mm: cT[1]
+                    hh: cT[0],
+                    mm: cT[1]
                 };
             } else {
                 var credentials = {
-                        zone: gc._timezonename
+                    zone: gc._timezonename
                 };
                 $.ajax({
                     type: "GET",
@@ -256,8 +263,8 @@ jQuery( document ).ready( function( $ ) {
                         result = data.data;
                         cT = result.split(":");
                         theTime = {
-                          hh: cT[0],
-                          mm: cT[1]
+                            hh: cT[0],
+                            mm: cT[1]
                         };
                     }
                 });
@@ -292,22 +299,22 @@ jQuery( document ).ready( function( $ ) {
             return result;
         },
         getTimeZone: function() {
-          var gc = this;
-          if (gc.hasValidLocation()) {
-            credentials = {address: gc._location};
-            return $.ajax({
-                type: "GET",
-                url: gc._apiUrl + "addressInfo",
-                cache: false,
-                data: credentials,
-                async: false, // This is required otherwise it proceeds to return without waiting for the response.
-                dataType: 'json',
-                success: function(data) {
-                    result = data.data;
-                    gc._timezonename = result.timezone;
-                }
-            });
-          }
+            var gc = this;
+            if (gc.hasValidLocation()) {
+                credentials = {address: gc._location};
+                return $.ajax({
+                    type: "GET",
+                    url: gc._apiUrl + "addressInfo",
+                    cache: false,
+                    data: credentials,
+                    async: false, // This is required otherwise it proceeds to return without waiting for the response.
+                    dataType: 'json',
+                    success: function(data) {
+                        result = data.data;
+                        gc._timezonename = result.timezone;
+                    }
+                });
+            }
         },
         adhanFileMonitor: function() {
             var gc = this;
@@ -329,28 +336,28 @@ jQuery( document ).ready( function( $ ) {
             var gc = this;
             var theDate = gc.calculateCurrentDate();
             $.ajax({
-                    type: "GET",
-                    url: gc._apiUrl + "gToH",
-                    cache: false,
-                    data: { date: theDate, adjustment: gc._daysAdjustment },
-                    dataType: 'json',
-                    success: function(data) {
-                        // Update timings
-                        var date = data.data.gregorian.day + ' ' + data.data.gregorian.month.en + ', ' + data.data.gregorian.year + ' AD';
-                        var hdate = data.data.hijri.day + ' ' + data.data.hijri.month.en + ', ' + data.data.hijri.year + ' AH';
-                        $('.pt-heading').empty().append('Prayer Times <small>for</small><br /><small>' + date + '<br />' + hdate + '</small><br /><span id="timingLoc"></span>');
-                        var holidays = '';
+                type: "GET",
+                url: gc._apiUrl + "gToH",
+                cache: false,
+                data: { date: theDate, adjustment: gc._daysAdjustment },
+                dataType: 'json',
+                success: function(data) {
+                    // Update timings
+                    var date = data.data.gregorian.day + ' ' + data.data.gregorian.month.en + ', ' + data.data.gregorian.year + ' AD';
+                    var hdate = data.data.hijri.day + ' ' + data.data.hijri.month.en + ', ' + data.data.hijri.year + ' AH';
+                    $('.pt-heading').empty().append('Prayer Times <small>for</small><br /><small>' + date + '<br />' + hdate + '</small><br /><span id="timingLoc"></span>');
+                    var holidays = '';
 
-                        $(data.data.hijri.holidays).each(function(i, v) {
-                            holidays += '<span class="label label-danger">' + v + '</span> ';
-                        });
+                    $(data.data.hijri.holidays).each(function(i, v) {
+                        holidays += '<span class="label label-danger">' + v + '</span> ';
+                    });
 
-                        if (holidays != '') {
-                            $('#holidays').html(holidays);
-                            $('#holidays').parent().removeClass('hidden');
-                        }
+                    if (holidays != '') {
+                        $('#holidays').html(holidays);
+                        $('#holidays').parent().removeClass('hidden');
                     }
-                });
+                }
+            });
         },
         getNextPrayerTime: function() {
             var gc = this;
@@ -369,10 +376,10 @@ jQuery( document ).ready( function( $ ) {
                     data: credentials,
                     dataType: 'json',
                     timeout: 5000,
-                    success: function(data) {
+                    success: function(data, status, request) {
                         // Update timings
                         gc._nextPrayer = data.data.timings;
-                        //console.log(gc._nextPrayer);
+                        gc._invalidLocation = false;
                         var pName = Object.keys(gc._nextPrayer)[0];
                         var pTime = gc._nextPrayer[pName];
                         // Fix Dhuhr name for display
@@ -381,9 +388,12 @@ jQuery( document ).ready( function( $ ) {
                         }
                         $('.nextPrayer span#time').html('Next Prayer: ' + pName + ' @ ' + pTime);
                     },
-                    error: function() {
-                      $('.loader').hide();
-                      gc.showLocationError();
+                    error: function(data, textStatus, errorThrown) {
+                        $('.loader').hide();
+                        if (errorThrown == "Bad Request") {
+                            gc._invalidLocation = true;
+                            gc.showLocationError();
+                        }
                     }
                 });
             }
