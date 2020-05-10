@@ -138,6 +138,8 @@ asort($locations['Africa']);
 asort($locations['Australia']);
 $cYears = [date('Y'), date('Y')+1, date('Y')+2];
 
+// TODO: Automatically get these from the API
+$hYears = [1441, 1442, 1443];
 
 $gregorianMonths =  [
     '1' => 'January',
@@ -153,6 +155,20 @@ $gregorianMonths =  [
     '11' => 'November',
     '12' => 'December',
 ];
+$islamicMonths = [
+           1 => ['number' => 1, 'en' => 'Muḥarram', 'ar' => 'مُحَرَّم'],
+           2 => ['number' => 2,'en' => 'Ṣafar', 'ar' => 'صَفَر'],
+           3 => ['number' => 3,'en' => 'Rabīʿ al-awwal', 'ar' => 'رَبيع الأوّل'],
+           4 => ['number' => 4,'en' => 'Rabīʿ al-thānī', 'ar' => 'رَبيع الثاني'],
+           5 => ['number' => 5,'en' => 'Jumādá al-ūlá', 'ar' => 'جُمادى الأولى'],
+           6 => ['number' => 6,'en' => 'Jumādá al-ākhirah', 'ar' => 'جُمادى الآخرة'],
+           7 => ['number' => 7,'en' => 'Rajab', 'ar' => 'رَجَب'],
+           8 => ['number' => 8,'en' => 'Shaʿbān', 'ar' => 'شَعْبان'],
+           9 => ['number' => 9,'en' => 'Ramaḍān', 'ar' => 'رَمَضان'],
+           10 => ['number' => 10,'en' => 'Shawwāl', 'ar' => 'شَوّال'],
+           11 => ['number' => 11,'en' => 'Dhū al-Qaʿdah', 'ar' => 'ذوالقعدة'],
+           12 => ['number' => 12,'en' => 'Dhū al-Ḥijjah', 'ar' => 'ذوالحجة']
+        ];
 ?>
 <nav id ="navigation" class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
@@ -222,8 +238,19 @@ $gregorianMonths =  [
                         </li>
                         <?php } ?>
                         <li class="divider"></li>
+                        <li class="dropdown-header"><b>Hijri to Gregorian Calendar</b></a>
+                        <?php foreach ($hYears as $cy) { ?>
+                        <li class="dropdown-submenu">
+                            <a href="/hijri-gregorian-calendar" class="dropdown-toggle" data-toggle="dropdown">Hijri to Gregorian Calendar <?=$cy;?></a>
+                            <ul class="dropdown-menu">
+                                    <?php foreach ($islamicMonths as $mid => $mObject) { ?>
+                                       <li><a href="/hijri-gregorian-calendar/<?=$mid;?>/<?=$cy;?>"><?=$mObject['en'];?> <?=$cy;?></a></li>
+                                    <?php } ?> 
+                            </ul>
+                        </li>
+                        <?php } ?>
+                        <li class="divider"></li>
 
-                        <li><a href="/hijri-gregorian-calendar">Hijri to Gregorian Calendar</a></li>
                         <li class="dropdown-submenu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Islamic Holidays</b></a>
                             <ul class="dropdown-menu">
