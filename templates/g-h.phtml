@@ -116,6 +116,13 @@ $(function() {
 			$(this).text('+');
 		}
 	});
+    $('#calconfig').submit(function(e) {
+        e.preventDefault();
+        var year = $('#year').val();
+        var month = $('#month').val();
+        var url = $(this).attr('action');
+        window.location = url + '/' + month + '/' + year;
+    });
 });
 </script>
 

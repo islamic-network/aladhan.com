@@ -286,17 +286,25 @@ $app->get('/hijri-gregorian-calendar', function ($request, $response, $args) {
 });
 
 $app->get('/gregorian-hijri-calendar', function ($request, $response, $args) {
+    
+    $year = date('Y');
+    $month = date('n');
+
+    return $response->withRedirect('/gregorian-hijri-calendar/' . $month . '/' . $year, 301);
+});
+
+$app->get('/gregorian-hijri-calendar/{m}/{y}', function ($request, $response, $args) {
 
     $adjustment = $this->gToHAdjustment;
 
-    $m = isset($_GET['m']) ? (int) $_GET['m'] : date('m');
+    $m = (int) $request->getAttribute('m');
     if ($m > 12) {
         $m = 12;
     }
     if ($m < 1) {
         $m = 1;
     }
-    $y = isset($_GET['y']) ? (int) $_GET['y'] : date('Y');
+    $y = (int) $request->getAttribute('y');
     if ($y < 1) {
         $y = date('Y');
     }
@@ -311,15 +319,18 @@ $app->get('/gregorian-hijri-calendar', function ($request, $response, $args) {
     $calendar[$y][$m]['days'] = $cs->gregorianToHijriCalendar($m, $y, $adjustment)['data'];
 
     if ($m == '12') {
-        $nextMonth = '?m=1&y=' . ($y + 1);
-        $prevMonth = '?m=' . ($m - 1) . '&y=' . $y;
+        $nextMonth = '/1/' . ($y + 1);
+        $prevMonth = '/' . ($m - 1) . '/1' . $y;
     } else if ($m == '1') {
-        $prevMonth = '?m=12&y=' . ($y - 1);
-        $nextMonth = '?m=' . ($m + 1) . '&y=' . $y;
+        $prevMonth = '/12/' . ($y - 1);
+        $nextMonth = '/' . ($m + 1) . '/' . $y;
     } else {
-        $nextMonth = '?m=' . ($m + 1) . '&y=' . $y;
-        $prevMonth = '?m=' . ($m - 1) . '&y=' . $y;
+        $nextMonth = '/' . ($m + 1) . '/' . $y;
+        $prevMonth = '/' . ($m - 1) . '/' . $y;
     }
+
+    $nextMonth = '/gregorian-hijri-calendar' . $nextMonth;
+    $prevMonth = '/gregorian-hijri-calendar' . $prevMonth;
 
     $args['title'] = 'Gregorian to Hijri / Islamic Calendar - ' . $calendar[$y][$m]['days'][1]['gregorian']['month']['en'] . ' ' . $y;
     $args['calendar'] = $calendar;
