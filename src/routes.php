@@ -336,15 +336,13 @@ $app->get('/gregorian-hijri-calendar', function ($request, $response, $args) {
     return $this->renderer->render($response, 'g-h.phtml', $args);
 });
 
-$app->get('/islamic-holidays', function ($request, $response, $args) {
-
-    // $this->logger->info("aladhan.com '/' islamic-holidays");
+$app->get('/islamic-holidays/{year}', function ($request, $response, $args) {
 
     // Add days adjustment here
     $adjustment = $this->hToGAdjustment;
     // Add days adjustment above
 
-    $current_year = date('Y');
+    $current_year = (int) $request->getAttribute('year');
     $years[$current_year - 1] = $current_year - 1;
     $years[$current_year] = $current_year;
     $years[$current_year + 1] = $current_year + 1;
@@ -352,13 +350,12 @@ $app->get('/islamic-holidays', function ($request, $response, $args) {
     $cs = $this->HijriCalendarService;
     $days = $cs->specialDays()['data'];
     $months = $cs->islamicMonths()['data'];
-    $currentIslamicYear = $cs->currentIslamicYear()['data'];
+    $currentIslamicYear = $cs->islamicYearFromGregorianForRamadan($current_year)['data'];
     $islamicYears[] = $currentIslamicYear - 2;
     $islamicYears[] = $currentIslamicYear - 1;
     $islamicYears[] = $currentIslamicYear;
     $islamicYears[] = $currentIslamicYear + 1;
     $islamicYears[] = $currentIslamicYear + 2;
-
     foreach ($islamicYears as $y) {
         $hols = $cs->hijriHolidaysByYear($y, $adjustment)['data'];
         foreach ($hols as $dkey => $h) {
@@ -378,8 +375,15 @@ $app->get('/islamic-holidays', function ($request, $response, $args) {
     $args['view'] = 'gToHCalendar';
     $args['holydayFloater'] = $this->holyDay;
 
-
     return $this->renderer->render($response, 'islamic-holidays.phtml', $args);
+});
+
+$app->get('/islamic-holidays', function ($request, $response, $args) {
+
+    $current_year = date('Y');
+
+    return $response->withRedirect('/islamic-holidays/' . $current_year, 301);
+
 });
 
 
