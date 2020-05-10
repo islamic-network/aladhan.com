@@ -138,6 +138,21 @@ asort($locations['Africa']);
 asort($locations['Australia']);
 $cYears = [date('Y'), date('Y')+1, date('Y')+2];
 
+
+$gregorianMonths =  [
+    '1' => 'January',
+    '2' => 'February',
+    '3' => 'March',
+    '4' => 'April',
+    '5' => 'May',
+    '6' => 'June',
+    '7' => 'July',
+    '8' => 'August',
+    '9' => 'September',
+    '10' => 'October',
+    '11' => 'November',
+    '12' => 'December',
+];
 ?>
 <nav id ="navigation" class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
@@ -195,7 +210,19 @@ $cYears = [date('Y'), date('Y')+1, date('Y')+2];
                  <li class="dropdown <?php echo $view == 'gToHCalendar' || $view == 'gToHCalendar' || $view == 'holydays' ? 'active' : ''; ?>">
                     <a href="/hijri-gregorian-calendar" class="dropdown-toggle" data-toggle="dropdown">Islamic Calendar <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/gregorian-hijri-calendar">Gregorian to Hijri Calendar</a></li>
+                        <li class="dropdown-header"><b>Gregorian to Hijri Calendar</b></a>
+                        <?php foreach ($cYears as $cy) { ?>
+                        <li class="dropdown-submenu">
+                            <a href="/gregorian-hijri-calendar" class="dropdown-toggle" data-toggle="dropdown">Gregorian to Hijri Calendar <?=$cy;?></a>
+                            <ul class="dropdown-menu">
+                                    <?php foreach ($gregorianMonths as $mid => $mname) { ?>
+                                       <li><a href="/gregorian-hijri-calendar/<?=$mid;?>/<?=$cy;?>"><?=$mname;?> <?=$cy;?></a></li>
+                                    <?php } ?> 
+                            </ul>
+                        </li>
+                        <?php } ?>
+                        <li class="divider"></li>
+
                         <li><a href="/hijri-gregorian-calendar">Hijri to Gregorian Calendar</a></li>
                         <li class="dropdown-submenu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Islamic Holidays</b></a>
