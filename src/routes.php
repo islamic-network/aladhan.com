@@ -230,19 +230,28 @@ $app->get('/clients-api', function ($request, $response, $args) {
 });
 
 $app->get('/hijri-gregorian-calendar', function ($request, $response, $args) {
+    $cs = $this->HijriCalendarService;
+    
+    $month = $cs->currentIslamicMonth()['data'];
+    $year = $cs->currentIslamicYear()['data'];
+
+    return $response->withRedirect('/hijri-gregorian-calendar/' . $month . '/' . $year, 301);
+});
+
+$app->get('/hijri-gregorian-calendar/{m}/{y}', function ($request, $response, $args) {
 
     $adjustment = $this->hToGAdjustment;
 
     $cs = $this->HijriCalendarService;
 
-    $m = isset($_GET['m']) ? (int) $_GET['m'] : $cs->currentIslamicMonth()['data'];
+    $m = (int) $request->getAttribute('m');
     if ($m > 12) {
         $m = 12;
     }
     if ($m < 1) {
         $m = 1;
     }
-    $y = isset($_GET['y']) ? (int) $_GET['y'] : $cs->currentIslamicYear()['data'];
+    $y = (int) $request->getAttribute('y');
     if ($y < 1) {
         $y = date('Y');
     }
@@ -258,15 +267,18 @@ $app->get('/hijri-gregorian-calendar', function ($request, $response, $args) {
 
 
     if ($m == '12') {
-        $nextMonth = '?m=1&y=' . ($y + 1);
-        $prevMonth = '?m=' . ($m - 1) . '&y=' . $y;
+        $nextMonth = '/1/' . ($y + 1);
+        $prevMonth = '/' . ($m - 1) . '/1' . $y;
     } else if ($m == '1') {
-        $prevMonth = '?m=12&y=' . ($y - 1);
-        $nextMonth = '?m=' . ($m + 1) . '&y=' . $y;
+        $prevMonth = '/12/' . ($y - 1);
+        $nextMonth = '/' . ($m + 1) . '/' . $y;
     } else {
-        $nextMonth = '?m=' . ($m + 1) . '&y=' . $y;
-        $prevMonth = '?m=' . ($m - 1) . '&y=' . $y;
+        $nextMonth = '/' . ($m + 1) . '/' . $y;
+        $prevMonth = '/' . ($m - 1) . '/' . $y;
     }
+
+    $nextMonth = '/hijri-gregorian-calendar' . $nextMonth;
+    $prevMonth = '/hijri-gregorian-calendar' . $prevMonth;
 
     $args['title'] = 'Hijri / Islamic to Gregorian Calendar - ' . $calendar[$y][$m]['days'][1]['gregorian']['month']['en'] . ' ' . $y;
     $args['calendar'] = $calendar;
@@ -275,9 +287,7 @@ $app->get('/hijri-gregorian-calendar', function ($request, $response, $args) {
     $args['nextMonth'] = $nextMonth;
     $args['y']= $y;
     $args['m']= $m;
-    //$args['row'] = $row;
     $args['rows'] = $rows;
-    //$args['col'] = $col;
     $args['cols'] = $cols;
     $args['view'] = 'gToHCalendar';
     $args['holydayFloater'] = $this->holyDay;
