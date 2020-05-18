@@ -25,20 +25,20 @@ $container['logger'] = function ($c) {
 };
 
 // Hijri Cal Service
-$container['HijriCalendarService'] = function($c) {
+$container['HijriCalendarService'] = function ($c) {
 
     return new HijriGregorianCalendar();
 };
 
-$container['gToHAdjustment'] = function($c) {
+$container['gToHAdjustment'] = function ($c) {
     return 0;
 };
 
-$container['hToGAdjustment'] = function($c) {
+$container['hToGAdjustment'] = function ($c) {
     return 0;
 };
 
-$container['holyDay'] = function($c) {
+$container['holyDay'] = function ($c) {
     try {
         $cs = $c->HijriCalendarService;
 
@@ -52,8 +52,8 @@ $container['errorHandler'] = function ($c) {
     return function (Request $request, Response $response, Exception $e) use ($c) {
         $c->logger->error('Slim Error Handler Triggered', ['code' => $e->getCode(), 'message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
         return $c['response']->withStatus($e->getCode())
-                            ->withHeader('Content-Type', 'text/html')
-                            ->write($e->getMessage());
+            ->withHeader('Content-Type', 'text/html')
+            ->write($e->getMessage());
     };
 };
 
@@ -66,8 +66,11 @@ $container['notFoundHandler'] = function ($c) {
     };
 };
 
-/** Invoke Middleware for Load Balancer Checks */
-$app->add(new HeaderValidationMiddleware(
+/**
+ * Invoke Middleware for Load Balancer Checks 
+*/
+$app->add(
+    new HeaderValidationMiddleware(
         (bool) getenv('LOAD_BALANCER_MODE'),
         'X-LOAD-BALANCER',
         getenv('LOAD_BALANCER_KEY'),

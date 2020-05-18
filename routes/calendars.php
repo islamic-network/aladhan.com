@@ -1,182 +1,195 @@
 <?php
-$app->get('/hijri-gregorian-calendar', function ($request, $response, $args) {
-    $cs = $this->HijriCalendarService;
+$app->get(
+    '/hijri-gregorian-calendar', function ($request, $response, $args) {
+        $cs = $this->HijriCalendarService;
 
-    $month = $cs->currentIslamicMonth()['data'];
-    $year = $cs->currentIslamicYear()['data'];
+        $month = $cs->currentIslamicMonth()['data'];
+        $year = $cs->currentIslamicYear()['data'];
 
-    return $response->withRedirect('/hijri-gregorian-calendar/' . $month . '/' . $year, 301);
-});
-
-$app->get('/hijri-gregorian-calendar/{m}/{y}', function ($request, $response, $args) {
-    $adjustment = $this->hToGAdjustment;
-
-    $cs = $this->HijriCalendarService;
-
-    $m = (int) $request->getAttribute('m');
-    if ($m > 12) {
-        $m = 12;
+        return $response->withRedirect('/hijri-gregorian-calendar/' . $month . '/' . $year, 301);
     }
-    if ($m < 1) {
-        $m = 1;
+);
+
+$app->get(
+    '/hijri-gregorian-calendar/{m}/{y}', function ($request, $response, $args) {
+        $adjustment = $this->hToGAdjustment;
+
+        $cs = $this->HijriCalendarService;
+
+        $m = (int) $request->getAttribute('m');
+        if ($m > 12) {
+            $m = 12;
+        }
+        if ($m < 1) {
+            $m = 1;
+        }
+        $y = (int) $request->getAttribute('y');
+        if ($y < 1) {
+            $y = date('Y');
+        }
+
+        $days = 30; // Islamic months have 30 or less days - always.
+
+        $cols = 7;
+        $rows = $days/$cols;
+
+        $calDays = $cs->hijriToGregorianCalendar($m, $y, $adjustment)['data'];
+
+        $calendar[$y][$m]['days'] = array_combine(range(1, count($calDays)), array_values($calDays));
+
+
+        if ($m == '12') {
+            $nextMonth = '/1/' . ($y + 1);
+            $prevMonth = '/' . ($m - 1) . '/1' . $y;
+        } else if ($m == '1') {
+            $prevMonth = '/12/' . ($y - 1);
+            $nextMonth = '/' . ($m + 1) . '/' . $y;
+        } else {
+            $nextMonth = '/' . ($m + 1) . '/' . $y;
+            $prevMonth = '/' . ($m - 1) . '/' . $y;
+        }
+
+        $nextMonth = '/hijri-gregorian-calendar' . $nextMonth;
+        $prevMonth = '/hijri-gregorian-calendar' . $prevMonth;
+
+        $args['title'] = 'Hijri / Islamic to Gregorian Calendar - ' . $calendar[$y][$m]['days'][1]['gregorian']['month']['en'] . ' ' . $y;
+        $args['calendar'] = $calendar;
+        $args['days'] = $days;
+        $args['prevMonth'] = $prevMonth;
+        $args['nextMonth'] = $nextMonth;
+        $args['y']= $y;
+        $args['m']= $m;
+        $args['rows'] = $rows;
+        $args['cols'] = $cols;
+        $args['view'] = 'gToHCalendar';
+        $args['holydayFloater'] = $this->holyDay;
+
+        return $this->renderer->render($response, 'h-g.phtml', $args);
     }
-    $y = (int) $request->getAttribute('y');
-    if ($y < 1) {
-        $y = date('Y');
+);
+
+$app->get(
+    '/gregorian-hijri-calendar', function ($request, $response, $args) {
+
+        $year = date('Y');
+        $month = date('n');
+
+        return $response->withRedirect('/gregorian-hijri-calendar/' . $month . '/' . $year, 301);
     }
+);
 
-    $days = 30; // Islamic months have 30 or less days - always.
+$app->get(
+    '/gregorian-hijri-calendar/{m}/{y}', function ($request, $response, $args) {
+        $adjustment = $this->gToHAdjustment;
 
-    $cols = 7;
-    $rows = $days/$cols;
+        $m = (int) $request->getAttribute('m');
+        if ($m > 12) {
+            $m = 12;
+        }
+        if ($m < 1) {
+            $m = 1;
+        }
+        $y = (int) $request->getAttribute('y');
+        if ($y < 1) {
+            $y = date('Y');
+        }
 
-    $calDays = $cs->hijriToGregorianCalendar($m, $y, $adjustment)['data'];
+        $days = cal_days_in_month(CAL_GREGORIAN, $m, $y);
 
-    $calendar[$y][$m]['days'] = array_combine(range(1, count($calDays)), array_values($calDays));
+        $cs = $this->HijriCalendarService;
 
+        $cols = 7;
+        $rows = $days/$cols;
 
-    if ($m == '12') {
-        $nextMonth = '/1/' . ($y + 1);
-        $prevMonth = '/' . ($m - 1) . '/1' . $y;
-    } else if ($m == '1') {
-        $prevMonth = '/12/' . ($y - 1);
-        $nextMonth = '/' . ($m + 1) . '/' . $y;
-    } else {
-        $nextMonth = '/' . ($m + 1) . '/' . $y;
-        $prevMonth = '/' . ($m - 1) . '/' . $y;
+        $calendar[$y][$m]['days'] = $cs->gregorianToHijriCalendar($m, $y, $adjustment)['data'];
+
+        if ($m == '12') {
+            $nextMonth = '/1/' . ($y + 1);
+            $prevMonth = '/' . ($m - 1) . '/1' . $y;
+        } else if ($m == '1') {
+            $prevMonth = '/12/' . ($y - 1);
+            $nextMonth = '/' . ($m + 1) . '/' . $y;
+        } else {
+            $nextMonth = '/' . ($m + 1) . '/' . $y;
+            $prevMonth = '/' . ($m - 1) . '/' . $y;
+        }
+
+        $nextMonth = '/gregorian-hijri-calendar' . $nextMonth;
+        $prevMonth = '/gregorian-hijri-calendar' . $prevMonth;
+
+        $args['title'] = 'Gregorian to Hijri / Islamic Calendar - ' . $calendar[$y][$m]['days'][1]['gregorian']['month']['en'] . ' ' . $y;
+        $args['calendar'] = $calendar;
+        $args['days'] = $days;
+        $args['prevMonth'] = $prevMonth;
+        $args['nextMonth'] = $nextMonth;
+        $args['y']= $y;
+        $args['m']= $m;
+        $args['rows'] = $rows;
+        $args['cols'] = $cols;
+        $args['view'] = 'gToHCalendar';
+        $args['holydayFloater'] = $this->holyDay;
+
+        return $this->renderer->render($response, 'g-h.phtml', $args);
     }
+);
 
-    $nextMonth = '/hijri-gregorian-calendar' . $nextMonth;
-    $prevMonth = '/hijri-gregorian-calendar' . $prevMonth;
+$app->get(
+    '/islamic-holidays/{year}', function ($request, $response, $args) {
+        // Add days adjustment here
+        $adjustment = $this->hToGAdjustment;
+        // Add days adjustment above
 
-    $args['title'] = 'Hijri / Islamic to Gregorian Calendar - ' . $calendar[$y][$m]['days'][1]['gregorian']['month']['en'] . ' ' . $y;
-    $args['calendar'] = $calendar;
-    $args['days'] = $days;
-    $args['prevMonth'] = $prevMonth;
-    $args['nextMonth'] = $nextMonth;
-    $args['y']= $y;
-    $args['m']= $m;
-    $args['rows'] = $rows;
-    $args['cols'] = $cols;
-    $args['view'] = 'gToHCalendar';
-    $args['holydayFloater'] = $this->holyDay;
+        $current_year = (int) $request->getAttribute('year');
+        $years[$current_year - 1] = $current_year - 1;
+        $years[$current_year] = $current_year;
+        $years[$current_year + 1] = $current_year + 1;
 
-    return $this->renderer->render($response, 'h-g.phtml', $args);
-});
-
-$app->get('/gregorian-hijri-calendar', function ($request, $response, $args) {
-
-    $year = date('Y');
-    $month = date('n');
-
-    return $response->withRedirect('/gregorian-hijri-calendar/' . $month . '/' . $year, 301);
-});
-
-$app->get('/gregorian-hijri-calendar/{m}/{y}', function ($request, $response, $args) {
-    $adjustment = $this->gToHAdjustment;
-
-    $m = (int) $request->getAttribute('m');
-    if ($m > 12) {
-        $m = 12;
-    }
-    if ($m < 1) {
-        $m = 1;
-    }
-    $y = (int) $request->getAttribute('y');
-    if ($y < 1) {
-        $y = date('Y');
-    }
-
-    $days = cal_days_in_month(CAL_GREGORIAN, $m, $y);
-
-    $cs = $this->HijriCalendarService;
-
-    $cols = 7;
-    $rows = $days/$cols;
-
-    $calendar[$y][$m]['days'] = $cs->gregorianToHijriCalendar($m, $y, $adjustment)['data'];
-
-    if ($m == '12') {
-        $nextMonth = '/1/' . ($y + 1);
-        $prevMonth = '/' . ($m - 1) . '/1' . $y;
-    } else if ($m == '1') {
-        $prevMonth = '/12/' . ($y - 1);
-        $nextMonth = '/' . ($m + 1) . '/' . $y;
-    } else {
-        $nextMonth = '/' . ($m + 1) . '/' . $y;
-        $prevMonth = '/' . ($m - 1) . '/' . $y;
-    }
-
-    $nextMonth = '/gregorian-hijri-calendar' . $nextMonth;
-    $prevMonth = '/gregorian-hijri-calendar' . $prevMonth;
-
-    $args['title'] = 'Gregorian to Hijri / Islamic Calendar - ' . $calendar[$y][$m]['days'][1]['gregorian']['month']['en'] . ' ' . $y;
-    $args['calendar'] = $calendar;
-    $args['days'] = $days;
-    $args['prevMonth'] = $prevMonth;
-    $args['nextMonth'] = $nextMonth;
-    $args['y']= $y;
-    $args['m']= $m;
-    $args['rows'] = $rows;
-    $args['cols'] = $cols;
-    $args['view'] = 'gToHCalendar';
-    $args['holydayFloater'] = $this->holyDay;
-
-    return $this->renderer->render($response, 'g-h.phtml', $args);
-});
-
-$app->get('/islamic-holidays/{year}', function ($request, $response, $args) {
-    // Add days adjustment here
-    $adjustment = $this->hToGAdjustment;
-    // Add days adjustment above
-
-    $current_year = (int) $request->getAttribute('year');
-    $years[$current_year - 1] = $current_year - 1;
-    $years[$current_year] = $current_year;
-    $years[$current_year + 1] = $current_year + 1;
-
-    $cs = $this->HijriCalendarService;
-    $days = $cs->specialDays()['data'];
-    $months = $cs->islamicMonths()['data'];
-    $currentIslamicYear = $cs->islamicYearFromGregorianForRamadan($current_year)['data'];
-    $islamicYears[] = $currentIslamicYear - 2;
-    $islamicYears[] = $currentIslamicYear - 1;
-    $islamicYears[] = $currentIslamicYear;
-    $islamicYears[] = $currentIslamicYear + 1;
-    $islamicYears[] = $currentIslamicYear + 2;
-    foreach ($islamicYears as $y) {
-        $hols = $cs->hijriHolidaysByYear($y, $adjustment)['data'];
-        foreach ($hols as $dkey => $h) {
-            foreach($years as $year) {
-                if ($year == $h['gregorian']['year']) {
-                    $days[$dkey][$year] = $h['gregorian'];
+        $cs = $this->HijriCalendarService;
+        $days = $cs->specialDays()['data'];
+        $months = $cs->islamicMonths()['data'];
+        $currentIslamicYear = $cs->islamicYearFromGregorianForRamadan($current_year)['data'];
+        $islamicYears[] = $currentIslamicYear - 2;
+        $islamicYears[] = $currentIslamicYear - 1;
+        $islamicYears[] = $currentIslamicYear;
+        $islamicYears[] = $currentIslamicYear + 1;
+        $islamicYears[] = $currentIslamicYear + 2;
+        foreach ($islamicYears as $y) {
+            $hols = $cs->hijriHolidaysByYear($y, $adjustment)['data'];
+            foreach ($hols as $dkey => $h) {
+                foreach($years as $year) {
+                    if ($year == $h['gregorian']['year']) {
+                        $days[$dkey][$year] = $h['gregorian'];
+                    }
                 }
             }
         }
+
+        $args['title'] = 'Islamic Holidays and Holy Days';
+        $args['years'] = $years;
+        $args['current_year'] = $current_year;
+        $args['days']= $days;
+        $args['months'] = $months;
+        $args['view'] = 'gToHCalendar';
+        $args['holydayFloater'] = $this->holyDay;
+
+        return $this->renderer->render($response, 'islamic-holidays.phtml', $args);
     }
+);
 
-    $args['title'] = 'Islamic Holidays and Holy Days';
-    $args['years'] = $years;
-    $args['current_year'] = $current_year;
-    $args['days']= $days;
-    $args['months'] = $months;
-    $args['view'] = 'gToHCalendar';
-    $args['holydayFloater'] = $this->holyDay;
+$app->get(
+    '/islamic-holidays', function ($request, $response, $args) {
+        $current_year = date('Y');
+        return $response->withRedirect('/islamic-holidays/' . $current_year, 301);
 
-    return $this->renderer->render($response, 'islamic-holidays.phtml', $args);
-});
+    }
+);
 
-$app->get('/islamic-holidays', function ($request, $response, $args) {
-    $current_year = date('Y');
-    return $response->withRedirect('/islamic-holidays/' . $current_year, 301);
-
-});
-
-$app->get('/calendar', function ($request, $response, $args) {
-    $args['title'] = 'Prayer Times Calendar';
-    $args['city'] = '';
-    $args['country'] = '';
-    $args['months'] = array(
+$app->get(
+    '/calendar', function ($request, $response, $args) {
+        $args['title'] = 'Prayer Times Calendar';
+        $args['city'] = '';
+        $args['country'] = '';
+        $args['months'] = array(
         '01' => 'January',
         '02' => 'February',
         '03' => 'March',
@@ -189,9 +202,9 @@ $app->get('/calendar', function ($request, $response, $args) {
         '10' => 'October',
         '11' => 'November',
         '12' => 'December'
-    );
+        );
 
-    $args['years'] = array(
+        $args['years'] = array(
         '2015' => '2015',
         '2016' => '2016',
         '2017' => '2017',
@@ -199,33 +212,35 @@ $app->get('/calendar', function ($request, $response, $args) {
         '2019' => '2019',
         '2020' => '2020',
         '2021' => '2021',
-    );
+        );
 
-    $args['cmonth'] = date('m');
-    $args['cyear'] = date('Y');
-    $args['view'] = 'calendar';
-    $args['holydayFloater'] = $this->holyDay;
+        $args['cmonth'] = date('m');
+        $args['cyear'] = date('Y');
+        $args['view'] = 'calendar';
+        $args['holydayFloater'] = $this->holyDay;
 
-    return $this->renderer->render($response, 'calendar.phtml', $args);
-});
-
-$app->get('/calendar/{city}/{country}', function ($request, $response, $args) {
-    $city = $request->getAttribute('city');
-    $country = $request->getAttribute('country');
-    $adjustment = $this->gToHAdjustment;
-    $calendar = [];
-    $month = date('m');
-    $year = date('Y');
-    if ($city != null && $country != null) {
-        $t = new \AlAdhanApi\CalendarByCity($city, $country, $month, $year, null, 2, false, 0);
-        $calendar = $t->get()['data'];
+        return $this->renderer->render($response, 'calendar.phtml', $args);
     }
+);
 
-    // $this->logger->info("aladhan.com '/' calendar");
-    $args['title'] = 'Prayer Times Calendar | ' . $city . ' ' . $country . ' | ' . $calendar[0]['date']['gregorian']['month']['en'] . ', ' . $year;
-    $args['city'] = $city;
-    $args['country'] = $country;
-    $args['months'] = array(
+$app->get(
+    '/calendar/{city}/{country}', function ($request, $response, $args) {
+        $city = $request->getAttribute('city');
+        $country = $request->getAttribute('country');
+        $adjustment = $this->gToHAdjustment;
+        $calendar = [];
+        $month = date('m');
+        $year = date('Y');
+        if ($city != null && $country != null) {
+            $t = new \AlAdhanApi\CalendarByCity($city, $country, $month, $year, null, 2, false, 0);
+            $calendar = $t->get()['data'];
+        }
+
+        // $this->logger->info("aladhan.com '/' calendar");
+        $args['title'] = 'Prayer Times Calendar | ' . $city . ' ' . $country . ' | ' . $calendar[0]['date']['gregorian']['month']['en'] . ', ' . $year;
+        $args['city'] = $city;
+        $args['country'] = $country;
+        $args['months'] = array(
         '01' => 'January',
         '02' => 'February',
         '03' => 'March',
@@ -238,9 +253,9 @@ $app->get('/calendar/{city}/{country}', function ($request, $response, $args) {
         '10' => 'October',
         '11' => 'November',
         '12' => 'December'
-    );
+        );
 
-    $args['years'] = array(
+        $args['years'] = array(
         '2015' => '2015',
         '2016' => '2016',
         '2017' => '2017',
@@ -248,18 +263,21 @@ $app->get('/calendar/{city}/{country}', function ($request, $response, $args) {
         '2019' => '2019',
         '2020' => '2020',
         '2021' => '2021',
-    );
+        );
 
-    $args['cmonth'] = $month;
-    $args['cyear'] = $year;
-    $args['currentDate'] = date('d') . ' ' . date('M') . ' ' . $year;
-    $args['calendar'] = $calendar;
-    $args['view'] = 'calendar';
-    $args['holydayFloater'] = $this->holyDay;
+        $args['cmonth'] = $month;
+        $args['cyear'] = $year;
+        $args['currentDate'] = date('d') . ' ' . date('M') . ' ' . $year;
+        $args['calendar'] = $calendar;
+        $args['view'] = 'calendar';
+        $args['holydayFloater'] = $this->holyDay;
 
-    return $this->renderer->render($response, 'calendar.phtml', $args);
-});
+        return $this->renderer->render($response, 'calendar.phtml', $args);
+    }
+);
 
-$app->get('/calendar/', function ($request, $response, $args) {
-    return $response->withStatus(301)->withHeader('Location', '/calendar');
-});
+$app->get(
+    '/calendar/', function ($request, $response, $args) {
+        return $response->withStatus(301)->withHeader('Location', '/calendar');
+    }
+);
