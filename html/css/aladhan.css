@@ -115,6 +115,19 @@
     border-radius:0px
 }
 
+.noticeFloater {
+    position: fixed;
+    top: 0;
+    margin-top: 50px;
+    width: 100%;
+    z-index:9999;
+    border-radius: 0px
+}
+
+.noticeFloater span {
+    width: 100%;
+}
+
 .hide-error {
   visibility: hidden;
 }

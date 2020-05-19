@@ -48,6 +48,15 @@ $container['holyDay'] = function ($c) {
     }
 };
 
+/**
+ * Any text returned here appears at the top of all the pages for any announcements / notices
+ * @param $c
+ * @return string
+ */
+$container['noticeFloater'] = function ($c) {
+    return "";
+};
+
 $container['errorHandler'] = function ($c) {
     return function (Request $request, Response $response, Exception $e) use ($c) {
         $c->logger->error('Slim Error Handler Triggered', ['code' => $e->getCode(), 'message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);

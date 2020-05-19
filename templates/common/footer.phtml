@@ -3,6 +3,25 @@
         <p class="text-muted">&copy; 2013 - <?=date('Y'); ?> <a href="https://islamic.network" target="_blank">Islamic Network</a> and respective contributors. Read the <a href="/credits-and-terms">credits, terms and conditons</a> for more information.</p>
     </div>
 </div>
+
+<!-- Notices and Floaters -->
+<?php if ($noticeFloater != '') { ?>
+<div class="noticeFloater">
+    <span class="btn btn-danger btn-red">
+        <?=$noticeFloater;?>
+        <span class="glyphicon glyphicon-chevron-up btn" id="hideNoticeFloater" style="width: 20px;"></span>
+    </span>
+
+</div>
+<script>
+    $(function() {
+        $('#hideNoticeFloater').on('click', function() {
+            $('.noticeFloater').slideUp();
+        });
+    });
+</script>
+<?php } ?>
+
 <?php if ($holydayFloater) { ?>
 <div class="holydayFloater">
     <a href="/islamic-holidays">
@@ -11,6 +30,8 @@
         </span></a>
     <span class="glyphicon glyphicon-chevron-down btn" id="hideHolydayFloater"></span>    
 </div>
+<!-- Notices and Floaters End -->
+
 <!-- Include all compiled bootstrap plugins (below), or include individual files as needed-->
 
 <script>
