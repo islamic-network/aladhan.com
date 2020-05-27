@@ -53,9 +53,9 @@ You can now visit http://localhost:8082/ and start using it.
 
 ## Scaling and Sizing
 
-This app takes 16-17 MB per apache process / worker and is set to have a maximum of 29 Apache workers.
+This app takes 22 MB per apache process / worker and is set to have a maximum of 10 Apache workers.
 
-A single instance should be sized with a maximum of 704 MB RAM, after which you should scale it horizontally.
+A single instance should be sized with a maximum of 220 MB RAM, after which you should scale it horizontally.
 
 ## Contributing Code
 
