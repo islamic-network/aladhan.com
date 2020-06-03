@@ -1,0 +1,53 @@
+
+# Deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aladhan-com-app
+  namespace: aladhan-com
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: aladhan-com-app
+  template:
+    metadata:
+      labels:
+        app: aladhan-com-app
+    spec:
+      containers:
+      - name: aladhan-com-app
+        image: islamicnetwork/aladhan.com:$COMMIT_TAG
+        livenessProbe:
+          httpGet:
+            path: /about
+            port: 8080
+          initialDelaySeconds: 7
+          periodSeconds: 30
+          timeoutSeconds: 3
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /about
+            port: 8080
+          initialDelaySeconds: 2
+          periodSeconds: 15
+          timeoutSeconds: 3
+          failureThreshold: 3
+        resources:
+          requests:
+            cpu: "0.12"
+            memory: 22Mi
+          limits:
+            cpu: "0.12"
+            memory: 220Mi
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+
