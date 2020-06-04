@@ -6,7 +6,6 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Vesica\Slim\Middleware\Headers\Validate as HeaderValidationMiddleware;
 
 $container = $app->getContainer();
 
@@ -74,15 +73,3 @@ $container['notFoundHandler'] = function ($c) {
             ->write('Sorry, we could not find the URL you are after.');
     };
 };
-
-/**
- * Invoke Middleware for Load Balancer Checks 
-*/
-$app->add(
-    new HeaderValidationMiddleware(
-        (bool) getenv('LOAD_BALANCER_MODE'),
-        'X-LOAD-BALANCER',
-        getenv('LOAD_BALANCER_KEY'),
-        'Invalid Load Balancer Key.'
-    )
-);
