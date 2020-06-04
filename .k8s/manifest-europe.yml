@@ -24,6 +24,9 @@ spec:
       containers:
       - name: aladhan-com-app
         image: islamicnetwork/aladhan.com:$COMMIT_TAG
+        env:
+          - name:  API_BASE_URI
+            value: http://aladhan-com-api
         livenessProbe:
           httpGet:
             path: /about
