@@ -18,8 +18,6 @@ spec:
       app: aladhan-com-app
   template:
     metadata:
-      annotations:
-        kuma.io/mesh: islamic-network-mesh
       labels:
         app: aladhan-com-app
     spec:
