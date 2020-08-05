@@ -45,10 +45,10 @@ spec:
           failureThreshold: 3
         resources:
           requests:
-            cpu: "0.12"
-            memory: 22Mi
+            cpu: "0.15"
+            memory: 220Mi
           limits:
-            cpu: "0.12"
+            cpu: "0.15"
             memory: 220Mi
         ports:
         - containerPort: 8080
