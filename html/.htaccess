@@ -18,6 +18,7 @@ RewriteCond %{HTTP_HOST} ^www.aladhan.com$
 #RewriteCond %{HTTPS} off
 RewriteRule (.*)$ https://aladhan.com/$1 [R=301,L]
 
+RewriteCond %{REQUEST_URI} !=/server-status
 # Default rules for Slim
 RewriteCond %{REQUEST_FILENAME} !-f
 #RewriteCond %{REQUEST_FILENAME} !-d

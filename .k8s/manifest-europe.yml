@@ -22,8 +22,15 @@ spec:
         app: aladhan-com-app
     spec:
       containers:
+        - name: apache-exporter-sidecar
+          image: lusotycoon/apache-exporter
+          args:
+            - '--scrape_uri=http://localhost:8080/server-status?auto'
+          ports:
+            - containerPort: 9117
+              protocol: TCP
       - name: aladhan-com-app
-        image: islamicnetwork/aladhan.com:$COMMIT_TAG
+        image: islamicnetwork/aladhan.com:latest
         env:
           - name:  API_BASE_URI
             value: http://aladhan-com-api
@@ -51,6 +58,6 @@ spec:
             cpu: "0.15"
             memory: 220Mi
         ports:
-        - containerPort: 8080
-          protocol: TCP
+          - containerPort: 8080
+            protocol: TCP
 
