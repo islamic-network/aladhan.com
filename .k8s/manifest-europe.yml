@@ -22,13 +22,13 @@ spec:
         app: aladhan-com-app
     spec:
       containers:
-        - name: apache-exporter-sidecar
-          image: lusotycoon/apache-exporter
-          args:
-            - '--scrape_uri=http://localhost:8080/server-status?auto'
-          ports:
-            - containerPort: 9117
-              protocol: TCP
+      - name: apache-exporter-sidecar
+        image: lusotycoon/apache-exporter
+        args:
+          - '--scrape_uri=http://localhost:8080/server-status?auto'
+        ports:
+          - containerPort: 9117
+            protocol: TCP
       - name: aladhan-com-app
         image: islamicnetwork/aladhan.com:$COMMIT_TAG
         env:
