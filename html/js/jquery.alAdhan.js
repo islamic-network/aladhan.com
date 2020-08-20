@@ -23,7 +23,7 @@ jQuery( document ).ready( function( $ ) {
         _nextPrayer: '',
         _paused: true,
         _timestamp: '',
-        _daysAdjustment: 1,
+        _daysAdjustment: 0,
         _invalidLocation: false,
         init: function() {
             var gc = this;
