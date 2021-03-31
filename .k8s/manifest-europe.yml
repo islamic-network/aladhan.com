@@ -24,6 +24,13 @@ spec:
       containers:
       - name: apache-exporter-sidecar
         image: lusotycoon/apache-exporter
+        resources:
+          requests:
+            cpu: "20m"
+            memory: 16Mi
+          limits:
+            cpu: "100"
+            memory: 128Mi
         args:
           - '--scrape_uri=http://localhost:8080/server-status?auto'
         ports:
@@ -52,10 +59,10 @@ spec:
           failureThreshold: 3
         resources:
           requests:
-            cpu: "0.1"
+            cpu: "100m"
             memory: 220Mi
           limits:
-            cpu: "0.2"
+            cpu: "200m"
             memory: 420Mi
         ports:
           - containerPort: 8080
