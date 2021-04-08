@@ -44,7 +44,7 @@ jQuery( document ).ready( function( $ ) {
                 gc.monitor();
                 gc.playAdhan();
                 gc.getNextPrayerTime();
-            }, 7000);
+            }, 5000);
             setTimeout(function() {
                 gc.adhanFileMonitor();
             }, 3000);
@@ -95,11 +95,14 @@ jQuery( document ).ready( function( $ ) {
                     this._device = $("input[name=currenttimedevice]:radio:checked").val();
                     this._timings = '';
                 }
-                //console.log(this._timings);
+                console.log('-----------------------------------------');
+                console.log('INFO: Fetched prayer times successfully.');
+                console.log(this._timings);
             }
             if (this._timings == '') {
                 this.getTimeZone();
                 this.fetchPrayerTimes();
+
                 this._updated = 'y';
             } else {
                 this._updated = 'n';
@@ -165,18 +168,19 @@ jQuery( document ).ready( function( $ ) {
             var currentTime = gc.calculateCurrentTime();
             var match = gc.doesPrayerTimeMatch(currentTime);
             if (match) {
-                gc.setMEStatus();
                 if (gc._currentlyPlaying !== true && gc._paused === true) {
                     if (gc._matchedPrayer === 'Fajr' && $("#different_fajr_adhan").is(':checked')) {
-                        gc._player.setSrc(gc._fajrAdhanFile);
+                        gc._player.attr('src', gc._fajrAdhanFile);
                     } else {
-                        gc._player.setSrc(gc._adhanFile);
+                        gc._player.attr('src', gc._adhanFile);
                     }
-                    gc._player.play();
+                    gc._player[0].play();
                     gc._currentlyPlaying = true;
+                    gc._paused = false;
                 }
             } else {
                 gc._currentlyPlaying = false;
+                gc._paused = true;
             }
         },
         calculateCurrentTimestamp: function() {
@@ -279,23 +283,24 @@ jQuery( document ).ready( function( $ ) {
                 var prayerTime = {
                     hh: pT[0],
                     mm: pT[1]
-                }
+                };
+                console.log('INFO: ' + i + ' :: Current mins: ' + Math.round(currentTime.mm) + ' :: Prayer Mins: ' + Math.round(prayerTime.mm));
                 if (prayerTime.hh == currentTime.hh) {
                     // Hours match, check minutes. Minutes need to be rounded because we converted them to strings. That actually may not be needed.
                     if (Math.round(currentTime.mm) == Math.round(prayerTime.mm)) {
-                        //console.log('Current mins: ' + Math.round(currentTime.mm) + ' Prayer Mins: ' + Math.round(prayerTime.mm));
-                        //console.log(i);
                         // Current time equal to the prayer time? We check every 5 seconds so this should be good enough.
                         // Check that this value is not for sunset or sunrise or imsask or midnight.
                         if (i != 'Sunset' && i != 'Sunrise' && i != 'Imsak' && i != 'Midnight') {
-                            //console.log('Prayer time matched');
+                            console.log('INFO: Prayer times matched for ' + i);
                             result = true;
                             gc._matchedPrayer = i;
-                            //return false;
                         }
                     }
                 }
             });
+            if (result == false) {
+                console.log('INFO: Prayer times did not match.');
+            }
             return result;
         },
         getTimeZone: function() {
@@ -318,15 +323,12 @@ jQuery( document ).ready( function( $ ) {
         },
         adhanFileMonitor: function() {
             var gc = this;
-            gc._player = new MediaElementPlayer('#adhanplayer', {
-                //features: ['playpause', 'duration', 'volume', 'current'],
-                defaultAudioWidth: 250
-            });
-            gc._player.setSrc(gc._adhanFile);
+            gc._player = $('#adhanplayer');
+            gc._player.attr('src', gc._adhanFile);
             $('#adhanfile').on('change', function() {
                 gc._adhanFile = $(this).val();
                 // Now also update the source of the player with this file.
-                gc._player.setSrc(gc._adhanFile);
+                gc._player.attr('src', gc._adhanFile);
             });
             $('#fajrAdhanfile').on('change', function() {
                 gc._fajrAdhanFile = $(this).val();
@@ -398,13 +400,6 @@ jQuery( document ).ready( function( $ ) {
                 });
             }
 
-        },
-        setMEStatus: function() {
-            var gc = this;
-            $.each(gc._player.$media, function(i,v) {
-                v.muted = false;
-                gc._paused = v.paused;
-            });
         }
     }
 });
