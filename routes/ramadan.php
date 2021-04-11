@@ -26,7 +26,7 @@ $app->get(
     $method = $request->getQueryParam('method') == null ? 2 : (int)$request->getQueryParam('method');
 
     $y = $this->HijriCalendarService->islamicYearFromGregorianForRamadan($gy)['data'];
-    $c = new \AlAdhanApi\CalendarByCity($city, $country, $m, $y, null, $method, true, $this->gToHAdjustment);
+    $c = new \AlAdhanApi\CalendarByCity($city, $country, $m, $y, null, $method, true, $this->hToGAdjustment);
     $days = 30; // Islamic months have 30 or less days - always.
     $cols = 7;
     $rows = $days / $cols;
@@ -50,6 +50,10 @@ $app->get(
         '2019' => '2019',
         '2020' => '2020',
         '2021' => '2021',
+        '2022' => '2022',
+        '2023' => '2023',
+        '2024' => '2024',
+        '2025' => '2025',
     );
     $args['method'] = $method;
     $args['lam'] = $latitudeAdjustmentMethod;
@@ -68,7 +72,7 @@ $app->get(
     $gy = $request->getAttribute('year');
 
     $y = $cs->islamicYearFromGregorianForRamadan($gy)['data'];
-    $c = new \AlAdhanApi\CalendarByCity('London', 'UK', $m, $y, null, \AlAdhanApi\Methods::MWL, true, $this->gToHAdjustment);
+    $c = new \AlAdhanApi\CalendarByCity('London', 'UK', $m, $y, null, \AlAdhanApi\Methods::MWL, true, $this->hToGAdjustment);
     $days = 30; // Islamic months have 30 or less days - always.
     $cols = 7;
     $rows = $days / $cols;
