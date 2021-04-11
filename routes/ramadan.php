@@ -26,7 +26,7 @@ $app->get(
     $method = $request->getQueryParam('method') == null ? 2 : (int)$request->getQueryParam('method');
 
     $y = $this->HijriCalendarService->islamicYearFromGregorianForRamadan($gy)['data'];
-    $c = new \AlAdhanApi\CalendarByCity($city, $country, $m, $y, null, $method, true, $this->hToGAdjustment);
+    $c = new \AlAdhanApi\CalendarByCity($city, $country, $m, $y, null, $method, true, $this->gToHAdjustment);
     $days = 30; // Islamic months have 30 or less days - always.
     $cols = 7;
     $rows = $days / $cols;
@@ -68,7 +68,7 @@ $app->get(
     $gy = $request->getAttribute('year');
 
     $y = $cs->islamicYearFromGregorianForRamadan($gy)['data'];
-    $c = new \AlAdhanApi\CalendarByCity('London', 'UK', $m, $y, null, \AlAdhanApi\Methods::MWL, true, $this->hToGAdjustment);
+    $c = new \AlAdhanApi\CalendarByCity('London', 'UK', $m, $y, null, \AlAdhanApi\Methods::MWL, true, $this->gToHAdjustment);
     $days = 30; // Islamic months have 30 or less days - always.
     $cols = 7;
     $rows = $days / $cols;
