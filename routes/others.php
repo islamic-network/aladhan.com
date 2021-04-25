@@ -1,5 +1,9 @@
 <?php
 // Routes
+$app->get('/liveness', function (Request $request, Response $response) {
+    return $response->withJson('OK', 200);
+});
+
 $app->get(
     '/', function ($request, $response, $args) {
     $args['title'] = 'Home';
@@ -134,10 +138,6 @@ $app->get(
     return $this->renderer->render($response, 'terms.phtml', $args);
 }
 );
-
-$app->get('/liveness', function (Request $request, Response $response) {
-    return $response->withJson('OK', 200);
-});
 
 $app->post(
     '/download/{format}', function (\Slim\Http\Request $request, $response, $args) {
