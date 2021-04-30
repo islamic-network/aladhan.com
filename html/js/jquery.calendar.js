@@ -7,6 +7,7 @@ jQuery( document ).ready( function( $ ) {
         _location: '',
         _month: '',
         _year: '',
+        _juristicSchool: '',
         _midnightMode: '',
         _customFajrAngle: '',
         _customMaghribAngle: '',
@@ -81,6 +82,7 @@ jQuery( document ).ready( function( $ ) {
             gc._monthName = $('#' + gc._monthFieldId).find('option:selected').attr('name');
             gc._year = $('#' + gc._yearFieldId).val();
             gc._latitudeAdjustment = $('#' + gc._latitudeAdjustmentFieldId).val();
+            gc._juristicSchool = $('#juristicSchool').val();
             var locationName = $('#location').val();
             gc._midnightMode = $('#midnightMode').find('option:selected').attr('name');
             gc._customFajrAngle = $('#customFajrAngle').val();
@@ -125,6 +127,7 @@ jQuery( document ).ready( function( $ ) {
                         tune: tuneString,
                         methodSettings: methodSettings,
                         annual: annual,
+                        school: gc._juristicSchool,
                         adjustment: gc._daysAdjustment
                     }
                 } else {
@@ -136,6 +139,7 @@ jQuery( document ).ready( function( $ ) {
                         latitudeAdjustmentMethod: gc._latitudeAdjustment,
                         midnightMode: gc._midnightMode,
                         tune: tuneString,
+                        school: gc._juristicSchool,
                         annual: annual,
                         adjustment: gc._daysAdjustment
                     }
