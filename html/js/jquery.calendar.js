@@ -31,7 +31,7 @@ jQuery( document ).ready( function( $ ) {
         _yearFieldId: 'year',
         _calendarButtonId: 'generateCalendar',
         _latitudeAdjustmentFieldId: 'latiudeAdjustment',
-        _apiUrl: 'https://api.aladhan.com/',
+        _apiUrl: 'https://api.aladhan.com/v1/',
         _storedTimings: '',
         _daysAdjustment: 0,
         init: function() {
