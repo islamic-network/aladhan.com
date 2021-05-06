@@ -6,7 +6,7 @@ metadata:
   name: aladhan-com-app
   namespace: aladhan-com
 spec:
-  replicas: 2
+  replicas: 3
   strategy:
     type: RollingUpdate
     rollingUpdate:
