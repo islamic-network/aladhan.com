@@ -95,9 +95,9 @@ jQuery( document ).ready( function( $ ) {
                     this._device = $("input[name=currenttimedevice]:radio:checked").val();
                     this._timings = '';
                 }
-                console.log('-----------------------------------------');
-                console.log('INFO: Fetched prayer times successfully.');
-                console.log(this._timings);
+                // console.log('-----------------------------------------');
+                // c onsole.log('INFO: Fetched prayer times successfully.');
+                // console.log(this._timings);
             }
             if (this._timings == '') {
                 this.getTimeZone();
@@ -284,14 +284,14 @@ jQuery( document ).ready( function( $ ) {
                     hh: pT[0],
                     mm: pT[1]
                 };
-                console.log('INFO: ' + i + ' :: Current mins: ' + Math.round(currentTime.mm) + ' :: Prayer Mins: ' + Math.round(prayerTime.mm));
+                // console.log('INFO: ' + i + ' :: Current mins: ' + Math.round(currentTime.mm) + ' :: Prayer Mins: ' + Math.round(prayerTime.mm));
                 if (prayerTime.hh == currentTime.hh) {
                     // Hours match, check minutes. Minutes need to be rounded because we converted them to strings. That actually may not be needed.
                     if (Math.round(currentTime.mm) == Math.round(prayerTime.mm)) {
                         // Current time equal to the prayer time? We check every 5 seconds so this should be good enough.
                         // Check that this value is not for sunset or sunrise or imsask or midnight.
                         if (i != 'Sunset' && i != 'Sunrise' && i != 'Imsak' && i != 'Midnight') {
-                            console.log('INFO: Prayer times matched for ' + i);
+                            // console.log('INFO: Prayer times matched for ' + i);
                             result = true;
                             gc._matchedPrayer = i;
                         }
@@ -299,7 +299,7 @@ jQuery( document ).ready( function( $ ) {
                 }
             });
             if (result == false) {
-                console.log('INFO: Prayer times did not match.');
+                // console.log('INFO: Prayer times did not match.');
             }
             return result;
         },
