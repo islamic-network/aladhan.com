@@ -174,9 +174,11 @@ jQuery( document ).ready( function( $ ) {
                     } else {
                         gc._player.attr('src', gc._adhanFile);
                     }
-                    gc._player[0].play();
-                    gc._currentlyPlaying = true;
-                    gc._paused = false;
+                    if (gc._player.paused) {
+                        gc._player[0].play();
+                        gc._currentlyPlaying = true;
+                        gc._paused = false;
+                    }
                 }
             } else {
                 gc._currentlyPlaying = false;
