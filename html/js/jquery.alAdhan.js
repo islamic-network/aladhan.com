@@ -174,7 +174,7 @@ jQuery( document ).ready( function( $ ) {
                     } else {
                         gc._player.attr('src', gc._adhanFile);
                     }
-                    if (gc._player.paused) {
+                    if (gc._player[0].paused) {
                         gc._player[0].play();
                         gc._currentlyPlaying = true;
                         gc._paused = false;
