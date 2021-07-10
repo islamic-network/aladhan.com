@@ -6,7 +6,6 @@ jQuery( document ).ready( function( $ ) {
         _timings: '',
         _device: '',
         _timezonename: 'Europe/London',
-        _currentlyPlaying: false,
         _locationFieldId: 'location',
         _methodFieldId: 'method',
         _latitudeAdjustmentFieldId: 'latiudeAdjustment',
@@ -21,7 +20,6 @@ jQuery( document ).ready( function( $ ) {
         _updated: '',
         _player: '',
         _nextPrayer: '',
-        _paused: true,
         _timestamp: '',
         _daysAdjustment: 0,
         _invalidLocation: false,
@@ -163,26 +161,23 @@ jQuery( document ).ready( function( $ ) {
                 $('.pt-heading span#timingLoc').html('<small> in ' + this._location + '</small>' );
             }
         },
+        setAdhanFile: function() {
+            var gc = this;
+            if (gc._matchedPrayer === 'Fajr' && $("#different_fajr_adhan").is(':checked')) {
+                gc._player.attr('src', gc._fajrAdhanFile);
+            } else {
+                gc._player.attr('src', gc._adhanFile);
+            }
+        },
         playAdhan: function() {
             var gc = this;
             var currentTime = gc.calculateCurrentTime();
             var match = gc.doesPrayerTimeMatch(currentTime);
             if (match) {
-                if (gc._currentlyPlaying !== true && gc._paused === true) {
-                    if (gc._matchedPrayer === 'Fajr' && $("#different_fajr_adhan").is(':checked')) {
-                        gc._player.attr('src', gc._fajrAdhanFile);
-                    } else {
-                        gc._player.attr('src', gc._adhanFile);
-                    }
-                    if (gc._player[0].paused) {
-                        gc._player[0].play();
-                        gc._currentlyPlaying = true;
-                        gc._paused = false;
-                    }
+                if (gc._player[0].paused) {
+                    gc.setAdhanFile();
+                    gc._player[0].play();
                 }
-            } else {
-                gc._currentlyPlaying = false;
-                gc._paused = true;
             }
         },
         calculateCurrentTimestamp: function() {
