@@ -288,7 +288,7 @@ jQuery( document ).ready( function( $ ) {
                         // Current time equal to the prayer time? We check every 5 seconds so this should be good enough.
                         // Check that this value is not for sunset or sunrise or imsask or midnight.
                         if (i != 'Sunset' && i != 'Sunrise' && i != 'Imsak' && i != 'Midnight') {
-                            // console.log('INFO: Prayer times matched for ' + i);
+                            console.log('INFO: Prayer times matched for ' + i);
                             result = true;
                             gc._matchedPrayer = i;
                         }
