@@ -70,8 +70,8 @@
               "15",
               "99"
             ],
-            "optional": false,
-            "field": "Optional.",
+            "optional": true,
+            "field": "method",
             "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq paramteer)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
           },
           {
@@ -223,8 +223,8 @@
               "15",
               "99"
             ],
-            "optional": false,
-            "field": "Optional.",
+            "optional": true,
+            "field": "method",
             "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq paramteer)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
           },
           {
@@ -383,8 +383,8 @@
               "15",
               "99"
             ],
-            "optional": false,
-            "field": "Optional.",
+            "optional": true,
+            "field": "method",
             "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq paramteer)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
           },
           {
@@ -536,8 +536,8 @@
               "15",
               "99"
             ],
-            "optional": false,
-            "field": "Optional.",
+            "optional": true,
+            "field": "method",
             "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq paramteer)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
           },
           {
@@ -689,8 +689,8 @@
               "15",
               "99"
             ],
-            "optional": false,
-            "field": "Optional.",
+            "optional": true,
+            "field": "method",
             "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq paramteer)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
           },
           {
@@ -849,8 +849,8 @@
               "15",
               "99"
             ],
-            "optional": false,
-            "field": "Optional.",
+            "optional": true,
+            "field": "method",
             "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq paramteer)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
           },
           {
@@ -1132,9 +1132,9 @@
               "15",
               "99"
             ],
-            "optional": false,
-            "field": "Optional.",
-            "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br /> 0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq paramteer)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
+            "optional": true,
+            "field": "method",
+            "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq paramteer)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
           },
           {
             "group": "Parameter",
@@ -1268,8 +1268,8 @@
               "15",
               "99"
             ],
-            "optional": false,
-            "field": "Optional.",
+            "optional": true,
+            "field": "method",
             "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq paramteer)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
           },
           {
@@ -1411,8 +1411,8 @@
               "15",
               "99"
             ],
-            "optional": false,
-            "field": "Optional.",
+            "optional": true,
+            "field": "method",
             "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq paramteer)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
           },
           {
