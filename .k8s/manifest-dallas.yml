@@ -6,7 +6,7 @@ metadata:
   name: aladhan-com-app
   namespace: aladhan-com
 spec:
-  replicas: 3
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -76,9 +76,9 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: aladhan-com-app
-  minReplicas: 3
+  minReplicas: 2
   maxReplicas: 10
-  targetCPUUtilizationPercentage: 75
+  targetCPUUtilizationPercentage: 60
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
