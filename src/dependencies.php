@@ -30,11 +30,11 @@ $container['HijriCalendarService'] = function ($c) {
 };
 
 $container['gToHAdjustment'] = function ($c) {
-    return 0;
+    return 1;
 };
 
 $container['hToGAdjustment'] = function ($c) {
-    return 0;
+    return 1;
 };
 
 $container['holyDay'] = function ($c) {
