@@ -34,7 +34,7 @@ $container['gToHAdjustment'] = function ($c) {
 };
 
 $container['hToGAdjustment'] = function ($c) {
-    return 1;
+    return -1;
 };
 
 $container['holyDay'] = function ($c) {
