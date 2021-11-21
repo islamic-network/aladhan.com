@@ -1,7 +1,7 @@
 <?php
 $app->get(
     '/hijri-gregorian-calendar', function ($request, $response, $args) {
-    $cs = $this->HijriCalendarService;
+    $cs = $this->get('HijriCalendarService');
 
     $month = $cs->currentIslamicMonth()['data'];
     $year = $cs->currentIslamicYear()['data'];
@@ -12,9 +12,9 @@ $app->get(
 
 $app->get(
     '/hijri-gregorian-calendar/{m}/{y}', function ($request, $response, $args) {
-    $adjustment = $this->hToGAdjustment;
+    $adjustment = $this->get('hToGAdjustment');
 
-    $cs = $this->HijriCalendarService;
+    $cs = $this->get('HijriCalendarService');
 
     $m = (int)$request->getAttribute('m');
     if ($m > 12) {
@@ -62,10 +62,10 @@ $app->get(
     $args['rows'] = $rows;
     $args['cols'] = $cols;
     $args['view'] = 'gToHCalendar';
-    $args['holydayFloater'] = $this->holyDay;
-    $args['noticeFloater'] = $this->noticeFloater;
+    $args['holydayFloater'] = $this->get('holyDay');
+    $args['noticeFloater'] = $this->get('noticeFloater');
 
-    return $this->renderer->render($response, 'h-g.phtml', $args);
+    return $this->get('renderer')->render($response, 'h-g.phtml', $args);
 }
 );
 
@@ -81,7 +81,7 @@ $app->get(
 
 $app->get(
     '/gregorian-hijri-calendar/{m}/{y}', function ($request, $response, $args) {
-    $adjustment = $this->gToHAdjustment;
+    $adjustment = $this->get('gToHAdjustment');
 
     $m = (int)$request->getAttribute('m');
     if ($m > 12) {
@@ -97,7 +97,7 @@ $app->get(
 
     $days = cal_days_in_month(CAL_GREGORIAN, $m, $y);
 
-    $cs = $this->HijriCalendarService;
+    $cs = $this->get('HijriCalendarService');
 
     $cols = 7;
     $rows = $days / $cols;
@@ -128,17 +128,17 @@ $app->get(
     $args['rows'] = $rows;
     $args['cols'] = $cols;
     $args['view'] = 'gToHCalendar';
-    $args['holydayFloater'] = $this->holyDay;
-    $args['noticeFloater'] = $this->noticeFloater;
+    $args['holydayFloater'] = $this->get('holyDay');
+    $args['noticeFloater'] = $this->get('noticeFloater');
 
-    return $this->renderer->render($response, 'g-h.phtml', $args);
+    return $this->get('renderer')->render($response, 'g-h.phtml', $args);
 }
 );
 
 $app->get(
     '/islamic-holidays/{year}', function ($request, $response, $args) {
     // Add days adjustment here
-    $adjustment = $this->hToGAdjustment;
+    $adjustment = $this->get('hToGAdjustment');
     // Add days adjustment above
 
     $current_year = (int)$request->getAttribute('year');
@@ -146,7 +146,7 @@ $app->get(
     $years[$current_year] = $current_year;
     $years[$current_year + 1] = $current_year + 1;
 
-    $cs = $this->HijriCalendarService;
+    $cs = $this->get('HijriCalendarService');
     $days = $cs->specialDays()['data'];
     $months = $cs->islamicMonths()['data'];
     $currentIslamicYear = $cs->islamicYearFromGregorianForRamadan($current_year)['data'];
@@ -172,10 +172,10 @@ $app->get(
     $args['days'] = $days;
     $args['months'] = $months;
     $args['view'] = 'gToHCalendar';
-    $args['holydayFloater'] = $this->holyDay;
-    $args['noticeFloater'] = $this->noticeFloater;
+    $args['holydayFloater'] = $this->get('holyDay');
+    $args['noticeFloater'] = $this->get('noticeFloater');
 
-    return $this->renderer->render($response, 'islamic-holidays.phtml', $args);
+    return $this->get('renderer')->render($response, 'islamic-holidays.phtml', $args);
 }
 );
 
@@ -220,10 +220,10 @@ $app->get(
     $args['cmonth'] = date('m');
     $args['cyear'] = date('Y');
     $args['view'] = 'calendar';
-    $args['holydayFloater'] = $this->holyDay;
-    $args['noticeFloater'] = $this->noticeFloater;
+    $args['holydayFloater'] = $this->get('holyDay');
+    $args['noticeFloater'] = $this->get('noticeFloater');
 
-    return $this->renderer->render($response, 'calendar.phtml', $args);
+    return $this->get('renderer')->render($response, 'calendar.phtml', $args);
 }
 );
 
@@ -231,7 +231,7 @@ $app->get(
     '/calendar/{city}/{country}', function ($request, $response, $args) {
     $city = $request->getAttribute('city');
     $country = $request->getAttribute('country');
-    $adjustment = $this->gToHAdjustment;
+    $adjustment = $this->get('gToHAdjustment');
     $calendar = [];
     $month = date('m');
     $year = date('Y');
@@ -274,10 +274,10 @@ $app->get(
     $args['currentDate'] = date('d') . ' ' . date('M') . ' ' . $year;
     $args['calendar'] = $calendar;
     $args['view'] = 'calendar';
-    $args['holydayFloater'] = $this->holyDay;
-    $args['noticeFloater'] = $this->noticeFloater;
+    $args['holydayFloater'] = $this->get('holyDay');
+    $args['noticeFloater'] = $this->get('noticeFloater');
 
-    return $this->renderer->render($response, 'calendar.phtml', $args);
+    return $this->get('renderer')->render($response, 'calendar.phtml', $args);
 }
 );
 

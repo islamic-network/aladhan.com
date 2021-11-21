@@ -8,10 +8,10 @@ $app->get(
     '/', function ($request, $response, $args) {
     $args['title'] = 'Home';
     $args['view'] = 'home';
-    $args['holydayFloater'] = $this->holyDay;
-    $args['noticeFloater'] = $this->noticeFloater;
+    $args['holydayFloater'] = $this->get('holyDay');
+    $args['noticeFloater'] = $this->get('noticeFloater');
 
-    return $this->renderer->render($response, 'index.phtml', $args);
+    return $this->get('renderer')->render($response, 'index.phtml', $args);
 }
 );
 
@@ -19,10 +19,10 @@ $app->get(
     '/about', function ($request, $response, $args) {
     $args['title'] = 'About';
     $args['view'] = 'about';
-    $args['holydayFloater'] = $this->holyDay;
-    $args['noticeFloater'] = $this->noticeFloater;
+    $args['holydayFloater'] = $this->get('holyDay');
+    $args['noticeFloater'] = $this->get('noticeFloater');
 
-    return $this->renderer->render($response, 'about.phtml', $args);
+    return $this->get('renderer')->render($response, 'about.phtml', $args);
 }
 );
 
@@ -30,10 +30,10 @@ $app->get(
     '/calculation-methods', function ($request, $response, $args) {
     $args['title'] = 'Prayer Time Calculation Methods';
     $args['view'] = '';
-    $args['holydayFloater'] = $this->holyDay;
-    $args['noticeFloater'] = $this->noticeFloater;
+    $args['holydayFloater'] = $this->get('holyDay');
+    $args['noticeFloater'] = $this->get('noticeFloater');
 
-    return $this->renderer->render($response, 'calculation-methods.phtml', $args);
+    return $this->get('renderer')->render($response, 'calculation-methods.phtml', $args);
 }
 );
 
@@ -41,10 +41,10 @@ $app->get(
     '/contact', function ($request, $response, $args) {
     $args['title'] = 'Contact';
     $args['view'] = 'contact';
-    $args['holydayFloater'] = $this->holyDay;
-    $args['noticeFloater'] = $this->noticeFloater;
+    $args['holydayFloater'] = $this->get('holyDay');
+    $args['noticeFloater'] = $this->get('noticeFloater');
 
-    return $this->renderer->render($response, 'contact.phtml', $args);
+    return $this->get('renderer')->render($response, 'contact.phtml', $args);
 }
 );
 
@@ -58,10 +58,10 @@ $app->get(
     '/download-adhans', function ($request, $response, $args) {
     $args['title'] = 'Download Adhans';
     $args['view'] = 'api';
-    $args['holydayFloater'] = $this->holyDay;
-    $args['noticeFloater'] = $this->noticeFloater;
+    $args['holydayFloater'] = $this->get('holyDay');
+    $args['noticeFloater'] = $this->get('noticeFloater');
 
-    return $this->renderer->render($response, 'download-adhans.phtml', $args);
+    return $this->get('renderer')->render($response, 'download-adhans.phtml', $args);
 }
 );
 
@@ -69,10 +69,11 @@ $app->get(
     '/consumers-api', function ($request, $response, $args) {
     $args['title'] = 'Apps and Websites using the AlAdhan API';
     $args['view'] = 'api';
-    $args['holydayFloater'] = $this->holyDay;
-    $args['noticeFloater'] = $this->noticeFloater;
+    $args['holydayFloater'] = $this->get('holyDay');
+    $args['holydayFloater'] = $this->get('holyDay');
+    $args['noticeFloater'] = $this->get('noticeFloater');
 
-    return $this->renderer->render($response, 'consumers-api.phtml', $args);
+    return $this->get('renderer')->render($response, 'consumers-api.phtml', $args);
 }
 );
 
@@ -80,10 +81,10 @@ $app->get(
     '/clients-api', function ($request, $response, $args) {
     $args['title'] = 'API Clients';
     $args['view'] = 'api';
-    $args['holydayFloater'] = $this->holyDay;
-    $args['noticeFloater'] = $this->noticeFloater;
+    $args['holydayFloater'] = $this->get('holyDay');
+    $args['noticeFloater'] = $this->get('noticeFloater');
 
-    return $this->renderer->render($response, 'clients-api.phtml', $args);
+    return $this->get('renderer')->render($response, 'clients-api.phtml', $args);
 }
 );
 
@@ -95,10 +96,10 @@ $app->get(
     $args['city'] = '';
     $args['country'] = '';
     $args['view'] = 'play';
-    $args['holydayFloater'] = $this->holyDay;
-    $args['noticeFloater'] = $this->noticeFloater;
+    $args['holydayFloater'] = $this->get('holyDay');
+    $args['noticeFloater'] = $this->get('noticeFloater');
 
-    return $this->renderer->render($response, 'play.phtml', $args);
+    return $this->get('renderer')->render($response, 'play.phtml', $args);
 }
 );
 
@@ -106,7 +107,7 @@ $app->get(
     '/play/{city}/{country}', function ($request, $response, $args) {
     $city = $request->getAttribute('city');
     $country = $request->getAttribute('country');
-    $adjustment = $this->gToHAdjustment;
+    $adjustment = $this->get('gToHAdjustment');
     $times = [];
     if ($city != null && $country != null) {
         // ISNA is default method. Adjustment of +1 day added for Dhul Hijjah 2018.
@@ -118,11 +119,11 @@ $app->get(
     $args['city'] = $city;
     $args['country'] = $country;
     $args['view'] = 'play';
-    $args['holydayFloater'] = $this->holyDay;
-    $args['noticeFloater'] = $this->noticeFloater;
+    $args['holydayFloater'] = $this->get('holyDay');
+    $args['noticeFloater'] = $this->get('noticeFloater');
     $args['times'] = $times;
 
-    return $this->renderer->render($response, 'play.phtml', $args);
+    return $this->get('renderer')->render($response, 'play.phtml', $args);
 
 }
 );
@@ -132,10 +133,10 @@ $app->get(
     // $this->logger->info("aladhan.com '/' credits-and-terms");
     $args['title'] = 'Credits, Terms and Conditions';
     $args['view'] = 'terms';
-    $args['holydayFloater'] = $this->holyDay;
-    $args['noticeFloater'] = $this->noticeFloater;
+    $args['holydayFloater'] = $this->get('holyDay');
+    $args['noticeFloater'] = $this->get('noticeFloater');
 
-    return $this->renderer->render($response, 'terms.phtml', $args);
+    return $this->get('renderer')->render($response, 'terms.phtml', $args);
 }
 );
 
