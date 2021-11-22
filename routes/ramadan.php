@@ -16,17 +16,16 @@ $app->get(
 
 $app->get(
     '/ramadan-prayer-times/{year}/{city}/{country}', function ($request, $response, $args) {
-    // $this->logger->info("aladhan.com '/' ramadan-prayer-times");
 
     $m = 9; // For Ramadan
     $gy = (int)$request->getAttribute('year');
     $city = (string)$request->getAttribute('city');
     $country = (string)$request->getAttribute('country');
-    $latitudeAdjustmentMethod = $request->getQueryParam('latitudeAdjustmentMethod') == null ? 3 : (int)$request->getQueryParam('latitudeAdjustmentMethod');
-    $method = $request->getQueryParam('method') == null ? 2 : (int)$request->getQueryParam('method');
+    $latitudeAdjustmentMethod = !isset($request->getQueryParams()['latitudeAdjustmentMethod']) ? 3 : (int )$request->getQueryParams()['latitudeAdjustmentMethod'];
+    $method = !isset($request->getQueryParams()['method']) ? 2 : (int)$request->getQueryParams()['method'];
 
-    $y = $this->HijriCalendarService->islamicYearFromGregorianForRamadan($gy)['data'];
-    $c = new \AlAdhanApi\CalendarByCity($city, $country, $m, $y, null, $method, true, $this->hToGAdjustment);
+    $y = $this->get('HijriCalendarService')->islamicYearFromGregorianForRamadan($gy)['data'];
+    $c = new \AlAdhanApi\CalendarByCity($city, $country, $m, $y, null, $method, true, $this->get('hToGAdjustment'));
     $days = 30; // Islamic months have 30 or less days - always.
     $cols = 7;
     $rows = $days / $cols;
@@ -40,8 +39,8 @@ $app->get(
     $args['rows'] = $rows;
     $args['cols'] = $cols;
     $args['view'] = 'ramadanCalendar';
-    $args['holydayFloater'] = $this->holyDay;
-    $args['noticeFloater'] = $this->noticeFloater;
+    $args['holydayFloater'] = $this->get('holyDay');
+    $args['noticeFloater'] = $this->get('noticeFloater');
     $args['years'] = array(
         '2015' => '2015',
         '2016' => '2016',
@@ -58,7 +57,7 @@ $app->get(
     $args['method'] = $method;
     $args['lam'] = $latitudeAdjustmentMethod;
 
-    return $this->renderer->render($response, 'ramadan-prayer-times.phtml', $args);
+    return $this->get('renderer')->render($response, 'ramadan-prayer-times.phtml', $args);
 
 }
 );
@@ -67,12 +66,12 @@ $app->get(
 
     // $this->logger->info("aladhan.com '/' ramadan-calendar");
 
-    $cs = $this->HijriCalendarService;
+    $cs = $this->get('HijriCalendarService');
     $m = 9;
     $gy = $request->getAttribute('year');
 
     $y = $cs->islamicYearFromGregorianForRamadan($gy)['data'];
-    $c = new \AlAdhanApi\CalendarByCity('London', 'UK', $m, $y, null, \AlAdhanApi\Methods::MWL, true, $this->hToGAdjustment);
+    $c = new \AlAdhanApi\CalendarByCity('London', 'UK', $m, $y, null, \AlAdhanApi\Methods::MWL, true, $this->get('hToGAdjustment'));
     $days = 30; // Islamic months have 30 or less days - always.
     $cols = 7;
     $rows = $days / $cols;
@@ -90,9 +89,9 @@ $app->get(
     $args['rows'] = $rows;
     $args['cols'] = $cols;
     $args['view'] = 'ramadanCalendar';
-    $args['holydayFloater'] = $this->holyDay;
-    $args['noticeFloater'] = $this->noticeFloater;
+    $args['holydayFloater'] = $this->get('holyDay');
+    $args['noticeFloater'] = $this->get('noticeFloater');
 
-    return $this->renderer->render($response, 'ramadan-calendar.phtml', $args);
+    return $this->get('renderer')->render($response, 'ramadan-calendar.phtml', $args);
 }
 );

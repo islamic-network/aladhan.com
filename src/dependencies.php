@@ -7,69 +7,48 @@ use Monolog\Handler\StreamHandler;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-$container = $app->getContainer();
-
 // view renderer
-$container['renderer'] = function ($c) {
-    $settings = $c->get('settings')['renderer'];
-    return new Slim\Views\PhpRenderer($settings['template_path']);
-};
+$container->set('renderer', function ($c) {
+    return new Slim\Views\PhpRenderer(__DIR__ . '/../templates/');
+});
 
 // monolog
-$container['logger'] = function ($c) {
-    $settings = $c->get('settings')['logger'];
-    $logger = new Logger($settings['name']);
-    $logger->pushHandler(new StreamHandler('php://stdout', $settings['name']));
+$container->set('logger', function ($c) {
+    $logger = new Logger('AlAdhanApp');
+    $logger->pushHandler(new StreamHandler('php://stdout', LogLevel::INFO));
     return $logger;
-};
+});
 
 // Hijri Cal Service
-$container['HijriCalendarService'] = function ($c) {
-
+$container->set('HijriCalendarService', function ($c) {
     return new HijriGregorianCalendar();
-};
+});
 
-$container['gToHAdjustment'] = function ($c) {
+$container->set('gToHAdjustment', function ($c) {
     return 1;
-};
+});
 
-$container['hToGAdjustment'] = function ($c) {
+$container->set('hToGAdjustment', function ($c) {
     return -1;
-};
+});
 
-$container['holyDay'] = function ($c) {
+$container->set('holyDay', function ($c) {
     try {
-        $cs = $c->HijriCalendarService;
+        $cs = $c->get('HijriCalendarService');
 
-        return $cs->nextHijriHoliday($c->gToHAdjustment)['data'];
+        return $cs->nextHijriHoliday($c->get('gToHAdjustment'))['data'];
     } catch (Exception $e) {
         $c->logger->error('Unable to get Holy Day', ['code' => $e->getCode(), 'message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
     }
-};
+});
 
 /**
  * Any text returned here appears at the top of all the pages for any announcements / notices
  * @param $c
  * @return string
  */
-$container['noticeFloater'] = function ($c) {
+$container->set('noticeFloater', function ($c) {
     return "";
-};
+});
 
-$container['errorHandler'] = function ($c) {
-    return function (Request $request, Response $response, Exception $e) use ($c) {
-        $c->logger->error('Slim Error Handler Triggered', ['code' => $e->getCode(), 'message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
-        return $c['response']->withStatus($e->getCode())
-            ->withHeader('Content-Type', 'text/html')
-            ->write($e->getMessage());
-    };
-};
 
-$container['notFoundHandler'] = function ($c) {
-    return function ($request, $response) use ($c) {
-        return $c['response']
-            ->withStatus(404)
-            ->withHeader('Content-Type', 'text/html')
-            ->write('Sorry, we could not find the URL you are after.');
-    };
-};
