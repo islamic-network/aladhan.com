@@ -41,19 +41,11 @@ $app->get(
     $args['view'] = 'ramadanCalendar';
     $args['holydayFloater'] = $this->get('holyDay');
     $args['noticeFloater'] = $this->get('noticeFloater');
-    $args['years'] = array(
-        '2015' => '2015',
-        '2016' => '2016',
-        '2017' => '2017',
-        '2018' => '2018',
-        '2019' => '2019',
-        '2020' => '2020',
-        '2021' => '2021',
-        '2022' => '2022',
-        '2023' => '2023',
-        '2024' => '2024',
-        '2025' => '2025',
-    );
+    $cy = date('Y');
+    for ($i = $cy-5; $i <= $cy+5; $i++) {
+        $years[$i] = $i;
+    }
+    $args['years'] = $years;
     $args['method'] = $method;
     $args['lam'] = $latitudeAdjustmentMethod;
 

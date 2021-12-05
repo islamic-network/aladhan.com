@@ -207,16 +207,11 @@ $app->get(
         '12' => 'December'
     );
 
-    $args['years'] = array(
-        '2015' => '2015',
-        '2016' => '2016',
-        '2017' => '2017',
-        '2018' => '2018',
-        '2019' => '2019',
-        '2020' => '2020',
-        '2021' => '2021',
-    );
-
+    $cy = date('Y');
+    for ($i = $cy-5; $i <= $cy+5; $i++) {
+        $years[$i] = $i;
+    }
+    $args['years'] = $years;
     $args['cmonth'] = date('m');
     $args['cyear'] = date('Y');
     $args['view'] = 'calendar';
@@ -258,17 +253,11 @@ $app->get(
         '11' => 'November',
         '12' => 'December'
     );
-
-    $args['years'] = array(
-        '2015' => '2015',
-        '2016' => '2016',
-        '2017' => '2017',
-        '2018' => '2018',
-        '2019' => '2019',
-        '2020' => '2020',
-        '2021' => '2021',
-    );
-
+    $cy = date('Y');
+    for ($i = $cy-5; $i <= $cy+5; $i++) {
+        $years[$i] = $i;
+    }
+    $args['years'] = $years;
     $args['cmonth'] = $month;
     $args['cyear'] = $year;
     $args['currentDate'] = date('d') . ' ' . date('M') . ' ' . $year;
