@@ -6,7 +6,7 @@ $app->get(
     $month = $cs->currentIslamicMonth()['data'];
     $year = $cs->currentIslamicYear()['data'];
 
-    return $response->withRedirect('/hijri-gregorian-calendar/' . $month . '/' . $year, 301);
+    return $response->withHeader('Location', '/hijri-gregorian-calendar/' . $month . '/' . $year)->withStatus(301);
 }
 );
 
@@ -75,7 +75,7 @@ $app->get(
     $year = date('Y');
     $month = date('n');
 
-    return $response->withRedirect('/gregorian-hijri-calendar/' . $month . '/' . $year, 301);
+    return $response->withHeader('Location', '/gregorian-hijri-calendar/' . $month . '/' . $year)->withStatus(301);
 }
 );
 
