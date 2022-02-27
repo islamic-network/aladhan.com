@@ -144,9 +144,9 @@ $app->get(
 );
 
 $app->post(
-    '/download/{format}', function (\Slim\Http\Request $request, $response, $args) {
+    '/download/{format}', function (\Slim\Psr7\Request $request, $response, $args) {
     $format = $request->getAttribute('format');
-    $data = $request->getParsedBodyParam('data');
+    $data = $request->getParsedBody()['data'];
     $timings = json_decode($data);
     if (is_object($timings)) {
         $ts = [];
@@ -157,11 +157,12 @@ $app->post(
         }
         $timings = $ts;
     }
-
+    // An unhealthy hack as flatterner has not been updated for PHP 8
+    error_reporting(E_ALL ^ E_DEPRECATED);
     if ($format === 'csv' && is_array($timings)) {
         $flattener = new \NestedJsonFlattener\Flattener\Flattener();
         $flattener->setArrayData($timings);
-        $file = 'csv' . rand();
+        $file = '/tmp/csv' . rand();
         $flattener->writeCsv($file);
 
         header('Content-Description: File Transfer');
