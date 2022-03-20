@@ -182,7 +182,7 @@ $app->get(
 $app->get(
     '/islamic-holidays', function ($request, $response, $args) {
     $current_year = date('Y');
-    return $response->withRedirect('/islamic-holidays/' . $current_year, 301);
+    return $response->withStatus(301)->withHeader('Location', '/islamic-holidays/' . $current_year);
 
 }
 );
