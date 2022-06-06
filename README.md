@@ -12,12 +12,11 @@ This is the code you see deployed on https://aladhan.com. This documentation exp
 to deploy your own instance and contribute code.
 
 ## Technology Stack and Requirements
-* PHP 8.0
+* PHP 8.1
 * Composer - See composer.json for other dependencies
 * Slim Framework v4
 * Bootstrap 3
 * JQuery
-* Bootstrap Multiselect
 * Docker
 
 ## Getting Started
