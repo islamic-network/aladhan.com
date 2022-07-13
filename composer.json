@@ -9,7 +9,7 @@
         "slim/slim": "^4.9",
         "slim/php-view": "^2.0",
         "monolog/monolog": "^1.17",
-        "aladhan/api-client": "^1.14",
+        "aladhan/api-client": "^1.16",
         "oscarotero/psr7-middlewares": "^3.20",
         "tonirilix/nested-json-flattener": "^2.1",
         "php-di/php-di": "^6.3",

@@ -39,8 +39,5 @@ foreach ($routes as $route) {
     }
 }
 
-
-$app->addErrorMiddleware(true, true, true);
-
 // Run app
 $app->run();
