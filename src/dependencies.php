@@ -6,6 +6,7 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Psr\Log\LogLevel;
 
 // view renderer
 $container->set('renderer', function ($c) {
@@ -38,7 +39,8 @@ $container->set('holyDay', function ($c) {
 
         return $cs->nextHijriHoliday($c->get('gToHAdjustment'))['data'];
     } catch (Exception $e) {
-        $c->logger->error('Unable to get Holy Day', ['code' => $e->getCode(), 'message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
+        $logger = $c->get('logger');
+        $logger->error('Unable to get Holy Day', ['code' => $e->getCode(), 'message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
     }
 });
 
