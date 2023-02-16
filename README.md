@@ -56,6 +56,14 @@ This app takes 37 MB per apache process / worker and is set to have a maximum of
 
 A single instance should be sized with a maximum of 400 MB RAM, after which you should scale it horizontally.
 
+## To test against a local running API
+
+Build the container and run:
+
+```
+docker run -p 8080:8080 -v $(pwd)/.:/var/www -e API_BASE_URI=http://host.docker.internal --add-host=host.docker.internal:host-gateway <<containername>>
+```
+
 ## Contributing Code
 
 You can contribute code by raising a pull request.
