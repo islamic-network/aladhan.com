@@ -1,7 +1,7 @@
 [
   {
     "type": "get",
-    "url": "http://api.aladhan.com/v1/calendar",
+    "url": "http://api.aladhan.com/v1/calendar/:year/:month",
     "title": "Prayer Times Calendar",
     "description": "<p>Returns all prayer times for a specific calendar month.</p>",
     "name": "GetCalendar",
@@ -32,7 +32,7 @@
             ],
             "optional": false,
             "field": "month",
-            "description": "<p>A gregorian calendar month. Example: 8 or 08 for August.</p>"
+            "description": "<p>Optional. A gregorian calendar month. Example: 8 or 08 for August. If not specified, an annual calendar will be returned.</p>"
           },
           {
             "group": "Parameter",
@@ -40,14 +40,6 @@
             "optional": false,
             "field": "year",
             "description": "<p>A gregorian calendar year. Example: 2014.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "boolean",
-            "optional": true,
-            "field": "annual",
-            "defaultValue": "false",
-            "description": "<p>If true, we'll ignore the month and return the calendar for the whole year.</p>"
           },
           {
             "group": "Parameter",
@@ -72,7 +64,7 @@
             ],
             "optional": true,
             "field": "method",
-            "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq paramteer)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
+            "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq parameter)<br /> 16 - Dubai (unofficial)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
           },
           {
             "group": "Parameter",
@@ -156,12 +148,12 @@
         }
       ]
     },
-    "filename": "../../../api.aladhan.com/routes/timings/v1/prayerTimesCalendar.php",
+    "filename": "routes/v1/timings/prayertimescalendar.php",
     "groupTitle": "Calendar"
   },
   {
     "type": "get",
-    "url": "http://api.aladhan.com/v1/calendarByAddress",
+    "url": "http://api.aladhan.com/v1/calendarByAddress/:year/:month",
     "title": "Prayer Times Calendar by address",
     "description": "<p>Returns all prayer times for a specific calendar month at a particular address.</p>",
     "name": "GetCalendarByAddress",
@@ -185,7 +177,7 @@
             ],
             "optional": false,
             "field": "month",
-            "description": "<p>A gregorian calendar month. Example: 8 or 08 for August.</p>"
+            "description": "<p>Optional. A gregorian calendar month. Example: 8 or 08 for August. If not specified, an annual calendar will be returned.</p>"
           },
           {
             "group": "Parameter",
@@ -193,14 +185,6 @@
             "optional": false,
             "field": "year",
             "description": "<p>A gregorian calendar year. Example: 2014.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "boolean",
-            "optional": true,
-            "field": "annual",
-            "defaultValue": "false",
-            "description": "<p>If true, we'll ignore the month and return the calendar for the whole year.</p>"
           },
           {
             "group": "Parameter",
@@ -225,7 +209,7 @@
             ],
             "optional": true,
             "field": "method",
-            "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq paramteer)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
+            "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq parameter)<br /> 16 - Dubai (unofficial)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
           },
           {
             "group": "Parameter",
@@ -302,12 +286,12 @@
         }
       ]
     },
-    "filename": "../../../api.aladhan.com/routes/timings/v1/prayerTimesCalendar.php",
+    "filename": "routes/v1/timings/prayertimescalendar.php",
     "groupTitle": "Calendar"
   },
   {
     "type": "get",
-    "url": "http://api.aladhan.com/v1/calendarByCity",
+    "url": "http://api.aladhan.com/v1/calendarByCity/:year/:month",
     "title": "Prayer Times Calendar by city",
     "description": "<p>Returns all prayer times for a specific calendar month by City.</p>",
     "name": "GetCalendarByCitys",
@@ -345,7 +329,7 @@
             ],
             "optional": false,
             "field": "month",
-            "description": "<p>A gregorian calendar month. Example: 8 or 08 for August.</p>"
+            "description": "<p>Optional. A gregorian calendar month. Example: 8 or 08 for August. If not specified, an annual calendar will be returned.</p>"
           },
           {
             "group": "Parameter",
@@ -353,14 +337,6 @@
             "optional": false,
             "field": "year",
             "description": "<p>A gregorian calendar year. Example: 2014.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "boolean",
-            "optional": true,
-            "field": "annual",
-            "defaultValue": "false",
-            "description": "<p>If true, we'll ignore the month and return the calendar for the whole year.</p>"
           },
           {
             "group": "Parameter",
@@ -385,7 +361,7 @@
             ],
             "optional": true,
             "field": "method",
-            "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq paramteer)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
+            "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq parameter)<br /> 16 - Dubai (unofficial)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
           },
           {
             "group": "Parameter",
@@ -462,12 +438,12 @@
         }
       ]
     },
-    "filename": "../../../api.aladhan.com/routes/timings/v1/prayerTimesCalendar.php",
+    "filename": "routes/v1/timings/prayertimescalendar.php",
     "groupTitle": "Calendar"
   },
   {
     "type": "get",
-    "url": "http://api.aladhan.com/v1/hijriCalendar",
+    "url": "http://api.aladhan.com/v1/hijriCalendar/:year/:month",
     "title": "Prayer Times Hijri Calendar",
     "description": "<p>Returns all prayer times for a specific Hijri calendar month.</p>",
     "name": "GetHijriCalendar",
@@ -498,7 +474,7 @@
             ],
             "optional": false,
             "field": "month",
-            "description": "<p>A Hijri calendar month. Example: 9 or 09 for Ramadan.</p>"
+            "description": "<p>Optional. A Hijri calendar month. Example: 9 or 09 for Ramadan. If not specified, an annual calendar will be returned.</p>"
           },
           {
             "group": "Parameter",
@@ -506,14 +482,6 @@
             "optional": false,
             "field": "year",
             "description": "<p>A Hijri calendar year. Example: 1437.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "boolean",
-            "optional": true,
-            "field": "annual",
-            "defaultValue": "false",
-            "description": "<p>If true, we'll ignore the month and return the calendar for the whole year.</p>"
           },
           {
             "group": "Parameter",
@@ -538,7 +506,7 @@
             ],
             "optional": true,
             "field": "method",
-            "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq paramteer)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
+            "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq parameter)<br /> 16 - Dubai (unofficial)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
           },
           {
             "group": "Parameter",
@@ -622,12 +590,12 @@
         }
       ]
     },
-    "filename": "../../../api.aladhan.com/routes/timings/v1/prayerTimesCalendar.php",
+    "filename": "routes/v1/timings/prayertimescalendar.php",
     "groupTitle": "Calendar"
   },
   {
     "type": "get",
-    "url": "http://api.aladhan.com/v1/hijriCalendarByAddress",
+    "url": "http://api.aladhan.com/v1/hijriCalendarByAddress/:year/:month",
     "title": "Prayer Times Hijri Calendar by address",
     "description": "<p>Returns all prayer times for a specific Hijri calendar month at a particular address.</p>",
     "name": "GetHijriCalendarByAddress",
@@ -651,7 +619,7 @@
             ],
             "optional": false,
             "field": "month",
-            "description": "<p>A Hijri calendar month. Example: 9 or 09 for August.</p>"
+            "description": "<p>Optional. A Hijri calendar month. Example: 9 or 09 for Ramadan. If not specified, an annual calendar will be returned.</p>"
           },
           {
             "group": "Parameter",
@@ -659,14 +627,6 @@
             "optional": false,
             "field": "year",
             "description": "<p>A Hijri calendar year. Example: 1437.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "boolean",
-            "optional": true,
-            "field": "annual",
-            "defaultValue": "false",
-            "description": "<p>If true, we'll ignore the month and return the calendar for the whole year.</p>"
           },
           {
             "group": "Parameter",
@@ -691,7 +651,7 @@
             ],
             "optional": true,
             "field": "method",
-            "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq paramteer)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
+            "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq parameter)<br /> 16 - Dubai (unofficial)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
           },
           {
             "group": "Parameter",
@@ -768,12 +728,12 @@
         }
       ]
     },
-    "filename": "../../../api.aladhan.com/routes/timings/v1/prayerTimesCalendar.php",
+    "filename": "routes/v1/timings/prayertimescalendar.php",
     "groupTitle": "Calendar"
   },
   {
     "type": "get",
-    "url": "http://api.aladhan.com/v1/hijriCalendarByCity",
+    "url": "http://api.aladhan.com/v1/hijriCalendarByCity/:year/:month",
     "title": "Prayer Times Hijri Calendar by city",
     "description": "<p>Returns all prayer times for a specific Hijri calendar month by City.</p>",
     "name": "GetHijriCalendarByCity",
@@ -811,7 +771,7 @@
             ],
             "optional": false,
             "field": "month",
-            "description": "<p>A Hijri calendar month. Example: 9 or 09 for Ramadan.</p>"
+            "description": "<p>Optional. A Hijri calendar month. Example: 9 or 09 for Ramadan. If not specified, an annual calendar will be returned.</p>"
           },
           {
             "group": "Parameter",
@@ -819,14 +779,6 @@
             "optional": false,
             "field": "year",
             "description": "<p>A Hijri calendar year. Example: 1437.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "boolean",
-            "optional": true,
-            "field": "annual",
-            "defaultValue": "false",
-            "description": "<p>If true, we'll ignore the month and return the calendar for the whole year.</p>"
           },
           {
             "group": "Parameter",
@@ -851,7 +803,7 @@
             ],
             "optional": true,
             "field": "method",
-            "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq paramteer)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
+            "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq parameter)<br /> 16 - Dubai (unofficial)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
           },
           {
             "group": "Parameter",
@@ -928,128 +880,8 @@
         }
       ]
     },
-    "filename": "../../../api.aladhan.com/routes/timings/v1/prayerTimesCalendar.php",
+    "filename": "routes/v1/timings/prayertimescalendar.php",
     "groupTitle": "Calendar"
-  },
-  {
-    "type": "get",
-    "url": "http://api.aladhan.com/v1/currentDate",
-    "title": "Current Date",
-    "description": "<p>Returns the current date (in the DD-MM-YYYY format) for the specified time zone</p>",
-    "name": "GetCurrentDate",
-    "group": "DateAndTime",
-    "version": "1.0.1",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "zone",
-            "description": "<p>A valid timezone name as specified on <a href=\"http://php.net/manual/en/timezones.php\" target=\"_blank\">http://php.net/manual/en/timezones.php</a>&lt;. Example: Europe/London</p>"
-          }
-        ]
-      }
-    },
-    "examples": [
-      {
-        "title": "Example usage:",
-        "content": "http://api.aladhan.com/v1/currentDate?zone=Europe/London",
-        "type": "http"
-      }
-    ],
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"code\": 200,\n  \"status\": \"OK\",\n  \"data\": \"23-08-2017\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "../../../api.aladhan.com/routes/timings/v1/dateAndTime.php",
-    "groupTitle": "DateAndTime"
-  },
-  {
-    "type": "get",
-    "url": "http://api.aladhan.com/v1/currentTime",
-    "title": "Current Time",
-    "description": "<p>Returns the current time (in the HH:MM format) for the specified time zone</p>",
-    "name": "GetCurrentTime",
-    "group": "DateAndTime",
-    "version": "1.0.1",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "zone",
-            "description": "<p>A valid timezone name as specified on <a href=\"http://php.net/manual/en/timezones.php\" target=\"_blank\">http://php.net/manual/en/timezones.php</a>&lt;. Example: Europe/London</p>"
-          }
-        ]
-      }
-    },
-    "examples": [
-      {
-        "title": "Example usage:",
-        "content": "http://api.aladhan.com/v1/currentTime?zone=Europe/London",
-        "type": "http"
-      }
-    ],
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"code\": 200,\n  \"status\": \"OK\",\n  \"data\": \"13:56\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "../../../api.aladhan.com/routes/timings/v1/dateAndTime.php",
-    "groupTitle": "DateAndTime"
-  },
-  {
-    "type": "get",
-    "url": "http://api.aladhan.com/v1/currentTimestamp",
-    "title": "Current Timestamp",
-    "description": "<p>Returns the current UNIX timestamp for the specified time zone</p>",
-    "name": "GetCurrentTimestamp",
-    "group": "DateAndTime",
-    "version": "1.0.1",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "zone",
-            "description": "<p>A valid timezone name as specified on <a href=\"http://php.net/manual/en/timezones.php\" target=\"_blank\">http://php.net/manual/en/timezones.php</a>&lt;. Example: Europe/London</p>"
-          }
-        ]
-      }
-    },
-    "examples": [
-      {
-        "title": "Example usage:",
-        "content": "http://api.aladhan.com/v1/currentTimestamp?zone=Europe/London",
-        "type": "http"
-      }
-    ],
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"code\": 200,\n  \"status\": \"OK\",\n  \"data\": \"1503495668\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "../../../api.aladhan.com/routes/timings/v1/dateAndTime.php",
-    "groupTitle": "DateAndTime"
   },
   {
     "type": "get",
@@ -1075,12 +907,12 @@
         }
       ]
     },
-    "filename": "../../../api.aladhan.com/routes/timings/v1/prayerTimes.php",
+    "filename": "routes/v1/timings/methods.php",
     "groupTitle": "Miscellaneous"
   },
   {
     "type": "get",
-    "url": "http://api.aladhan.com/v1/timings/:date_or_timestamp",
+    "url": "http://api.aladhan.com/v1/timings/:date",
     "title": "Timings",
     "description": "<p>Returns all prayer times for a specific date.</p>",
     "name": "GetTimings",
@@ -1092,10 +924,9 @@
           {
             "group": "Parameter",
             "type": "string",
-            "optional": true,
-            "field": "date_or_timestamp",
-            "defaultValue": "now",
-            "description": "<p>A date in the DD-MM-YYYY format or UNIX timestamp. Default's to the current date.</p>"
+            "optional": false,
+            "field": "date",
+            "description": "<p>A date in the DD-MM-YYYY format. Default's to the current date via an HTTP 301.</p>"
           },
           {
             "group": "Parameter",
@@ -1134,7 +965,7 @@
             ],
             "optional": true,
             "field": "method",
-            "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq paramteer)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
+            "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq parameter)<br /> 16 - Dubai (unofficial)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
           },
           {
             "group": "Parameter",
@@ -1205,7 +1036,7 @@
     "examples": [
       {
         "title": "Example usage:",
-        "content": "http://api.aladhan.com/v1/timings/1398332113?latitude=51.508515&longitude=-0.1254872&method=2",
+        "content": "http://api.aladhan.com/v1/timings/17-07-2007?latitude=51.508515&longitude=-0.1254872&method=2",
         "type": "http"
       }
     ],
@@ -1218,12 +1049,12 @@
         }
       ]
     },
-    "filename": "../../../api.aladhan.com/routes/timings/v1/prayerTimes.php",
+    "filename": "routes/v1/timings/prayertimes.php",
     "groupTitle": "Timings"
   },
   {
     "type": "get",
-    "url": "http://api.aladhan.com/v1/timingsByAddress/:date_or_timestamp",
+    "url": "http://api.aladhan.com/v1/timingsByAddress/:date",
     "title": "Timings By Address",
     "description": "<p>Returns all prayer times for a specific date at a particular address.</p>",
     "name": "GetTimingsByAddresss",
@@ -1235,10 +1066,9 @@
           {
             "group": "Parameter",
             "type": "string",
-            "optional": true,
-            "field": "date_or_timestamp",
-            "defaultValue": "now",
-            "description": "<p>A date in the DD-MM-YYYY format or UNIX timestamp. Default's to the current date.</p>"
+            "optional": false,
+            "field": "date",
+            "description": "<p>A date in the DD-MM-YYYY format. Default's to the current date via an HTTP 301.</p>"
           },
           {
             "group": "Parameter",
@@ -1270,7 +1100,7 @@
             ],
             "optional": true,
             "field": "method",
-            "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq paramteer)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
+            "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq parameter)<br /> 16 - Dubai (unofficial)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
           },
           {
             "group": "Parameter",
@@ -1347,12 +1177,12 @@
         }
       ]
     },
-    "filename": "../../../api.aladhan.com/routes/timings/v1/prayerTimes.php",
+    "filename": "routes/v1/timings/prayertimes.php",
     "groupTitle": "Timings"
   },
   {
     "type": "get",
-    "url": "http://api.aladhan.com/v1/timingsByCity/:date_or_timestamp",
+    "url": "http://api.aladhan.com/v1/timingsByCity/:date",
     "title": "Timings By City",
     "description": "<p>Returns all prayer times for a specific date in a particular city.</p>",
     "name": "GetTimingsByCity",
@@ -1364,10 +1194,9 @@
           {
             "group": "Parameter",
             "type": "string",
-            "optional": true,
-            "field": "date_or_timestamp",
-            "defaultValue": "now",
-            "description": "<p>A date in the DD-MM-YYYY format or UNIX timestamp. Default's to the current date.</p>"
+            "optional": false,
+            "field": "date",
+            "description": "<p>A date in the DD-MM-YYYY format. Default's to the current date via an HTTP 301.</p>"
           },
           {
             "group": "Parameter",
@@ -1413,7 +1242,7 @@
             ],
             "optional": true,
             "field": "method",
-            "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq paramteer)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
+            "description": "<p>A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-12 and 99, as specified below:<br />     *                               0 - Shia Ithna-Ansari<br /> 1 - University of Islamic Sciences, Karachi<br /> 2 - Islamic Society of North America<br /> 3 - Muslim World League<br /> 4 - Umm Al-Qura University, Makkah <br /> 5 - Egyptian General Authority of Survey<br /> 7 - Institute of Geophysics, University of Tehran<br /> 8 - Gulf Region<br /> 9 - Kuwait<br /> 10 - Qatar<br /> 11 - Majlis Ugama Islam Singapura, Singapore<br /> 12 - Union Organization islamic de France<br /> 13 - Diyanet İşleri Başkanlığı, Turkey<br /> 14 - Spiritual Administration of Muslims of Russia<br /> 15 - Moonsighting Committee Worldwide (also requires shafaq parameter)<br /> 16 - Dubai (unofficial)<br /> 99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a></p>"
           },
           {
             "group": "Parameter",
@@ -1490,7 +1319,7 @@
         }
       ]
     },
-    "filename": "../../../api.aladhan.com/routes/timings/v1/prayerTimes.php",
+    "filename": "routes/v1/timings/prayertimes.php",
     "groupTitle": "Timings"
   }
 ]
