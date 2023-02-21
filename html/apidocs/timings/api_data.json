@@ -135,7 +135,7 @@
     "examples": [
       {
         "title": "Example usage:",
-        "content": "http://api.aladhan.com/v1/calendar?latitude=51.508515&longitude=-0.1254872&method=2&month=4&year=2017",
+        "content": "http://api.aladhan.com/v1/calendar/2017/4?latitude=51.508515&longitude=-0.1254872&method=2\nhttp://api.aladhan.com/v1/calendar/2019?latitude=51.508515&longitude=-0.1254872&method=2",
         "type": "http"
       }
     ],
@@ -273,7 +273,7 @@
     "examples": [
       {
         "title": "Example usage:",
-        "content": "http://api.aladhan.com/v1/calendarByAddress?address=Sultanahmet Mosque, Istanbul, Turkey&method=2&month=04&year=2017",
+        "content": "http://api.aladhan.com/v1/calendarByAddress/2017/4?address=Sultanahmet Mosque, Istanbul, Turkey&method=2",
         "type": "http"
       }
     ],
@@ -425,7 +425,7 @@
     "examples": [
       {
         "title": "Example usage:",
-        "content": "http://api.aladhan.com/v1/calendarByCity?city=London&country=United Kingdom&method=2&month=04&year=2017",
+        "content": "http://api.aladhan.com/v1/calendarByCity/2017/4?city=London&country=United Kingdom&method=2",
         "type": "http"
       }
     ],
@@ -577,7 +577,7 @@
     "examples": [
       {
         "title": "Example usage:",
-        "content": "http://api.aladhan.com/v1/hijriCalendar?latitude=51.508515&longitude=-0.1254872&method=2&month=4&year=1437",
+        "content": "http://api.aladhan.com/v1/hijriCalendar/1437/4?latitude=51.508515&longitude=-0.1254872&method=2",
         "type": "http"
       }
     ],
@@ -715,7 +715,7 @@
     "examples": [
       {
         "title": "Example usage:",
-        "content": "http://api.aladhan.com/v1/hijriCalendarByAddress?address=Sultanahmet Mosque, Istanbul, Turkey&method=2&month=04&year=1437",
+        "content": "http://api.aladhan.com/v1/hijriCalendarByAddress/1437/4?address=Sultanahmet Mosque, Istanbul, Turkey&method=2",
         "type": "http"
       }
     ],
@@ -867,7 +867,7 @@
     "examples": [
       {
         "title": "Example usage:",
-        "content": "http://api.aladhan.com/v1/hijriCalendarByCity?city=London&country=United Kingdom&method=2&month=04&year=1437",
+        "content": "http://api.aladhan.com/v1/hijriCalendarByCity/1437/4?city=London&country=United Kingdom&method=2",
         "type": "http"
       }
     ],
