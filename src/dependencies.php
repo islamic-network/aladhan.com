@@ -26,11 +26,11 @@ $container->set('HijriCalendarService', function ($c) {
 });
 
 $container->set('gToHAdjustment', function ($c) {
-    return -1;
+    return 1;
 });
 
 $container->set('hToGAdjustment', function ($c) {
-    return -1;
+    return 1;
 });
 
 $container->set('holyDay', function ($c) {
