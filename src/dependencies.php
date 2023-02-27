@@ -30,7 +30,7 @@ $container->set('gToHAdjustment', function ($c) {
 });
 
 $container->set('hToGAdjustment', function ($c) {
-    return 1;
+    return -1;
 });
 
 $container->set('holyDay', function ($c) {
