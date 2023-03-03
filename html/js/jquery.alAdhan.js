@@ -9,6 +9,7 @@ jQuery( document ).ready( function( $ ) {
         _locationFieldId: 'location',
         _methodFieldId: 'method',
         _latitudeAdjustmentFieldId: 'latiudeAdjustment',
+        _midnightModeFieldId: 'midnightMode',
         _schoolFieldId: 'juristicSchool',
         _adhanFile: 'https://cdn.aladhan.com/audio/adhans/a1.mp3',
         // Fajr adhan from  http://www.assabile.com/adhan-call-prayer
@@ -16,12 +17,27 @@ jQuery( document ).ready( function( $ ) {
         _matchedPrayer: '',
         _latitudeAdjustment: '',
         _juristicSchool: '',
+        _midnightMode: '',
+        _customFajrAngle: '',
+        _customMaghribAngle: '',
+        _customIshaAngle: '',
+        _tuneImsak: '',
+        _tuneFajr: '',
+        _tuneSunrise: '',
+        _tuneZhuhr: '',
+        _tuneAsr: '',
+        _tuneMaghrib: '',
+        _tuneSunset: '',
+        _tuneIsha: '',
+        _tuneMidnight: '',
+        _methodSettings: '',
+        _tuneString: '',
         _apiUrl: 'https://api.aladhan.com/v1/',
         _updated: '',
         _player: '',
         _nextPrayer: '',
         _timestamp: '',
-        _daysAdjustment: 0,
+        _daysAdjustment: 1,
         _invalidLocation: false,
         init: function() {
             var gc = this;
@@ -35,6 +51,13 @@ jQuery( document ).ready( function( $ ) {
             gc._latitudeAdjustment = $('#' + gc._latitudeAdjustmentFieldId).val();
             gc._school = $('#' + gc._schoolFieldId).val();
             gc._device = $("input[name=currenttimedevice]:radio:checked").val();
+            $('#' + gc._methodFieldId).on('change', function() {
+                if ($(this).find('option:selected').attr('value') == '99') {
+                    $('.customSettingsForm').removeClass('hidden');
+                } else {
+                    $('.customSettingsForm').addClass('hidden');
+                }
+            });
             // We want to fetch prayer times initially, but this won't work as the latitude and longitude take time to come back from the Google API.
             // So instead of calling gc.fetchPrayerTimes(), we will simply let monitorLatLng run every 5 seconds, it won't find the timings so will try itself.
             // See if the adhan needs playing every 5 seconds.
@@ -69,6 +92,35 @@ jQuery( document ).ready( function( $ ) {
             if (this._device == '') {
                 this._device = $("input[name=currenttimedevice]:radio:checked").val();
             }
+            if (this._midnightMode == '') {
+                this._midnightMode = $('#' + this._midnightModeFieldId).val();
+            }
+            if (this._customFajrAngle == '') {
+                this._customFajrAngle = $('#customFajrAngle').val();
+            }
+            if (this._customMaghribAngle == '') {
+                this._customMaghribAngle = $('#customMaghribAngle').val();
+            }
+            if (this._customIshaAngle == '') {
+                this._customIshaAngle = $('#customIshaAngle').val();
+            }
+            if (this._methodSettings == '') {
+                this._methodSettings = this._customFajrAngle + ',' + this._customMaghribAngle + ',' + this._customIshaAngle;
+            }
+            if (this._tuneString == '') {
+                this._tuneImsak = $('#tuneImsak').val();
+                this._tuneFajr = $('#tuneFajr').val();
+                this._tuneSunrise = $('#tuneSunrise').val();
+                this._tuneZhuhr = $('#tuneZhuhr').val();
+                this._tuneAsr = $('#tuneAsr').val();
+                this._tuneMaghrib = $('#tuneMaghrib').val();
+                this._tuneSunset = $('#tuneSunset').val();
+                this._tuneIsha = $('#tuneIsha').val();
+                this._tuneMidnight = $('#tuneMidnight').val();
+                this._tuneString = this._tuneImsak + ',' + this._tuneFajr + ',' + this._tuneSunrise + ',' +
+                    this._tuneZhuhr + ',' + this._tuneAsr + ',' + this._tuneMaghrib + ',' + this._tuneSunset + ',' +
+                    this._tuneIsha + ',' + this._tuneMidnight;
+            }
 
             if (this._timings != '') {
                 if (this._updated == 'y') {
@@ -77,13 +129,21 @@ jQuery( document ).ready( function( $ ) {
             }
 
             // If all propertes are not empty.
-            if (this._location != ''  && this._method != '' && this._school != '' && this._device != '' && this._latitudeAdjustment != '') {
+            if (this._location != ''  && this._method != '' &&
+                this._school != '' && this._device != '' &&
+                this._latitudeAdjustment != '' && this._midnightMode != '' &&
+                this._methodSettings != '' && this._tuneString != '') {
                 // Check that the value of the properties has not changed.
                 if (this._location != $('#' + this._locationFieldId).val()
                     || this._method != $('#' + this._methodFieldId).val()
                     || this._device != $("input[name=currenttimedevice]:radio:checked").val()
                     || this._latitudeAdjustment !=  $('#' + this._latitudeAdjustmentFieldId).val()
                     || this._school != $('#' + this._schoolFieldId).val()
+                    || this._midnightMode != $('#' + this._midnightModeFieldId).val()
+                    || this._methodSettings != $('#customFajrAngle').val() + ',' + $('#customMaghribAngle').val() + ',' + $('#customIshaAngle').val()
+                    || this._tuneString != $('#tuneImsak').val() + ',' + $('#tuneFajr').val() + ',' + $('#tuneSunrise').val() + ',' +
+                    $('#tuneZhuhr').val() + ',' + $('#tuneAsr').val() + ',' + $('#tuneMaghrib').val() + ',' + $('#tuneSunset').val() + ',' +
+                    $('#tuneIsha').val() + ',' + $('#tuneMidnight').val()
                 ) {
                     // If it has, update the object properties.
                     this._location = $('#' + this._locationFieldId).val();
@@ -91,14 +151,19 @@ jQuery( document ).ready( function( $ ) {
                     this._school = $('#' + this._schoolFieldId).val();
                     this._latitudeAdjustment = $('#' + this._latitudeAdjustmentFieldId).val();
                     this._device = $("input[name=currenttimedevice]:radio:checked").val();
+                    this._midnightMode = $('#' + this._midnightModeFieldId).val();
+                    this._methodSettings = $('#customFajrAngle').val() + ',' + $('#customMaghribAngle').val() + ',' + $('#customIshaAngle').val();
+                    this._tuneString = $('#tuneImsak').val() + ',' + $('#tuneFajr').val() + ',' + $('#tuneSunrise').val() + ',' +
+                    $('#tuneZhuhr').val() + ',' + $('#tuneAsr').val() + ',' + $('#tuneMaghrib').val() + ',' + $('#tuneSunset').val() + ',' +
+                    $('#tuneIsha').val() + ',' + $('#tuneMidnight').val();
                     this._timings = '';
                 }
                 // console.log('-----------------------------------------');
-                // c onsole.log('INFO: Fetched prayer times successfully.');
+                // console.log('INFO: Fetched prayer times successfully.');
                 // console.log(this._timings);
             }
             if (this._timings == '') {
-                this.getTimeZone();
+                // this.getTimeZone(); No longer needed as the API computes this automatically
                 this.fetchPrayerTimes();
 
                 this._updated = 'y';
@@ -123,7 +188,10 @@ jQuery( document ).ready( function( $ ) {
                     method: gc._method,
                     latitudeAdjustmentMethod: gc._latitudeAdjustment,
                     school: gc._school,
-                    adjustment: gc._daysAdjustment
+                    adjustment: gc._daysAdjustment,
+                    methodSettings: gc._methodSettings,
+                    midnightMode: gc._midnightMode,
+                    tune: gc._tuneString
                 };
 
                 $('.loader').show();
@@ -184,7 +252,8 @@ jQuery( document ).ready( function( $ ) {
             var gc = this;
             var theTime;
             if (gc._device == 'client') {
-                theTime = Math.round(+new Date()/1000);
+                var date = new Date();
+                theTime = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
             } else {
                 //gc._analytics('send', 'event', 'API', 'CurrentTimeStamp', 'Getting current timestamp from server.');
                 var credentials = {
@@ -211,6 +280,10 @@ jQuery( document ).ready( function( $ ) {
         calculateCurrentDate: function() {
             var gc = this;
             var theDate; // DD-MM-YYYY format
+
+            var date = new Date();
+            return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+
             var credentials = {
                 zone: gc._timezonename
             };
@@ -365,8 +438,13 @@ jQuery( document ).ready( function( $ ) {
                     address: gc._location,
                     method: gc._method,
                     latitudeAdjustmentMethod: gc._latitudeAdjustment,
-                    school: gc._school
+                    school: gc._school,
+                    adjustment: gc._daysAdjustment,
+                    methodSettings: gc._methodSettings,
+                    midnightMode: gc._midnightMode,
+                    tune: gc._tuneString
                 };
+
                 // Post to API
                 return $.ajax({
                     type: "GET",

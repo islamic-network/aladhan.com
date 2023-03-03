@@ -22,7 +22,7 @@ $app->get(
     $city = (string)$request->getAttribute('city');
     $country = (string)$request->getAttribute('country');
     $latitudeAdjustmentMethod = !isset($request->getQueryParams()['latitudeAdjustmentMethod']) ? 3 : (int )$request->getQueryParams()['latitudeAdjustmentMethod'];
-    $method = !isset($request->getQueryParams()['method']) ? 2 : (int)$request->getQueryParams()['method'];
+    $method = !isset($request->getQueryParams()['method']) ? '' : (int) $request->getQueryParams()['method'];
 
     $y = $this->get('HijriCalendarService')->islamicYearFromGregorianForRamadan($gy)['data'];
     $c = new \AlAdhanApi\CalendarByCity($city, $country, $m, $y, null, $method, true, $this->get('hToGAdjustment'));
@@ -46,7 +46,7 @@ $app->get(
         $years[$i] = $i;
     }
     $args['years'] = $years;
-    $args['method'] = $method;
+    $args['method'] = $args['calendar'][0]['meta']['method']['id'];
     $args['lam'] = $latitudeAdjustmentMethod;
 
     return $this->get('renderer')->render($response, 'ramadan-prayer-times.phtml', $args);

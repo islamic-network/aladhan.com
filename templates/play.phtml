@@ -4,169 +4,267 @@
 
 <div class="container">
     <div class="row">
-      <div class="col-lg-3 col-md-12 col-sm-12 timings" style="">
-      <h4 class="pt-heading">Prayer Times <small>for</small><br /><small><?=isset($times['timings']) ?  $times['date']['gregorian']['day'] . ' ' . $times['date']['gregorian']['month']['en'] . ', ' . $times['date']['gregorian']['year'] . ' ' . $times['date']['gregorian']['designation']['abbreviated'] . '<br />' .
-$times['date']['hijri']['day'] . ' ' . $times['date']['hijri']['month']['en'] . ', ' . $times['date']['hijri']['year'] . ' ' . $times['date']['hijri']['designation']['abbreviated'] . '<br /> in ' . $city . ', ' . $country : '';?></small></h4>
-        <img class="minimise-icon" width="21" style="display: none;" src="https://cdn.aladhan.com/images/minimize-icon.png" style="">
-        <img class="settings-icon" width="25" style="display: none;" src="https://cdn.aladhan.com/images/settings-icon.png" style="">
-        <dl class="inline-flex">
-          <dt>Fajr (فجر)</dt>
-          <dd class="timeFajr"><?=isset($times['timings']) ? $times['timings']['Fajr'] : '';?></dd>
-          <dt>Sunrise (شروق)</dt>
-          <dd class="timeSunrise"><?=isset($times['timings']) ? $times['timings']['Sunrise'] : '';?></dd>
-          <dt>Zhuhr (ظهر)</dt>
-          <dd class="timeDhuhr"><?=isset($times['timings']) ? $times['timings']['Dhuhr'] : '';?></dd>
-          <dt>Asr (عصر)</dt>
-          <dd class="timeAsr"><?=isset($times['timings']) ? $times['timings']['Asr'] : '';?></dd>
-          <dt>Maghrib (مغرب)</dt>
-          <dd class="timeMaghrib"><?=isset($times['timings']) ? $times['timings']['Maghrib'] : '';?></dd>
-          <dt>Isha (عشاء)</dt>
-          <dd class="timeIsha"><?=isset($times['timings']) ? $times['timings']['Isha'] : '';?></dd>
-          <dt>Midnight</dt>
-          <dd class="timeMidnight"><?=isset($times['timings']) ? $times['timings']['Midnight'] : '';?></dd>
-        </dl>
-        <form role="form">
-            <div class="form-group">
-                <label for="adhanfile">Select Adhan to play when it's time</label>
-                <select id="adhanfile" name="adhanfile" class="form-control">
-                    <option value="https://cdn.aladhan.com/audio/adhans/a1.mp3" selected="">Adhan by Ahmad al Nafees</option>
-                    <option value="https://cdn.aladhan.com/audio/adhans/a2.mp3">Adhan by Hafiz Mustafa Özcan from Turkey</option>
-                    <option value="https://cdn.aladhan.com/audio/adhans/a3.mp3">Adhan from Karl Jenkins' Mass for Peace"</option>
-                    <option value="https://cdn.aladhan.com/audio/adhans/a4.mp3">Adhan from Dubai's One TV by Mishary Rashid Alafasy</option>
-                    <option value="https://cdn.aladhan.com/audio/adhans/a7.mp3">Another Adhan by Mishary Rashid Alafasy</option>
-                    <option value="https://cdn.aladhan.com/audio/adhans/a9.mp3">Another Adhan by Mishary Rashid Alafasy</option>
-                </select>
-                <label for="different_fajr_adhan">Play different Adhan at Fajr?</label>
-                <input type="checkbox" id="different_fajr_adhan" name="different_fajr_adhan">
-                <select id="fajrAdhanfile" name="fajrAdhanfile" class="form-control" style="display: none;">
-                    <option value="https://cdn.aladhan.com/audio/adhans/fajr/f1.mp3" selected="">Fajr Adhan</option>
-                </select>
+        <div class="col-lg-3 col-md-12 col-sm-12 timings" style="">
+            <h4 class="pt-heading">Prayer Times
+                <small>for</small><br/><small><?= isset($times['timings']) ? $times['date']['gregorian']['day'] . ' ' . $times['date']['gregorian']['month']['en'] . ', ' . $times['date']['gregorian']['year'] . ' ' . $times['date']['gregorian']['designation']['abbreviated'] . '<br />' .
+                        $times['date']['hijri']['day'] . ' ' . $times['date']['hijri']['month']['en'] . ', ' . $times['date']['hijri']['year'] . ' ' . $times['date']['hijri']['designation']['abbreviated'] . '<br /> in ' . $city . ', ' . $country : ''; ?></small>
+            </h4>
+            <img class="minimise-icon" width="21" style="display: none;"
+                 src="https://cdn.aladhan.com/images/minimize-icon.png" style="">
+            <img class="settings-icon" width="25" style="display: none;"
+                 src="https://cdn.aladhan.com/images/settings-icon.png" style="">
+            <dl class="inline-flex">
+                <dt>Fajr (فجر)</dt>
+                <dd class="timeFajr"><?= isset($times['timings']) ? $times['timings']['Fajr'] : ''; ?></dd>
+                <dt>Sunrise (شروق)</dt>
+                <dd class="timeSunrise"><?= isset($times['timings']) ? $times['timings']['Sunrise'] : ''; ?></dd>
+                <dt>Zhuhr (ظهر)</dt>
+                <dd class="timeDhuhr"><?= isset($times['timings']) ? $times['timings']['Dhuhr'] : ''; ?></dd>
+                <dt>Asr (عصر)</dt>
+                <dd class="timeAsr"><?= isset($times['timings']) ? $times['timings']['Asr'] : ''; ?></dd>
+                <dt>Maghrib (مغرب)</dt>
+                <dd class="timeMaghrib"><?= isset($times['timings']) ? $times['timings']['Maghrib'] : ''; ?></dd>
+                <dt>Isha (عشاء)</dt>
+                <dd class="timeIsha"><?= isset($times['timings']) ? $times['timings']['Isha'] : ''; ?></dd>
+                <dt>Midnight</dt>
+                <dd class="timeMidnight"><?= isset($times['timings']) ? $times['timings']['Midnight'] : ''; ?></dd>
+            </dl>
+            <form role="form">
+                <div class="form-group">
+                    <label for="adhanfile">Select Adhan to play when it's time</label>
+                    <select id="adhanfile" name="adhanfile" class="form-control">
+                        <option value="https://cdn.aladhan.com/audio/adhans/a1.mp3" selected="">Adhan by Ahmad al
+                            Nafees
+                        </option>
+                        <option value="https://cdn.aladhan.com/audio/adhans/a2.mp3">Adhan by Hafiz Mustafa Özcan from
+                            Turkey
+                        </option>
+                        <option value="https://cdn.aladhan.com/audio/adhans/a3.mp3">Adhan from Karl Jenkins' Mass for
+                            Peace"
+                        </option>
+                        <option value="https://cdn.aladhan.com/audio/adhans/a4.mp3">Adhan from Dubai's One TV by Mishary
+                            Rashid Alafasy
+                        </option>
+                        <option value="https://cdn.aladhan.com/audio/adhans/a7.mp3">Another Adhan by Mishary Rashid
+                            Alafasy
+                        </option>
+                        <option value="https://cdn.aladhan.com/audio/adhans/a9.mp3">Another Adhan by Mishary Rashid
+                            Alafasy
+                        </option>
+                    </select>
+                    <label for="different_fajr_adhan">Play different Adhan at Fajr?</label>
+                    <input type="checkbox" id="different_fajr_adhan" name="different_fajr_adhan">
+                    <select id="fajrAdhanfile" name="fajrAdhanfile" class="form-control" style="display: none;">
+                        <option value="https://cdn.aladhan.com/audio/adhans/fajr/f1.mp3" selected="">Fajr Adhan</option>
+                    </select>
+                </div>
+            </form>
+            <hr/>
+            <div id="holidays" class="hidden"></div>
+            <audio id="adhanplayer" src="https://cdn.aladhan.com/audio/adhans/a1.mp3" type="audio/mp3"
+                   controls="controls" class="adhanplayer"></audio>
+        </div>
+        <div class="col-lg-9 col-md-12 col-sm-12 timings-settings"
+             style="background-color: black; opacity: 0.8; margin: 10 0 0 0;">
+            <div class="loader">
+                <img src="/images/loader.svg"/>
+                <div>Loading</div>
             </div>
-        </form>
-        <hr />
-        <div id="holidays" class="hidden"></div>
-            <audio id="adhanplayer" src="https://cdn.aladhan.com/audio/adhans/a1.mp3" type="audio/mp3" controls="controls" class="adhanplayer"></audio>
-        </div>
-      <div class="col-lg-9 col-md-12 col-sm-12 timings-settings" style="background-color: black; opacity: 0.8; margin: 10 0 0 0;">
-        <div class="loader">
-            <img src="/images/loader.svg" />
-            <div>Loading</div>
-        </div>
-        <img class="settings-close-icon" width="25" src="https://cdn.aladhan.com/images/close-icon.png">
-<?php include_once('common/bismillah.phtml'); ?>
-        <div class="page-header">
-            <h4>Adhan Player <small>Just select a method and enter a location</small></h2>
-        </div>
+            <img class="settings-close-icon" width="25" src="https://cdn.aladhan.com/images/close-icon.png">
+            <?php include_once('common/bismillah.phtml'); ?>
+            <div class="page-header">
+                <h4>Adhan Player <small>Just select a method and enter a location</small></h2>
+            </div>
 
-        <form role="form">
-          <div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
-            <label for="method">Method (<a href="/calculation-methods" target="_blank">Learn more about calculation methods</a>)</label>
-            <select id="method" name="method" class="form-control">
-                <option value="0">Shia Ithna-Ashari</option>
-                <option value="1">University of Islamic Sciences, Karachi</option>
-                <option value="2" selected>Islamic Society of North America (ISNA)</option>
-                <option value="3">Muslim World League (MWL)</option>
-                <option value="4">Umm al-Qura, Makkah</option>
-                <option value="5">Egyptian General Authority of Survey</option>
-                <option value="7">Institute of Geophysics, University of Tehran</option>
-                <option value="8">Gulf Region</option>
-                <option value="9">Kuwait</option>
-                <option value="10">Qatar</option>
-                <option value="11">Majlis Ugama Islam Singapura, Singapore</option>
-                <option value="12">Union Organization Islamic de France</option>
-                <option value="13">Diyanet İşleri Başkanlığı, Turkey</option>
-                <option value="14">Spiritual Administration of Muslims of Russia</option>
-                <option value="15">Moonsighting Committee</option>
-                <option value="16">Dubai, UAE</option>
-            </select>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-          <label>How should we get the current time?</label>
-          <div class="input-group">
+            <form role="form">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="method">Method (<a href="/calculation-methods" target="_blank">Learn more about
+                                    calculation methods</a>)</label>
+                            <select id="method" name="method" class="form-control">
+                                <option value="0" <?=$times['meta']['method']['id'] == "0" ? "selected" : ""?>>Shia Ithna-Ashari</option>
+                                <option value="1" <?=$times['meta']['method']['id'] == "1" ? "selected" : ""?>>University of Islamic Sciences, Karachi</option>
+                                <option value="2" <?=$times['meta']['method']['id'] == "2" ? "selected" : ""?>>Islamic Society of North America (ISNA)</option>
+                                <option value="3" <?=$times['meta']['method']['id'] == "3" ? "selected" : ""?>>Muslim World League (MWL)</option>
+                                <option value="4" <?=$times['meta']['method']['id'] == "4" ? "selected" : ""?>>Umm al-Qura, Makkah</option>
+                                <option value="5" <?=$times['meta']['method']['id'] == "5" ? "selected" : ""?>>Egyptian General Authority of Survey</option>
+                                <option value="7" <?=$times['meta']['method']['id'] == "7" ? "selected" : ""?>>Institute of Geophysics, University of Tehran</option>
+                                <option value="8" <?=$times['meta']['method']['id'] == "8" ? "selected" : ""?>>Gulf Region</option>
+                                <option value="9" <?=$times['meta']['method']['id'] == "9" ? "selected" : ""?>>Kuwait</option>
+                                <option value="10" <?=$times['meta']['method']['id'] == "10" ? "selected" : ""?>>Qatar</option>
+                                <option value="11" <?=$times['meta']['method']['id'] == "11" ? "selected" : ""?>>Majlis Ugama Islam Singapura, Singapore</option>
+                                <option value="12" <?=$times['meta']['method']['id'] == "12" ? "selected" : ""?>>Union Organization Islamic de France</option>
+                                <option value="13" <?=$times['meta']['method']['id'] == "13" ? "selected" : ""?>>Diyanet İşleri Başkanlığı, Turkey</option>
+                                <option value="14" <?=$times['meta']['method']['id'] == "14" ? "selected" : ""?>>Spiritual Administration of Muslims of Russia</option>
+                                <option value="15" <?=$times['meta']['method']['id'] == "15" ? "selected" : ""?>>Moonsighting Committee</option>
+                                <option value="16" <?=$times['meta']['method']['id'] == "16" ? "selected" : ""?>>Dubai, UAE</option>
+                                <option value="99">Custom</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>How should we get the current time?</label>
+                            <div class="input-group">
               <span class="input-group-addon">
               <input type="radio" value="client" id="deviceclient" name="currenttimedevice" checked="">
               </span>
-              <label class="form-control" for="deviceclient">Use my computer / device</label>
-          </div>
-          <div class="input-group">
+                                <label class="form-control" for="deviceclient">Use my computer / device</label>
+                            </div>
+                            <div class="input-group">
               <span class="input-group-addon">
               <input type="radio" value="server" id="deviceserver" name="currenttimedevice">
               </span>
-              <label class="form-control" for="deviceserver">Use the cloud</label>
-          </div>
-        </div>
-    </div>
-</div>
+                                <label class="form-control" for="deviceserver">Use the cloud</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <div id="location-group" class="form-group">
-            <label for="location">Location</label>
-            <?php
-              $locationValue = '';
-              if ($city != '' && $country != '') {
-                  $locationValue = $city . ', ' . $country;
-              }
-            ?>
-                <input class="form-control" name="location" id="location" value="<?=$locationValue;?>" placeholder="Example: London, UK">
-                <span class="form-control-error hide-error" id="location-error">Sorry, we are unable to find this location. Please try another one.</span>
-            </div>
-    </div>
-</div>
-<!--
-<div class="row">
-    <div class="col-md-12">
-        <div class="form-group">
-            <label>Co-ordinates (Calculated - based on the location)</label>
-            <input class="form-control" name="latitude" id="latitude" disabled="disabled" value="" size="5" placeholder="Latitude">
-            <input class="form-control" name="longitude" id="longitude" disabled="disabled" value="" size="5" placeholder="Longitude">
-        </div>
-    </div>
-</div>
--->
-<div class="form-group">
-    <div class="row">
-        <div class="col-md-12">
-            <label for="latidudeAdjustment">Higher Latitude Adjustment Method (for locations like UK, Sweden, Canada, Alaska, etc.)</label>
-             <select class="form-control" name="latiudeAdjustment" id="latiudeAdjustment">
-                 <option value="1">Middle of the Night Method</option>
-                 <option value="2">One Seventh Rule</option>
-                 <option value="3" selected="selected">Angle Based Method </option>
-            </select>
-        </div>
-    </div>
-</div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="location-group" class="form-group">
+                            <label for="location">Location</label>
+                            <?php
+                            $locationValue = '';
+                            if ($city != '' && $country != '') {
+                                $locationValue = $city . ', ' . $country;
+                            }
+                            ?>
+                            <input class="form-control" name="location" id="location" value="<?= $locationValue; ?>"
+                                   placeholder="Example: London, UK">
+                            <span class="form-control-error hide-error" id="location-error">Sorry, we are unable to find this location. Please try another one.</span>
+                        </div>
+                    </div>
+                </div>
+                <!--
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Co-ordinates (Calculated - based on the location)</label>
+                            <input class="form-control" name="latitude" id="latitude" disabled="disabled" value="" size="5" placeholder="Latitude">
+                            <input class="form-control" name="longitude" id="longitude" disabled="disabled" value="" size="5" placeholder="Longitude">
+                        </div>
+                    </div>
+                </div>
+                -->
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="juristicSchool">Juristic School (only affects Asr)</label>
+                            <select class="form-control" name="juristicSchool" id="juristicSchool">
+                                <option value="0" selected="selected">Shafi, Hanbali, Maliki, Shia and all others
+                                </option>
+                                <option value="1">Hanafi</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="latidudeAdjustment">Higher Latitude Adjustment Method</label>
+                            <select class="form-control" name="latiudeAdjustment" id="latiudeAdjustment">
+                                <option value="1">Middle of the Night Method</option>
+                                <option value="2">One Seventh Rule</option>
+                                <option value="3" selected="selected">Angle Based Method</option>
+                            </select>
+                        </div>
 
-<div class="form-group">
-    <div class="row">
-        <div class="col-md-12">
-            <label for="juristicSchool">Juristic School (only affects Asr calculation)</label>
-             <select class="form-control" name="juristicSchool" id="juristicSchool">
-                 <option value="0" selected="selected">Shafi, Hanbali, Maliki, Shia and all others</option>
-                 <option value="1">Hanafi</option>
-            </select>
+                        <div class="col-md-4">
+                            <label for="midnightMode">Midnight Calculation Mode</label>
+                            <select class="form-control" name="midnightMode" id="midnightMode">
+                                <option value="0" selected="selected">Standard (Mid Sunset to Sunrise)</option>
+                                <option value="1">Jafari (Mid Sunset to Fajr)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row hidden customSettingsForm">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label>Custom Settings</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row hidden customSettingsForm">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label for="customFajrAngle">Fajr Angle</label>
+                            <input class="form-control" name="customFajrAngle" id="customFajrAngle" value="18"/>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="customMaghribAngle">Maghrib Angle or mins after sunset (Ex: 16.5 or 10
+                                min)</label>
+                            <input class="form-control" name="customMaghribAngle" id="customMaghribAngle" value="4.5"/>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="customIshaAngle">Isha Angle or mins after Maghrib (Ex: 19 or 90 min)</label>
+                            <input class="form-control" name="customIshaAngle" id="customIshaAngle" value="90 min"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label>Tune Prayer Times (in minutes)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="padding-bottom: 10px;">
+                    <div class="form-group">
+                        <div class="col-md-1">
+                            <label for="tuneImsak">Imask</label>
+                            <input class="form-control" name="tuneImsak" id="tuneImsak" value="0"/>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="tuneFajr">Fajr</label>
+                            <input class="form-control" name="tuneFajr" id="tuneFajr" value="0"/>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="tuneSunrise">Sunrise</label>
+                            <input class="form-control" name="tuneSunrise" id="tuneSunrise" value="0"/>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="tuneZhuhr">Zhuhr</label>
+                            <input class="form-control" name="tuneZhuhr" id="tuneZhuhr" value="0"/>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="tuneAsr">Asr</label>
+                            <input class="form-control" name="tuneAsr" id="tuneAsr" value="0"/>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="tuneSunset">Sunset</label>
+                            <input class="form-control" name="tuneSunset" id="tuneSunset" value="0"/>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="tuneMaghrib">Maghrib</label>
+                            <input class="form-control" name="tuneMaghrib" id="tuneMaghrib" value="0"/>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="tuneIsha">Isha</label>
+                            <input class="form-control" name="tuneIsha" id="tuneIsha" value="0"/>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="tuneMidnight">Midnight</label>
+                            <input class="form-control" name="tuneMidnight" id="tuneMidnight" value="0"/>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
         </div>
     </div>
 </div>
-</form>
-      </div>
-    </div>
-  </div>
 
 </div>
 <script src="/js/play.js?v=10" type="text/javascript"></script>
-<script src="/js/jquery.alAdhan.js?v=24" type="text/javascript"></script>
-<script>
-$(function () {
-<?php if(isset($times['timings'])) { ?>
-  $.nsAlAdhan._timings = <?=json_encode($times['timings']);?>;
-<?php } ?>
-  $.nsAlAdhan.init();
-})
+<script src="/js/jquery.alAdhan.js?v=27" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        <?php if(isset($times['timings'])) { ?>
+        $.nsAlAdhan._timings = <?=json_encode($times['timings']);?>;
+        <?php } ?>
+        $.nsAlAdhan.init();
+    })
 </script>
 
 <?php include_once('common/footer.phtml'); ?>

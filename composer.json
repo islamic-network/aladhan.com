@@ -5,7 +5,7 @@
     "homepage": "https://aladhan.com",
     "license": "GPL",
     "require": {
-        "php": ">=7.1",
+        "php": ">=8.1",
         "slim/slim": "^4.9",
         "slim/php-view": "^2.0",
         "monolog/monolog": "^1.17",

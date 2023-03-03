@@ -5,19 +5,21 @@
 <div class="container panel">
     <?php include_once('common/bismillah.phtml'); ?>
     <div class="page-header">
-        <h2>Prayer Times Calendar <small id="calendarHeading"><?=isset($calendar[0]) ? $city . ', ' . $country . ' - ' . $calendar[0]['date']['gregorian']['month']['en'] . ', ' . $cyear : ''?></small></h2>
-      </div>
+        <h2>Prayer Times Calendar <small
+                    id="calendarHeading"><?= isset($calendar[0]) ? $city . ', ' . $country . ' - ' . $calendar[0]['date']['gregorian']['month']['en'] . ', ' . $cyear : '' ?></small>
+        </h2>
+    </div>
 
     <form role="form" id="calendarConfigForm">
-      <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="method">Month</label>
-                        <select id="month" name="month" class="form-control">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="method">Month</label>
+                    <select id="month" name="month" class="form-control">
                         <?php foreach ($months as $key => $val) { ?>
-                        <option value="<?php echo $key;  ?>" name="<?php echo $val; ?>"
-                    <?php echo $key == $cmonth ? 'selected' : ''; ?> ><?php echo $val; ?></option>
-                    <?php } ?>
+                            <option value="<?php echo $key; ?>" name="<?php echo $val; ?>"
+                                <?php echo $key == $cmonth ? 'selected' : ''; ?> ><?php echo $val; ?></option>
+                        <?php } ?>
                         <option value="annual">Annual</option>
                     </select>
                 </div>
@@ -27,10 +29,10 @@
                 <div class="form-group">
                     <label for="method">Year</label>
                     <select id="year" name="year" class="form-control">
-                    <?php foreach ($years as $key => $val) { ?>
-                    <option value="<?php echo $key;  ?>"
-                    <?php echo $key == $cyear ? 'selected' : ''; ?> ><?php echo $val; ?></option>
-                    <?php } ?>
+                        <?php foreach ($years as $key => $val) { ?>
+                            <option value="<?php echo $key; ?>"
+                                <?php echo $key == $cyear ? 'selected' : ''; ?> ><?php echo $val; ?></option>
+                        <?php } ?>
                     </select>
                 </div>
             </div>
@@ -39,7 +41,8 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="method">Method (<a href="/calculation-methods" target="_blank">Learn more about calculation methods</a>)</label>
+                    <label for="method">Method (<a href="/calculation-methods" target="_blank">Learn more about
+                            calculation methods</a>)</label>
                     <select id="method" name="method" class="form-control">
                         <option value="0">Shia Ithna-Ashari</option>
                         <option value="1">University of Islamic Sciences, Karachi</option>
@@ -65,9 +68,11 @@
                 <div class="form-group">
                     <label for="location">Location</label>
                     <?php if ($city != '' && $country != '') { ?>
-                    <input class="form-control" name="location" id="location" value="<?= $city; ?>, <?= $country; ?>" />
+                        <input class="form-control" name="location" id="location"
+                               value="<?= $city; ?>, <?= $country; ?>"/>
                     <?php } else { ?>
-                    <input class="form-control" name="location" id="location" value="" placeholder="Example: London, UK"/>
+                        <input class="form-control" name="location" id="location" value=""
+                               placeholder="Example: London, UK"/>
                     <?php } ?>
                 </div>
             </div>
@@ -76,24 +81,24 @@
         <div class="row">
             <div class="col-md-4">
                 <label for="juristicSchool">Juristic School (only affects Asr calculation)</label>
-                 <select class="form-control" name="juristicSchool" id="juristicSchool">
-                     <option value="0" selected="selected">Shafi, Hanbali, Maliki, Shia and all others</option>
-                     <option value="1">Hanafi</option>
+                <select class="form-control" name="juristicSchool" id="juristicSchool">
+                    <option value="0" selected="selected">Shafi, Hanbali, Maliki, Shia and all others</option>
+                    <option value="1">Hanafi</option>
                 </select>
             </div>
             <div class="col-md-4">
                 <label for="latidudeAdjustment">Higher Latitude Adjustment Method</label>
-                 <select class="form-control" name="latiudeAdjustment" id="latiudeAdjustment">
-                     <option value="1">Middle of the Night Method</option>
-                     <option value="2">One Seventh Rule</option>
-                     <option value="3" selected="selected">Angle Based Method </option>
+                <select class="form-control" name="latiudeAdjustment" id="latiudeAdjustment">
+                    <option value="1">Middle of the Night Method</option>
+                    <option value="2">One Seventh Rule</option>
+                    <option value="3" selected="selected">Angle Based Method</option>
                 </select>
             </div>
             <div class="col-md-4">
                 <label for="midnightMode">Midnight Calculation Mode</label>
-                 <select class="form-control" name="juristicSchool" id="juristicSchool">
-                     <option value="0" selected="selected">Standard (Mid Sunset to Sunrise)</option>
-                     <option value="1">Jafari (Mid Sunset to Fajr)</option>
+                <select class="form-control" name="midnightMode" id="midnightMode">
+                    <option value="0" selected="selected">Standard (Mid Sunset to Sunrise)</option>
+                    <option value="1">Jafari (Mid Sunset to Fajr)</option>
                 </select>
             </div>
 
@@ -101,72 +106,72 @@
 
         <div class="row hidden customSettingsForm">
             <div class="form-group">
-            <div class="col-md-12">
-                <label>Custom Settings</label>
-            </div>
+                <div class="col-md-12">
+                    <label>Custom Settings</label>
+                </div>
             </div>
         </div>
         <div class="row hidden customSettingsForm">
             <div class="form-group">
                 <div class="col-md-4">
                     <label for="customFajrAngle">Fajr Angle</label>
-                    <input class="form-control" name="customFajrAngle" id="customFajrAngle" value="18" />
+                    <input class="form-control" name="customFajrAngle" id="customFajrAngle" value="18"/>
                 </div>
                 <div class="col-md-4">
                     <label for="customMaghribAngle">Maghrib Angle or mins after sunset (Ex: 16.5 or 10 min)</label>
-                    <input class="form-control" name="customMaghribAngle" id="customMaghribAngle" value="4.5" />
+                    <input class="form-control" name="customMaghribAngle" id="customMaghribAngle" value="4.5"/>
                 </div>
                 <div class="col-md-4">
                     <label for="customIshaAngle">Isha Angle or mins after Maghrib (Ex: 19 or 90 min)</label>
-                    <input class="form-control" name="customIshaAngle" id="customIshaAngle" value="90 min" />
+                    <input class="form-control" name="customIshaAngle" id="customIshaAngle" value="90 min"/>
                 </div>
             </div>
         </div>
 
         <div class="row">
             <div class="form-group">
-            <div class="col-md-12">
-                <label>Tune Prayer Times (in minutes)</label>
-            </div>
+                <div class="col-md-12">
+                    <label>Tune Prayer Times (in minutes)</label>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="form-group">
                 <div class="col-md-1">
                     <label for="tuneImsak">Imask</label>
-                    <input class="form-control" name="tuneImsak" id="tuneImsak" value="0" />
+                    <input class="form-control" name="tuneImsak" id="tuneImsak" value="0"/>
                 </div>
                 <div class="col-md-1">
                     <label for="tuneFajr">Fajr</label>
-                    <input class="form-control" name="tuneFajr" id="tuneFajr" value="0" />
+                    <input class="form-control" name="tuneFajr" id="tuneFajr" value="0"/>
                 </div>
                 <div class="col-md-1">
                     <label for="tuneSunrise">Sunrise</label>
-                    <input class="form-control" name="tuneSunrise" id="tuneSunrise" value="0" />
+                    <input class="form-control" name="tuneSunrise" id="tuneSunrise" value="0"/>
                 </div>
                 <div class="col-md-1">
                     <label for="tuneZhuhr">Zhuhr</label>
-                    <input class="form-control" name="tuneZhuhr" id="tuneZhuhr" value="0" />
+                    <input class="form-control" name="tuneZhuhr" id="tuneZhuhr" value="0"/>
                 </div>
                 <div class="col-md-1">
                     <label for="tuneAsr">Asr</label>
-                    <input class="form-control" name="tuneAsr" id="tuneAsr" value="0" />
+                    <input class="form-control" name="tuneAsr" id="tuneAsr" value="0"/>
                 </div>
                 <div class="col-md-1">
                     <label for="tuneSunset">Sunset</label>
-                    <input class="form-control" name="tuneSunset" id="tuneSunset" value="0" />
+                    <input class="form-control" name="tuneSunset" id="tuneSunset" value="0"/>
                 </div>
                 <div class="col-md-1">
                     <label for="tuneMaghrib">Maghrib</label>
-                    <input class="form-control" name="tuneMaghrib" id="tuneMaghrib" value="0" />
+                    <input class="form-control" name="tuneMaghrib" id="tuneMaghrib" value="0"/>
                 </div>
                 <div class="col-md-1">
                     <label for="tuneIsha">Isha</label>
-                    <input class="form-control" name="tuneIsha" id="tuneIsha" value="0" />
+                    <input class="form-control" name="tuneIsha" id="tuneIsha" value="0"/>
                 </div>
                 <div class="col-md-1">
                     <label for="tuneMidnight">Midnight</label>
-                    <input class="form-control" name="tuneMidnight" id="tuneMidnight" value="0" />
+                    <input class="form-control" name="tuneMidnight" id="tuneMidnight" value="0"/>
                 </div>
             </div>
         </div>
@@ -174,23 +179,23 @@
         <div class="row">
             <div class="col-md-12 col-centered">
                 <div class="form-group">
-                    <a href="#" id ="generateCalendar" class="btn btn-primary">Generate Calendar</a>
+                    <a href="#" id="generateCalendar" class="btn btn-primary">Generate Calendar</a>
                 </div>
             </div>
-          </div>
+        </div>
     </form>
 
     <div class="row" id="showCalendarConfigForm" style="display: none">
-        <div class="col-md-12 col-centered" >
-            <a href="#" id ="showCalendarConfigFormButton" class="btn btn-primary">Show Calendar Settings</a>
-            <a href="#" id ="downloadAsCsv" class="btn btn-primary">Download Timings as CSV</a>
+        <div class="col-md-12 col-centered">
+            <a href="#" id="showCalendarConfigFormButton" class="btn btn-primary">Show Calendar Settings</a>
+            <a href="#" id="downloadAsCsv" class="btn btn-primary">Download Timings as CSV</a>
         </div>
     </div>
-    <hr />
+    <hr/>
 
     <table class="table table-hover table-striped table-bordered">
         <thead>
-            <tr>
+        <tr>
             <td><span>Date</span></td>
             <td><span class="lead">Fajr</span></td>
             <td><span class="lead">Sunrise</span></td>
@@ -199,20 +204,20 @@
             <td><span class="lead">Maghrib</span></td>
             <td><span class="lead">Isha</span></td>
             <td><span class="lead">Midnight</span></td>
-            </tr>
+        </tr>
         </thead>
         <tbody id="generatedCalendar">
-        <?php if(!empty($calendar)) { ?>
+        <?php if (!empty($calendar)) { ?>
             <?php foreach ($calendar as $cD) { ?>
-                <tr class="show-grid <?=$cD['date']['readable'] == $currentDate ? 'danger' : '';?>">
-                <td ><?=$cD['date']['readable'];?></td>
-                    <td><?=$cD['timings']['Fajr'];?></td>
-                    <td><?=$cD['timings']['Sunrise'];?></td>
-                    <td><?=$cD['timings']['Dhuhr'];?></td>
-                    <td><?=$cD['timings']['Asr'];?></td>
-                    <td><?=$cD['timings']['Maghrib'];?></td>
-                    <td><?=$cD['timings']['Isha'];?></td>
-                    <td><?=$cD['timings']['Midnight'];?></td>
+                <tr class="show-grid <?= $cD['date']['readable'] == $currentDate ? 'danger' : ''; ?>">
+                    <td><?= $cD['date']['readable']; ?></td>
+                    <td><?= $cD['timings']['Fajr']; ?></td>
+                    <td><?= $cD['timings']['Sunrise']; ?></td>
+                    <td><?= $cD['timings']['Dhuhr']; ?></td>
+                    <td><?= $cD['timings']['Asr']; ?></td>
+                    <td><?= $cD['timings']['Maghrib']; ?></td>
+                    <td><?= $cD['timings']['Isha']; ?></td>
+                    <td><?= $cD['timings']['Midnight']; ?></td>
                 </tr>
             <?php } ?>
         <?php } ?>
@@ -222,19 +227,19 @@
 </div>
 
 <div class="loader">
-    <img src="/images/loader.svg" />
+    <img src="/images/loader.svg"/>
     <div>Loading</div>
 </div>
 <script src="/js/jquery.calendar.js?v=13" type="text/javascript"></script>
 <script>
-$(function(){
-  $.nsCalendar.init();
-  <?php if(!empty($calendar)) { ?>
-  $('#calendarConfigForm').hide();
-  $('#showCalendarConfigForm').slideDown();
-  $.nsCalendar._storedTimings = <?=json_encode($calendar);?>;
-  <?php } ?>
-});
+    $(function () {
+        $.nsCalendar.init();
+        <?php if(!empty($calendar)) { ?>
+        $('#calendarConfigForm').hide();
+        $('#showCalendarConfigForm').slideDown();
+        $.nsCalendar._storedTimings = <?=json_encode($calendar);?>;
+        <?php } ?>
+    });
 </script>
 
 <?php include_once('common/footer.phtml'); ?>

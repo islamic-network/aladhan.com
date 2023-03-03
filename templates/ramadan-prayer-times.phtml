@@ -41,12 +41,16 @@
                         <option value="11" <?=$method == '11' ? 'selected' : ''?>>Majlis Ugama Islam Singapura, Singapore</option>
                         <option value="12" <?=$method == '12' ? 'selected' : ''?>>Union Organization Islamic de France</option>
                         <option value="13" <?=$method == '13' ? 'selected' : ''?>>Diyanet İşleri Başkanlığı, Turkey</option>
+                        <option value="14" <?=$method == '14' ? 'selected' : ''?>>Spiritual Administration of Muslims of Russia</option>
+                        <option value="15" <?=$method == '15' ? 'selected' : ''?>>Moonsighting Committee</option>
+                        <option value="16" <?=$method == '16' ? 'selected' : ''?>>Dubai, UAE</option>
+                        <option value="99">Custom</option>
                     </select>
                 </div>
             </div>
             <div class="col-md-6">
-                <label for="latidudeAdjustment">Higher Latitude Adjustment Method (for locations like UK, Sweden, Canada etc.)</label>
-                 <select class="form-control" name="latiudeAdjustment" id="latiudeAdjustment">
+                <label for="latitudeAdjustment">Higher Latitude Adjustment Method (for locations like UK, Sweden, Canada etc.)</label>
+                 <select class="form-control" name="latitudeAdjustment" id="latitudeAdjustment">
                      <option value="1" <?=$lam == '1' ? 'selected' : ''?>>Middle of the Night Method</option>
                      <option value="2" <?=$lam == '2' ? 'selected' : ''?>>One Seventh Rule</option>
                      <option value="3" <?=$lam == '3' ? 'selected' : ''?>>Angle Based Method </option>

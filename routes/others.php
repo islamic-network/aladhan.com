@@ -114,7 +114,7 @@ $app->get(
     $times = [];
     if ($city != null && $country != null) {
         // ISNA is default method. Adjustment of +1 day added for Dhul Hijjah 2018.
-        $t = new \AlAdhanApi\TimesByCity($city, $country, null, null, 2, $adjustment);
+        $t = new \AlAdhanApi\TimesByCity($city, $country, null, null, '', $adjustment);
         $times = $t->get()['data'];
     }
 
