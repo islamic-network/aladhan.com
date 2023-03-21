@@ -33,7 +33,7 @@ jQuery( document ).ready( function( $ ) {
         _latitudeAdjustmentFieldId: 'latiudeAdjustment',
         _apiUrl: 'https://api.aladhan.com/v1/',
         _storedTimings: '',
-        _daysAdjustment: 1,
+        _daysAdjustment: 0,
         init: function() {
             var gc = this;
             // Monitor button to generate calendar

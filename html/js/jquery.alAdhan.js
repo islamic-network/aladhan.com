@@ -37,7 +37,7 @@ jQuery( document ).ready( function( $ ) {
         _player: '',
         _nextPrayer: '',
         _timestamp: '',
-        _daysAdjustment: 1,
+        _daysAdjustment: 0,
         _invalidLocation: false,
         init: function() {
             var gc = this;
