@@ -56,10 +56,10 @@ spec:
           failureThreshold: 3
         resources:
           requests:
-            cpu: "200m"
+            cpu: "300m"
             memory: 220Mi
           limits:
-            cpu: "300m"
+            cpu: "500m"
             memory: 420Mi
         ports:
           - containerPort: 8080
@@ -76,7 +76,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: aladhan-com-app
-  minReplicas: 2
+  minReplicas: 3
   maxReplicas: 10
   targetCPUUtilizationPercentage: 50
 ---
