@@ -28,23 +28,23 @@ The app is fully Dockerised. You **just need docker** to spin it up.
 A production ready Docker image of the app is published as:
 
 * quay.io/islamic-network/aladhan.com on QUAY
-* islamicnetwork/aladhan.com on Docker Hub
+* ghcr.io/islamic-network/aladhan.com on Docker Hub
 
 To get your own instance up, simply run:
 
 ```
-docker run -it -p 8082:8080  islamicnetwork/aladhan.com:latest
+docker run -it -p 8082:8080  ghcr.io/islamic-network/aladhan.com:latest
 ``` 
 
 You can now visit http://localhost:8082/ and start using it.
 
 ### Build and Contribute
 
-**Please note that the Dockerfile included builds a production ready container which has opcache switched on and xdebug turned off, so you will only see your changes every 5 minutes if you are developing. To actively develop, change the ```FROM islamicnetwork/php:8.0-apache``` line to ```islamicnetwork/php:8.0-apache-dev```.**
+**Please note that the Dockerfile included builds a production ready container which has opcache switched on and xdebug turned off, so you will only see your changes every 5 minutes if you are developing. To actively develop, change the ```FROM ghcr.io/islamic-network/php:8.0-apache``` line to ```ghcr.io/islamic-network/php:8.0-apache-dev```.**
 
 1. Clone this repository
-2. Run ```docker build . -t islamicnetwork/aladhan.com```. This will build an image with production dependencies only.
-3. Run ```docker run -it -p 8081:8080  -v $(pwd)/.:/var/www islamicnetwork/aladhan.com``` to spin up the built image.
+2. Run ```docker build . -t ghcr.io/islamic-network/aladhan.com```. This will build an image with production dependencies only.
+3. Run ```docker run -it -p 8081:8080  -v $(pwd)/.:/var/www ghcr.io/islamic-network/aladhan.com``` to spin up the built image.
 3. Run ```composer install``` to add development dependencies.
 6. Make sure you have internet connectivity so the app can connect to https://api.aladhan.com.
 7. Open your browser and browse to http://localhost:8081/.
