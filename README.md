@@ -28,7 +28,7 @@ The app is fully Dockerised. You **just need docker** to spin it up.
 A production ready Docker image of the app is published as:
 
 * quay.io/islamic-network/aladhan.com on QUAY
-* ghcr.io/islamic-network/aladhan.com on Docker Hub
+* ghcr.io/islamic-network/aladhan.com on the GitHub Container Registry
 
 To get your own instance up, simply run:
 
