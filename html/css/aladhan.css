@@ -169,8 +169,8 @@ body {
 .notification-top-bar p a {
     padding: 5px 10px;
     border-radius: 3px;
-    background: #FFF;
-    color: #1ABC9C;
+    background: darkred;
+    color: white;
     font-weight: bold;
     text-decoration: none;
 }
