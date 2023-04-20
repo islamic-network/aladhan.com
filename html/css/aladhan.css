@@ -145,3 +145,32 @@ body {
     background-repeat: no-repeat;
     transition: background 7s linear;
 }
+
+.notification-top-bar {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    background: red;
+    opacity: 70%;
+    text-align: center;
+    color: #FFFFFF;
+    font-family: sans-serif;
+    font-weight: lighter;
+    font-size: 14px;
+    z-index: 1000;
+}
+.notification-top-bar p {
+    padding: 0;
+    margin: 0;
+}
+.notification-top-bar p a {
+    padding: 5px 10px;
+    border-radius: 3px;
+    background: #FFF;
+    color: #1ABC9C;
+    font-weight: bold;
+    text-decoration: none;
+}
