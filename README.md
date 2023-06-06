@@ -38,7 +38,7 @@ docker run -it -p 8082:8080  ghcr.io/islamic-network/aladhan.com:latest
 
 You can now visit http://localhost:8082/ and start using it.
 
-### Build and Contribute
+### Build and Contribute 
 
 **Please note that the Dockerfile included builds a production ready container which has opcache switched on and xdebug turned off, so you will only see your changes every 5 minutes if you are developing. To actively develop, change the ```FROM ghcr.io/islamic-network/php:8.0-apache``` line to ```ghcr.io/islamic-network/php:8.0-apache-dev```.**
 
