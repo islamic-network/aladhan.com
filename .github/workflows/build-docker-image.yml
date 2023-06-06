@@ -3,9 +3,6 @@ on:
   push:
     tags:
       - "*"
-  workflow_dispatch:
-    branches:
-      - "master"
 jobs:
   docker-build-and-push:
     runs-on: ubuntu-latest
