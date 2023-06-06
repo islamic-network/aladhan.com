@@ -20,6 +20,15 @@ spec:
       labels:
         app: aladhan-com-app
     spec:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+      tolerations:
+        - key: kubernetes.azure.com/scalesetpriority
+          operator: "Equal"
+          value: spot
+          effect: NoSchedule
       containers:
       - name: apache-exporter-sidecar
         image: lusotycoon/apache-exporter
@@ -56,10 +65,10 @@ spec:
           failureThreshold: 3
         resources:
           requests:
-            cpu: "300m"
+            cpu: "200m"
             memory: 220Mi
           limits:
-            cpu: "500m"
+            cpu: "300m"
             memory: 420Mi
         ports:
           - containerPort: 8080
@@ -78,7 +87,7 @@ spec:
     name: aladhan-com-app
   minReplicas: 2
   maxReplicas: 10
-  targetCPUUtilizationPercentage: 50
+  targetCPUUtilizationPercentage: 60
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
