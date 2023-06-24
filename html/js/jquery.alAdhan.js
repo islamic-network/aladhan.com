@@ -5,7 +5,7 @@ jQuery( document ).ready( function( $ ) {
         _school: '',
         _timings: '',
         _device: '',
-        _timezonename: 'Europe/London',
+        _timezonename: '',
         _locationFieldId: 'location',
         _methodFieldId: 'method',
         _latitudeAdjustmentFieldId: 'latiudeAdjustment',
@@ -256,6 +256,7 @@ jQuery( document ).ready( function( $ ) {
                 theTime = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
             } else {
                 //gc._analytics('send', 'event', 'API', 'CurrentTimeStamp', 'Getting current timestamp from server.');
+                gc.getTimeZone();
                 var credentials = {
                     zone: gc._timezonename
                 };
@@ -323,6 +324,7 @@ jQuery( document ).ready( function( $ ) {
                     mm: cT[1]
                 };
             } else {
+                gc.getTimeZone();
                 var credentials = {
                     zone: gc._timezonename
                 };
@@ -386,6 +388,7 @@ jQuery( document ).ready( function( $ ) {
                     dataType: 'json',
                     success: function(data) {
                         result = data.data;
+                        console.log(result);
                         gc._timezonename = result.timezone;
                     }
                 });
