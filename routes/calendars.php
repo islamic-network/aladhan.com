@@ -231,7 +231,7 @@ $app->get(
     $month = date('m');
     $year = date('Y');
     if ($city != null && $country != null) {
-        $t = new \AlAdhanApi\CalendarByCity($city, $country, $month, $year, null, 2, false, 0);
+        $t = new \AlAdhanApi\CalendarByCity($city, $country, $month, $year, null, '', false, 0);
         $calendar = $t->get()['data'];
     }
 

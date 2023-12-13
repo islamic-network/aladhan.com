@@ -44,28 +44,28 @@
                     <label for="method">Method (<a href="/calculation-methods" target="_blank">Learn more about
                             calculation methods</a>)</label>
                     <select id="method" name="method" class="form-control">
-                        <option value="0">Shia Ithna-Ashari</option>
-                        <option value="1">University of Islamic Sciences, Karachi</option>
-                        <option value="2" selected>Islamic Society of North America (ISNA)</option>
-                        <option value="3">Muslim World League (MWL)</option>
-                        <option value="4">Umm al-Qura, Makkah</option>
-                        <option value="5">Egyptian General Authority of Survey</option>
-                        <option value="7">Institute of Geophysics, University of Tehran</option>
-                        <option value="8">Gulf Region</option>
-                        <option value="9">Kuwait</option>
-                        <option value="10">Qatar</option>
-                        <option value="11">Majlis Ugama Islam Singapura, Singapore</option>
-                        <option value="12">Union Organization Islamic de France</option>
-                        <option value="13">Diyanet İşleri Başkanlığı, Turkey</option>
-                        <option value="14">Spiritual Administration of Muslims of Russia</option>
-                        <option value="15">Moonsighting Committee</option>
-                        <option value="16">Dubai, UAE</option>
-                        <option value="17">Jabatan Kemajuan Islam Malaysia (JAKIM)</option>
-                        <option value="18">Tunisia</option>
-                        <option value="19">Algeria</option>
-                        <option value="20">Kementerian Agama Republik Indonesia</option>
-                        <option value="21">Morocco</option>
-                        <option value="22">Comunidade Islamica de Lisboa</option>
+                        <option value="0" <?=$calendar[0]['meta']['method']['id'] == "0" ? "selected" : ""?>>Shia Ithna-Ashari</option>
+                        <option value="1" <?=$calendar[0]['meta']['method']['id'] == "1" ? "selected" : ""?>>University of Islamic Sciences, Karachi</option>
+                        <option value="2" <?=$calendar[0]['meta']['method']['id'] == "2" ? "selected" : ""?>>Islamic Society of North America (ISNA)</option>
+                        <option value="3" <?=$calendar[0]['meta']['method']['id'] == "3" ? "selected" : ""?>>Muslim World League (MWL)</option>
+                        <option value="4" <?=$calendar[0]['meta']['method']['id'] == "4" ? "selected" : ""?>>Umm al-Qura, Makkah</option>
+                        <option value="5" <?=$calendar[0]['meta']['method']['id'] == "5" ? "selected" : ""?>>Egyptian General Authority of Survey</option>
+                        <option value="7" <?=$calendar[0]['meta']['method']['id'] == "7" ? "selected" : ""?>>Institute of Geophysics, University of Tehran</option>
+                        <option value="8" <?=$calendar[0]['meta']['method']['id'] == "8" ? "selected" : ""?>>Gulf Region</option>
+                        <option value="9" <?=$calendar[0]['meta']['method']['id'] == "9" ? "selected" : ""?>>Kuwait</option>
+                        <option value="10" <?=$calendar[0]['meta']['method']['id'] == "10" ? "selected" : ""?>>Qatar</option>
+                        <option value="11" <?=$calendar[0]['meta']['method']['id'] == "11" ? "selected" : ""?>>Majlis Ugama Islam Singapura, Singapore</option>
+                        <option value="12" <?=$calendar[0]['meta']['method']['id'] == "12" ? "selected" : ""?>>Union Organization Islamic de France</option>
+                        <option value="13" <?=$calendar[0]['meta']['method']['id'] == "13" ? "selected" : ""?>>Diyanet İşleri Başkanlığı, Turkey</option>
+                        <option value="14" <?=$calendar[0]['meta']['method']['id'] == "14" ? "selected" : ""?>>Spiritual Administration of Muslims of Russia</option>
+                        <option value="15" <?=$calendar[0]['meta']['method']['id'] == "15" ? "selected" : ""?>>Moonsighting Committee</option>
+                        <option value="16" <?=$calendar[0]['meta']['method']['id'] == "16" ? "selected" : ""?>>Dubai, UAE</option>
+                        <option value="17" <?=$calendar[0]['meta']['method']['id'] == "17" ? "selected" : ""?>>Jabatan Kemajuan Islam Malaysia (JAKIM)</option>
+                        <option value="18" <?=$calendar[0]['meta']['method']['id'] == "18" ? "selected" : ""?>>Tunisia</option>
+                        <option value="19" <?=$calendar[0]['meta']['method']['id'] == "19" ? "selected" : ""?>>Algeria</option>
+                        <option value="20" <?=$calendar[0]['meta']['method']['id'] == "20" ? "selected" : ""?>>Kementerian Agama Republik Indonesia</option>
+                        <option value="21" <?=$calendar[0]['meta']['method']['id'] == "21" ? "selected" : ""?>>Morocco</option>
+                        <option value="22" <?=$calendar[0]['meta']['method']['id'] == "22" ? "selected" : ""?>>Comunidade Islamica de Lisboa</option>
                         <option value="99">Custom</option>
                     </select>
                 </div>
