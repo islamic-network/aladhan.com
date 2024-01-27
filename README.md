@@ -1,6 +1,6 @@
 ## بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
 
-[![CircleCI](https://circleci.com/gh/islamic-network/aladhan.com.svg?style=shield)]([https://circleci.com/github/islamic-network/aladhan.com](https://app.circleci.com/pipelines/github/islamic-network/aladhan.com))
+[![CI](https://cairo.mamluk.net/api/v1/teams/islamic-network/pipelines/aladhan-com/badge)](https://cairo.mamluk.net/teams/islamic-network/pipelines/aladhan-com)
 [![](https://img.shields.io/docker/pulls/islamicnetwork/aladhan.com.svg)](https://cloud.docker.com/u/islamicnetwork/repository/docker/islamicnetwork/aladhan.com)
 [![](https://img.shields.io/github/release/islamic-network/aladhan.com.svg)](https://github.com/islamic-network/aladhan.com/releases)
 [![](https://img.shields.io/github/license/islamic-network/aladhan.com.svg)](https://github.com/islamic-network/aladhan.com/blob/master/LICENSE)
