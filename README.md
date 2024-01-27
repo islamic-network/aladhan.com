@@ -1,5 +1,4 @@
-## بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
-
+# بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
 [![CI](https://cairo.mamluk.net/api/v1/teams/islamic-network/pipelines/aladhan-com/badge)](https://cairo.mamluk.net/teams/islamic-network/pipelines/aladhan-com)
 [![](https://img.shields.io/docker/pulls/islamicnetwork/aladhan.com.svg)](https://cloud.docker.com/u/islamicnetwork/repository/docker/islamicnetwork/aladhan.com)
 [![](https://img.shields.io/github/release/islamic-network/aladhan.com.svg)](https://github.com/islamic-network/aladhan.com/releases)
