@@ -24,6 +24,9 @@ spec:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
           whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: aladhan-com-app
       containers:
       - name: apache-exporter-sidecar
         image: lusotycoon/apache-exporter
