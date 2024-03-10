@@ -26,11 +26,11 @@ $container->set('HijriCalendarService', function ($c) {
 });
 
 $container->set('gToHAdjustment', function ($c) {
-    return 0;
+    return -1;
 });
 
 $container->set('hToGAdjustment', function ($c) {
-    return 0;
+    return 1;
 });
 
 $container->set('holyDay', function ($c) {
@@ -50,7 +50,7 @@ $container->set('holyDay', function ($c) {
  * @return string
  */
 $container->set('noticeFloater', function ($c) {
-    return "";
+    return "Indonesia, Malaysia, Brunei and Singapore have announced Tuesday, March 12, 2024 as the 1st of Ramadan.";
 });
 
 
