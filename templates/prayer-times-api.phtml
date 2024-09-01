@@ -1,63 +1,15 @@
 <?php include_once('common/header.phtml'); ?>
 <?php include_once('common/navigation.phtml'); ?>
 
-<div class="container panel">
+<div class="panel" style="background-color: whitesmoke; margin-top: 50px; opacity: 100%;">
     <?php include_once('common/bismillah.phtml'); ?>
 
-                <div class="page-header">
-                    <h2>Prayer Times API</h2>
-                </div>
-                <p>
-                    <b>NOTE</b>: <u>If you are using this API, please sign up to the developer mailing list <a href="/contact">here</a> so you can be informed of any updates or scheduled maintenance to the API.</u>
-                </p>
-                <h2>Endpoints - Prayer Times</h2>
-                <p>
-                    The API has several endpoints to assist developers. Note that all the endpoints return JSON and are available over http and https.
-                </p>
-                <p>
-                    Please note that prayer timings might not always match your local mosque or government authority. Their timings are likely tuned or adjusted. Please see <a href="https://aladhan.com/calculation-methods">https://aladhan.com/calculation-methods</a> for more details.    
-                </p>
+    <div class="page-header">
+        <h2 style="color: black">Prayer Times API</h2>
+    </div>
+    <redoc spec-url="https://raw.githubusercontent.com/islamic-network/openapi/master/aladhan-api/combined.yaml"></redoc>
+    <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"> </script>
 
-    <ol>
-    <?php foreach($apidocs as $ad) { ?>
-        <li><a href="#<?=$ad->name;?>"><?=$ad->title;?></a> - <?=$ad->url;?></li>
-    <?php } ?>
-    </ol>
-
-
-    <?php $i=0; foreach($apidocs as $ad) { $i++; ?>
-    <h4><?=$i;?>. <a name="<?=$ad->name;?>"><?=$ad->title;?> - <?=$ad->url;?></a></h4>
-    <ul>
-        <li>
-            <b>Description:</b> <?=$ad->description;?>
-        </li>
-        <li>
-            <b>Method:</b> <?=strtoupper($ad->type);?>
-        </li>
-        <?php if(isset($ad->parameter)) { ?>
-        <li>
-            <b>Parameters:</b>
-            <ul>
-                <?php foreach($ad->parameter->fields->Parameter as $param) { ?>
-                    <li>
-                        "<?=$param->field;?>" (<?=$param->type;?>) - <?=$param->description;?>
-                    </li>
-                <?php } ?>
-            </ul>
-        </li>
-        <?php } ?>
-        <li>
-            <b>Endpoint URL:</b> <?=$ad->url;?>
-        </li>
-        <li>
-            <b>Example Request:</b> <a href="<?=$ad->examples[0]->content;?>" target="_blank"><?=$ad->examples[0]->content;?></a>
-        </li>
-        <li>
-            <b>Example Response:</b> <pre><?=$ad->success->examples[0]->content;?></pre>
-        </li>
-    </ul>
-    <br />
-    <?php } ?>
 
 </div>
 <?php include_once('common/footer.phtml'); ?>
