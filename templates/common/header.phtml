@@ -3,6 +3,9 @@
 // Load all backgrounds
 $bgsJson = file_get_contents('backgrounds.json', true);
 $bgs = json_decode($bgsJson);
+if (!isset($staticBackground)) {
+    $staticBackground = false;
+};
 ?>
 <html>
     <head>
@@ -38,4 +41,9 @@ $bgs = json_decode($bgsJson);
         <!-- Assign JS variables for app.js to load backgrounds -->
         <script>
             var bgsJson = <?=$bgsJson;?>
+            <?php if ($staticBackground) { ?>
+            var staticBackground = true;
+            <?php  } else { ?>
+            var staticBackground = false;
+            <?php } ?>
         </script>

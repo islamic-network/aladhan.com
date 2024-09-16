@@ -101,6 +101,12 @@ $app->get(
     $args['view'] = 'play';
     $args['holydayFloater'] = $this->get('holyDay');
     $args['noticeFloater'] = $this->get('noticeFloater');
+    $params = $request->getQueryParams();
+    if (isset($params['staticBackground']) && $params['staticBackground'] === "true") {
+        $args['staticBackground'] = true;
+    } else {
+        $args['staticBackground'] = false;
+    }
 
     return $this->get('renderer')->render($response, 'play.phtml', $args);
 }
@@ -111,6 +117,11 @@ $app->get(
     $city = $request->getAttribute('city');
     $country = $request->getAttribute('country');
     $adjustment = $this->get('gToHAdjustment');
+    if (isset($params['staticBackground']) && $params['staticBackground'] === "true") {
+        $args['staticBackground'] = true;
+    } else {
+        $args['staticBackground'] = false;
+    }
     $times = [];
     if ($city != null && $country != null) {
         // ISNA is default method. Adjustment of +1 day added for Dhul Hijjah 2018.

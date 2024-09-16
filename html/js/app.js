@@ -4,23 +4,25 @@ $(document).ready( function() {
   $(this).parent().addClass("active");
   return false;
   });
+  if (typeof staticBackground !== 'undefined' && !staticBackground) {
+    // Background imager
+    var minImg = bgsJson.start;
+    var maxImg = bgsJson.end;
+    var bgInt = Math.floor(Math.random() * maxImg) + 1;
 
-  // Background imager
-  var minImg = bgsJson.start;
-  var maxImg = bgsJson.end;
-  var bgInt = Math.floor(Math.random() * maxImg) + 1;
-  setInterval(function() {
-    var cdnurl = 'https://cdn.aladhan.com/images/backgrounds/';
-    if (bgInt == maxImg) {
+    setInterval(function () {
+      var cdnurl = 'https://cdn.aladhan.com/images/backgrounds/';
+      if (bgInt == maxImg) {
         // Reset
         bgInt = minImg - 1;
-    }
-    if (bgInt < maxImg) {
+      }
+      if (bgInt < maxImg) {
         // Increase as usual
         bgInt = bgInt + 1;
-    }
-    var bgImg = bgsJson.files[bgInt];
-    $("body").css("background-image", "url(" + cdnurl + bgImg + ")");
-  }, 18000);
+      }
+      var bgImg = bgsJson.files[bgInt];
+      $("body").css("background-image", "url(" + cdnurl + bgImg + ")");
+    }, 18000);
+  }
 
 });
