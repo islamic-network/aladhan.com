@@ -1,8 +1,8 @@
 $(document).ready( function() {
   $("li.dropdown-submenu > a").on("click", function(){
-  $("li.dropdown-submenu").removeClass("active");
-  $(this).parent().addClass("active");
-  return false;
+    $("li.dropdown-submenu").removeClass("active");
+    $(this).parent().addClass("active");
+    return false;
   });
   if (typeof staticBackground !== 'undefined' && !staticBackground) {
     // Background imager

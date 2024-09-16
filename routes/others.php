@@ -117,6 +117,7 @@ $app->get(
     $city = $request->getAttribute('city');
     $country = $request->getAttribute('country');
     $adjustment = $this->get('gToHAdjustment');
+    $params = $request->getQueryParams();
     if (isset($params['staticBackground']) && $params['staticBackground'] === "true") {
         $args['staticBackground'] = true;
     } else {
