@@ -31,16 +31,15 @@ $app->get(
     $days = 30; // Islamic months have 30 or less days - always.
 
     $cols = 7;
-    $rows = $days / $cols;
+    $rows = ceil($days / $cols);
 
     $calDays = $cs->hijriToGregorianCalendar($m, $y, $adjustment)['data'];
 
     $calendar[$y][$m]['days'] = array_combine(range(1, count($calDays)), array_values($calDays));
 
-
     if ($m == '12') {
         $nextMonth = '/1/' . ($y + 1);
-        $prevMonth = '/' . ($m - 1) . '/1' . $y;
+        $prevMonth = '/' . ($m - 1) . '/' . $y;
     } else if ($m == '1') {
         $prevMonth = '/12/' . ($y - 1);
         $nextMonth = '/' . ($m + 1) . '/' . $y;
@@ -100,7 +99,7 @@ $app->get(
     $cs = $this->get('HijriCalendarService');
 
     $cols = 7;
-    $rows = $days / $cols;
+    $rows = ceil($days / $cols);
 
     $calendar[$y][$m]['days'] = $cs->gregorianToHijriCalendar($m, $y, $adjustment)['data'];
 

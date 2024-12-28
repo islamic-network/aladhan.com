@@ -28,7 +28,7 @@ $app->get(
     $c = new \AlAdhanApi\CalendarByCity($city, $country, $m, $y, null, $method, true, $this->get('hToGAdjustment'));
     $days = 30; // Islamic months have 30 or less days - always.
     $cols = 7;
-    $rows = $days / $cols;
+    $rows = ceil($days / $cols);
 
     $args['title'] = 'Ramadan Prayer Times / Timetable for ' . $gy . ' in ' . $city . ', ' . $country;
     $args['calendar'] = $c->get()['data'];
@@ -47,6 +47,7 @@ $app->get(
     }
     $args['years'] = $years;
     $args['method'] = $args['calendar'][0]['meta']['method']['id'];
+
     $args['lam'] = $latitudeAdjustmentMethod;
 
     return $this->get('renderer')->render($response, 'ramadan-prayer-times.phtml', $args);
@@ -66,7 +67,7 @@ $app->get(
     $c = new \AlAdhanApi\CalendarByCity('London', 'UK', $m, $y, null, \AlAdhanApi\Methods::MWL, true, $this->get('hToGAdjustment'));
     $days = 30; // Islamic months have 30 or less days - always.
     $cols = 7;
-    $rows = $days / $cols;
+    $rows = ceil($days / $cols);
     $nextMonth = '/ramadan-calendar/' . ($gy + 1);
     $prevMonth = '/ramadan-calendar/' . ($gy - 1);
 
