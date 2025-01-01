@@ -140,34 +140,27 @@ $app->get(
     $adjustment = $this->get('hToGAdjustment');
     // Add days adjustment above
 
-    $current_year = (int)$request->getAttribute('year');
-    $years[$current_year - 1] = $current_year - 1;
-    $years[$current_year] = $current_year;
-    $years[$current_year + 1] = $current_year + 1;
-
+    $currentIslamicYear = (int)$request->getAttribute('year');
     $cs = $this->get('HijriCalendarService');
     $days = $cs->specialDays()['data'];
     $months = $cs->islamicMonths()['data'];
-    $currentIslamicYear = $cs->islamicYearFromGregorianForRamadan($current_year)['data'];
-    $islamicYears[] = $currentIslamicYear - 2;
+    if ($currentIslamicYear === null) {
+        $currentIslamicYear = $cs->islamicYearFromGregorianForRamadan(date('Y'))['data'];
+    }
     $islamicYears[] = $currentIslamicYear - 1;
     $islamicYears[] = $currentIslamicYear;
     $islamicYears[] = $currentIslamicYear + 1;
-    $islamicYears[] = $currentIslamicYear + 2;
     foreach ($islamicYears as $y) {
         $hols = $cs->hijriHolidaysByYear($y, $adjustment)['data'];
         foreach ($hols as $dkey => $h) {
-            foreach ($years as $year) {
-                if ($year == $h['gregorian']['year']) {
-                    $days[$dkey][$year] = $h['gregorian'];
-                }
-            }
+            $days[$dkey][$y] = $h['gregorian'];
         }
     }
-
+//header('Content-type: application/json');
+    //echo json_encode($days);exit;
     $args['title'] = 'Islamic Holidays and Holy Days';
-    $args['years'] = $years;
-    $args['current_year'] = $current_year;
+    $args['years'] = $islamicYears;
+    $args['current_year'] = $currentIslamicYear;
     $args['days'] = $days;
     $args['months'] = $months;
     $args['view'] = 'gToHCalendar';
