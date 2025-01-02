@@ -32,7 +32,7 @@
         </div>
 		<?php foreach ($years as $y) { ?>
         <div class="col-md-3 col-centered lead <?php echo ($y == $current_year) ?  'bg-primary' : ''; ?>">
-            <?php echo $day[$y]['day'] ;?><br /><?php echo $day[$y]['month']['en'] ;?>
+            <?php echo $day[$y]['day'] ;?> <?php echo $day[$y]['month']['en'] ;?><br /><?php echo $day[$y]['year'] ;?>
         </div>
     	<?php } ?>
 	</div>
