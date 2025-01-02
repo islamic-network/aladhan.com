@@ -24,9 +24,9 @@
 
 <?php if ($holydayFloater) { ?>
 <div class="holydayFloater">
-    <a href="/islamic-holidays">
+    <a href="/islamic-holidays/<?=$holydayFloater['hijri']['year'];?>">
         <span class="btn btn-danger btn-red">
-            Upcoming Holy Day: <b><?php echo implode(', ', $holydayFloater['hijri']['holidays']); ?></b> on <?php echo $holydayFloater['gregorian']['day']; ?> <?php echo $holydayFloater['gregorian']['month']['en']; ?> <?php echo $holydayFloater['gregorian']['year']; ?> 
+            Upcoming Holy Day: <b><?php echo implode(', ', $holydayFloater['hijri']['holidays']); ?></b> on <?php echo $holydayFloater['gregorian']['day']; ?> <?php echo $holydayFloater['gregorian']['month']['en']; ?> <?php echo $holydayFloater['gregorian']['year']; ?>
         </span></a>
     <span class="glyphicon glyphicon-chevron-down btn" id="hideHolydayFloater"></span>    
 </div>

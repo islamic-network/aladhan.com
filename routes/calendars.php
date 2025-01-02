@@ -140,7 +140,7 @@ $app->get(
     $adjustment = $this->get('hToGAdjustment');
     // Add days adjustment above
 
-    $currentIslamicYear = (int)$request->getAttribute('year');
+    $currentIslamicYear = (int) $request->getAttribute('year');
     $cs = $this->get('HijriCalendarService');
     $days = $cs->specialDays()['data'];
     $months = $cs->islamicMonths()['data'];
@@ -156,8 +156,6 @@ $app->get(
             $days[$dkey][$y] = $h['gregorian'];
         }
     }
-//header('Content-type: application/json');
-    //echo json_encode($days);exit;
     $args['title'] = 'Islamic Holidays and Holy Days';
     $args['years'] = $islamicYears;
     $args['current_year'] = $currentIslamicYear;
@@ -173,8 +171,9 @@ $app->get(
 
 $app->get(
     '/islamic-holidays', function ($request, $response, $args) {
-    $current_year = date('Y');
-    return $response->withStatus(301)->withHeader('Location', '/islamic-holidays/' . $current_year);
+    $cs = $this->get('HijriCalendarService');
+    $y = $cs->currentIslamicYear()['data'];
+    return $response->withStatus(301)->withHeader('Location', '/islamic-holidays/' . $y);
 
 }
 );
