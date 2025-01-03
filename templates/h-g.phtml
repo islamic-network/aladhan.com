@@ -104,6 +104,12 @@ $days = [ 0 =>'Sunday', 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday', 4 => 'T
                                 <br />
                             <?php } ?>
                         <?php } ?>
+
+                        <?php if (isset($calendar[$y][$m]['days'][$x]['gregorian']['lunarSighting']) && $calendar[$y][$m]['days'][$x]['gregorian']['lunarSighting'] === true) { ?>
+                            <br />
+                                <span class="bg-warning">Lunar Crescent Sighting</span>
+                            <br />
+                        <?php } ?>
 					<?php $x++; }} ?>
                 </td>
 			<?php }} ?>
