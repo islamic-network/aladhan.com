@@ -5,7 +5,8 @@
     <?php include_once('common/bismillah.phtml'); ?>
 	<p>
 		Please note that the below Hijri dates are computed using the Umm Al-Qura Calendar. Lunar crescent sightings are updated on this calendar
-        for 1, Muharram, 1 Ramadan, 1 Shawwal, 1 Dhul Hijja. Please note that where a night is denoted as a special day, it is the previous night.
+        for 1, Muharram, 1 Ramadan, 1 Shawwal, 1 Dhul Hijja, so some of the dates may appear twice. The entire calendar is not adjusted, but the
+        adjusted <span class="bg-success">holydays</span> are marked in green as opposed to unadjusted <span class="bg-danger">holydays</span>. Please note that where a night is denoted as a special day, it is the previous night.
         For example, Lailat-ul-Mi'raj falls on the 27th of Rajab, but it is the time after Maghrib on the 26th and early morning hours of the 27th that are
         intended by the word lailat (because in the Islamic calendar the next date begins after Maghrib / sunset).
 	</p>
@@ -93,6 +94,13 @@ $days = [ 0 =>'Sunday', 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday', 4 => 'T
 							<br />
 							<?php } ?>
 						<?php } ?>
+                        <?php if (!empty($calendar[$y][$m]['days'][$x]['hijri']['adjustedHolidays'])) { ?>
+                            <br />
+                            <?php foreach ($calendar[$y][$m]['days'][$x]['hijri']['adjustedHolidays'] as $ah) { ?>
+                                <span class="bg-success"><?php echo $ah; ?></span>
+                                <br />
+                            <?php } ?>
+                        <?php } ?>
 					<?php $x++; }} ?>
                 </td>
 			<?php }} ?>
