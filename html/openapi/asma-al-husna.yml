@@ -1,0 +1,125 @@
+openapi: 3.1.0
+info:
+  title: 'Asma Al Husna API - AlAdhan'
+  description: 'An API to get the 99 beautiful names of God, in English and Arabic. All the endpoints return JSON and are available over `http` and `https`.'
+  version: v1
+servers:
+  -
+    url: 'https://api.aladhan.com/v1'
+  -
+    url: 'http://api.aladhan.com/v1'
+paths:
+  /asmaAlHusna:
+    get:
+      tags:
+        - AsmaAlHusna
+      summary: 'Get all the Asma Al Husna'
+      description: 'Includes the Arabic text with transliteration and meaning of each name'
+      operationId: cb69c1e5a69523cc26767b4ed570bafd
+      responses:
+        '200':
+          description: 'Returns all Asma Al Husna'
+          content:
+            application/json:
+              schema:
+                properties:
+                  code: { type: integer, example: 200 }
+                  status: { type: string, example: OK }
+                  data: { type: array, items: { type: object, anyOf: [{ $ref: '#/components/schemas/AsmaAlHusnaResponseExample1' }, { $ref: '#/components/schemas/AsmaAlHusnaResponseExample2' }, { $ref: '#/components/schemas/AsmaAlHusnaResponseExample3' }] } }
+                type: object
+  '/asmaAlHusna/{number}':
+    get:
+      tags:
+        - AsmaAlHusna
+      summary: 'Get one ore more Asma Al Husna'
+      description: 'Includes the Arabic text with transliteration and meaning'
+      operationId: c576ff3a4c40c420ebc8a5779afbf718
+      parameters:
+        -
+          name: number
+          in: path
+          description: 'A valid Asma Al Husna number or list of comma separated numbers between 1 and 99'
+          required: true
+          schema:
+            type: string
+          example: '1 or 1,2,3'
+      responses:
+        '200':
+          description: 'Returns a specific Asma Al Husna'
+          content:
+            application/json:
+              schema:
+                properties:
+                  code: { type: integer, example: 200 }
+                  status: { type: string, example: OK }
+                  data: { type: array, items: { $ref: '#/components/schemas/AsmaAlHusnaResponseExample1' } }
+                type: object
+        '404':
+          description: 'Unable to process request'
+          content:
+            application/json:
+              schema:
+                properties:
+                  code: { type: integer, example: 404 }
+                  status: { type: string, example: 'NOT FOUND' }
+                  data: { type: string, example: 'Please specify a valid number or list of comma separated numbers between 1 and 99' }
+                type: object
+components:
+  schemas:
+    AsmaAlHusnaResponseExample1:
+      properties:
+        name:
+          type: string
+          example: الرَّحْمَنُ
+        transliteration:
+          type: string
+          example: 'Ar Rahmaan'
+        number:
+          type: integer
+          example: 1
+        en:
+          properties:
+            meaning:
+              type: string
+              example: 'The Beneficent'
+          type: object
+      type: object
+    AsmaAlHusnaResponseExample2:
+      properties:
+        name:
+          type: string
+          example: الرَّحِيمُ
+        transliteration:
+          type: string
+          example: 'Ar Raheem'
+        number:
+          type: integer
+          example: 2
+        en:
+          properties:
+            meaning:
+              type: string
+              example: 'The Merciful'
+          type: object
+      type: object
+    AsmaAlHusnaResponseExample3:
+      properties:
+        name:
+          type: string
+          example: الْمَلِكُ
+        transliteration:
+          type: string
+          example: 'Al Malik'
+        number:
+          type: integer
+          example: 3
+        en:
+          properties:
+            meaning:
+              type: string
+              example: 'The King / Eternal Lord'
+          type: object
+      type: object
+tags:
+  -
+    name: AsmaAlHusna

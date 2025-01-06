@@ -1,59 +1,22 @@
 <?php include_once('common/header.phtml'); ?>
 <?php include_once('common/navigation.phtml'); ?>
 
-<div class="container panel">
-    <?php include_once('common/bismillah.phtml'); ?>
-                <div class="page-header">
-                    <h2>Qibla Direction API</h2>
-                </div>
-                <p>
-                    <b>NOTE</b>: <u>If you are using this API, please sign up to the developer mailing list <a href="/contact">here</a> so you can be informed of any updates or scheduled maintenance to the API.</u>
-                </p>
-                <h2>Endpoints - Qibla Direction API</h2>
-                <p>
-                    <br />
-                    All endoints are available over https and httpss.
-                </p>
-    <ol>
-    <?php foreach($apidocs as $ad) { ?>
-        <li><a href="#<?=$ad->name;?>"><?=$ad->title;?></a> - <?=$ad->url;?></li>
-    <?php } ?>
-    </ol>
-
-
-    <?php $i=0; foreach($apidocs as $ad) { $i++; ?>
-    <h4><?=$i;?>. <a name="<?=$ad->name;?>"><?=$ad->title;?> - <?=$ad->url;?></a></h4>
-    <ul>
-        <li>
-            <b>Description:</b> <?=$ad->description;?>
-        </li>
-        <li>
-            <b>Method:</b> <?=strtoupper($ad->type);?>
-        </li>
-        <?php if(isset($ad->parameter)) { ?>
-        <li>
-            <b>Parameters:</b>
-            <ul>
-                <?php foreach($ad->parameter->fields->Parameter as $param) { ?>
-                    <li>
-                        "<?=$param->field;?>" (<?=$param->type;?>) - <?=$param->description;?>
-                    </li>
-                <?php } ?>
-            </ul>
-        </li>
-        <?php } ?>
-        <li>
-            <b>Endpoint URL:</b> <?=$ad->url;?>
-        </li>
-        <li>
-            <b>Example Request:</b> <a href="<?=$ad->examples[0]->content;?>" target="_blank"><?=$ad->examples[0]->content;?></a>
-        </li>
-        <li>
-            <b>Example Response:</b> <pre><?=$ad->success->examples[0]->content;?></pre>
-        </li>
-    </ul>
-    <br />
-    <?php } ?>
-</div>
-
+    <div class="panel" style="background-color: whitesmoke; margin-top: 50px; opacity: 100%;">
+        <?php include_once('common/bismillah.phtml'); ?>
+        <div class="page-header">
+            <h2 style="color: black">Qibla Direction API</h2>
+        </div>
+        <redoc spec-url="/openapi/qibla.yml" expand-responses path-in-middle-panel required-props-first show-oject-schema-examples
+               theme='{
+                   "spacing": {
+                     "sectionVertical": "10",
+                     "sectionHorizontal": "10"
+                   },
+                   "colors": {
+                     "tonalOffset": 0.6
+                   }
+                }'
+        ></redoc>
+        <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js" type="text/javascript"></script>
+    </div>
 <?php include_once('common/footer.phtml'); ?>
