@@ -1,0 +1,545 @@
+openapi: 3.1.0
+info:
+  title: 'Islamic / Hijri Calendar API - AlAdhan'
+  description: 'An Islamic Calendar API that supports various calculation methods to convert Gregorian Dates to Hijri Dates'
+  version: v1
+servers:
+  -
+    url: 'https://api.aladhan.com/v1'
+  -
+    url: 'http://api.aladhan.com/v1'
+paths:
+  '/gToHCalendar/{month}/{year}':
+    get:
+      tags:
+        - Hijri
+      summary: 'Get a Hijri calendar for a Gregorian month'
+      description: 'Get a Hijri calendar for a Gregorian month'
+      operationId: 507203c238753ef02466180df8d06039
+      parameters:
+        -
+          $ref: '#/components/parameters/GregorianMonth'
+        -
+          $ref: '#/components/parameters/GregorianYear'
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+        -
+          $ref: '#/components/parameters/Adjustment'
+      responses:
+        '200':
+          description: 'Returns the conversion of gregorian to Hijri calendar'
+          content:
+            application/json:
+              schema:
+                properties:
+                  code: { type: integer, example: 200 }
+                  status: { type: string, example: OK }
+                  data: { type: array, items: { properties: { data: { $ref: '#/components/schemas/HijriCalendarDateResponse' } }, type: object } }
+                type: object
+  '/hToGCalendar/{month}/{year}':
+    get:
+      tags:
+        - Hijri
+      summary: 'Get a Gregorian a calendar for a Hijri month'
+      description: 'Get a Gregorian a calendar for a Hijri month'
+      operationId: 6f833d16188bdbf4a2c217fbc31b259f
+      parameters:
+        -
+          $ref: '#/components/parameters/HijriMonth'
+        -
+          $ref: '#/components/parameters/HijriYear'
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+        -
+          $ref: '#/components/parameters/Adjustment'
+      responses:
+        '200':
+          description: 'Returns the conversion of Hijri to gregorian calendar'
+          content:
+            application/json:
+              schema:
+                properties:
+                  code: { type: integer, example: 200 }
+                  status: { type: string, example: OK }
+                  data: { type: array, items: { $ref: '#/components/schemas/HijriCalendarDateResponse' } }
+                type: object
+  '/gToH/{date}':
+    get:
+      tags:
+        - Hijri
+      summary: 'Convert a Gregorian date to a Hijri date'
+      description: 'Convert a Gregorian date to a Hijri date'
+      operationId: 2f6ed805682d548b58fd6a45610bd932
+      parameters:
+        -
+          name: date
+          in: path
+          description: 'Gregorian date formatted as  DD-MM-YYYY'
+          required: true
+          schema:
+            type: string
+          example: 19-12-2017
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+        -
+          $ref: '#/components/parameters/Adjustment'
+      responses:
+        '200':
+          description: 'Returns the conversion of requested gregorian date to Hijri date'
+          content:
+            application/json:
+              schema:
+                properties:
+                  code: { type: integer, example: 200 }
+                  status: { type: string, example: OK }
+                  data: { $ref: '#/components/schemas/HijriCalendarDateResponse' }
+                type: object
+        '404':
+          $ref: '#/components/responses/404HijriResponse'
+  '/hToG/{date}':
+    get:
+      tags:
+        - Hijri
+      summary: 'Convert a Hijri date to a Gregorian date'
+      description: 'Convert a Hijri date to a Gregorian date'
+      operationId: 8bffe7b59a39d4cd8a8da514b49bcc07
+      parameters:
+        -
+          name: date
+          in: path
+          description: 'Hijri date formatted as DD-MM-YYYY'
+          required: true
+          schema:
+            type: string
+          example: 01-04-1439
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+        -
+          $ref: '#/components/parameters/Adjustment'
+      responses:
+        '200':
+          description: 'Returns the conversion of requested Hijri date to gregorian date'
+          content:
+            application/json:
+              schema:
+                properties:
+                  code: { type: integer, example: 200 }
+                  status: { type: string, example: OK }
+                  data: { $ref: '#/components/schemas/HijriCalendarDateResponse' }
+                type: object
+        '404':
+          $ref: '#/components/responses/404HijriResponse'
+  /nextHijriHoliday:
+    get:
+      tags:
+        - Hijri
+      summary: 'Next Hijri holiday'
+      description: 'Get the next upcoming holiday in the Hijri calendar'
+      operationId: e177fd33374396c2dd7344585c8f2932
+      parameters:
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+        -
+          $ref: '#/components/parameters/Adjustment'
+      responses:
+        '200':
+          description: 'Returns the next holiday in the Hijri calendar'
+          content:
+            application/json:
+              schema:
+                properties:
+                  code: { type: integer, example: 200 }
+                  status: { type: string, example: OK }
+                  data: { $ref: '#/components/schemas/HijriCalendarDateResponse' }
+                type: object
+        '400':
+          description: 'Unable to process request'
+          content:
+            application/json:
+              schema:
+                properties:
+                  code: { type: integer, example: 400 }
+                  status: { type: string, example: BAD_REQUEST }
+                  data: { type: string, example: 'Unable to compute next holiday.' }
+                type: object
+  /currentIslamicYear:
+    get:
+      tags:
+        - Hijri
+      summary: 'Current Islamic year'
+      description: 'Returns current Islamic year'
+      operationId: 92879f0d37b758294e5db73f7bc82e87
+      responses:
+        '200':
+          $ref: '#/components/responses/200HijriCurrentYearResponse'
+  /currentIslamicMonth:
+    get:
+      tags:
+        - Hijri
+      summary: 'Get the current Islamic month'
+      description: 'Get the current Islamic month'
+      operationId: e54150da7302b558a48dea16d61a36db
+      responses:
+        '200':
+          description: 'Returns current Islamic month'
+          content:
+            application/json:
+              schema:
+                properties:
+                  code: { type: integer, example: 200 }
+                  status: { type: string, example: OK }
+                  data: { type: integer, example: 6 }
+                type: object
+  '/islamicYearFromGregorianForRamadan/{year}':
+    get:
+      tags:
+        - Hijri
+      summary: 'Islamic year from gregorian year'
+      description: 'Returns Islamic year from gregorian year'
+      operationId: ccc313b248544c6b4456d29c3366379a
+      parameters:
+        -
+          $ref: '#/components/parameters/GregorianYear'
+      responses:
+        '200':
+          $ref: '#/components/responses/200HijriCurrentYearResponse'
+          description: 'Returns Islamic year equivalent to the requested gregorian year'
+        '400':
+          description: 'Unable to process request'
+          content:
+            application/json:
+              schema:
+                properties:
+                  code: { type: integer, example: 400 }
+                  status: { type: string, example: BAD_REQUEST }
+                  data: { type: string, example: 'Please specify a valid year' }
+                type: object
+  '/hijriHolidays/{day}/{month}':
+    get:
+      tags:
+        - Hijri
+      summary: 'Holiday for a specific Hijri day'
+      description: 'Returns a holiday for a specific day of a month as per Hijri calendar'
+      operationId: b6bb5828a98be60f56ca5d8575eb0594
+      parameters:
+        -
+          name: day
+          in: path
+          description: 'Day in a Hijri month'
+          required: true
+          schema:
+            type: integer
+          example: 10
+        -
+          $ref: '#/components/parameters/HijriMonth'
+      responses:
+        '200':
+          description: 'Returns which holiday is on the requested Hijri day of the month'
+          content:
+            application/json:
+              schema:
+                properties:
+                  code: { type: integer, example: 200 }
+                  status: { type: string, example: OK }
+                  data: { type: array, items: { type: string }, example: [Ashura] }
+                type: object
+        '400':
+          description: 'Unable to process request'
+          content:
+            application/json:
+              schema:
+                properties:
+                  code: { type: integer, example: 400 }
+                  status: { type: string, example: BAD_REQUEST }
+                  data: { type: string, example: 'Please specify a valid day and month' }
+                type: object
+        '404':
+          $ref: '#/components/responses/404HijriHolidaysResponse'
+  /specialDays:
+    get:
+      tags:
+        - Hijri
+      summary: 'List of special days'
+      description: 'Returns a list of special days as per Hijri calendar'
+      operationId: 1a87255c966974103257514a89f19ef2
+      responses:
+        '200':
+          description: 'Returns a list of special days as per Hijri calendar'
+          content:
+            application/json:
+              schema:
+                properties:
+                  code: { type: integer, example: 200 }
+                  status: { type: string, example: OK }
+                  data: { type: array, items: { properties: { month: { type: integer, example: 1 }, day: { type: integer, example: 10 }, name: { type: string, example: Ashura } }, type: object } }
+                type: object
+  /islamicMonths:
+    get:
+      tags:
+        - Hijri
+      summary: 'Islamic months'
+      description: 'Returns a list of Islamic months as per Hijri calendar'
+      operationId: ede4ad1e4819ce20f5c2e35d3e1a194b
+      responses:
+        '200':
+          description: 'Returns a list of Islamic months'
+          content:
+            application/json:
+              schema:
+                properties:
+                  code: { type: integer, example: 200 }
+                  status: { type: string, example: OK }
+                  data: { properties: { '1': { properties: { number: { type: integer, example: 1 }, en: { type: integer, example: Muḥarram }, ar: { type: string, example: مُحَرَّم } }, type: object }, '2': { properties: { number: { type: integer, example: 2 }, en: { type: integer, example: Ṣafar }, ar: { type: string, example: صَفَر } }, type: object }, '3': { properties: { number: { type: integer, example: 3 }, en: { type: integer, example: 'Rabīʿ al-awwal' }, ar: { type: string, example: 'رَبيع الأوّل' } }, type: object }, '4': { properties: { number: { type: integer, example: 4 }, en: { type: integer, example: 'Rabīʿ al-thānī' }, ar: { type: string, example: 'رَبيع الثاني' } }, type: object }, '5': { properties: { number: { type: integer, example: 5 }, en: { type: integer, example: 'Jumādá al-ūlá' }, ar: { type: string, example: 'جُمادى الأولى' } }, type: object }, '6': { properties: { number: { type: integer, example: 6 }, en: { type: integer, example: 'Jumādá al-ākhirah' }, ar: { type: string, example: 'جُمادى الآخرة' } }, type: object }, '7': { properties: { number: { type: integer, example: 7 }, en: { type: integer, example: Rajab }, ar: { type: string, example: رَجَب } }, type: object }, '8': { properties: { number: { type: integer, example: 8 }, en: { type: integer, example: Shaʿbān }, ar: { type: string, example: شَعْبان } }, type: object }, '9': { properties: { number: { type: integer, example: 9 }, en: { type: integer, example: Ramaḍān }, ar: { type: string, example: رَمَضان } }, type: object }, '10': { properties: { number: { type: integer, example: 10 }, en: { type: integer, example: Shawwāl }, ar: { type: string, example: شَوّال } }, type: object }, '11': { properties: { number: { type: integer, example: 11 }, en: { type: integer, example: 'Dhū al-Qaʿdah' }, ar: { type: string, example: ذوالقعدة } }, type: object }, '12': { properties: { number: { type: integer, example: 12 }, en: { type: integer, example: 'Dhū al-Ḥijjah' }, ar: { type: string, example: ذوالحجة } }, type: object } }, type: object }
+                type: object
+  '/islamicHolidaysByHijriYear/{year}':
+    get:
+      tags:
+        - Hijri
+      summary: 'Hijri holidays by year'
+      description: 'Returns a list of holidays as per the Hijri year'
+      operationId: e7444c1294bf4d288dc04d67d003a492
+      parameters:
+        -
+          name: year
+          in: path
+          description: 'A Hijri year'
+          required: true
+          schema:
+            type: integer
+          example: 1443
+        -
+          $ref: '#/components/parameters/Adjustment'
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+      responses:
+        '200':
+          description: 'Returns list of holidays as per the requested Hijri year'
+          content:
+            application/json:
+              schema:
+                properties:
+                  code: { type: integer, example: 200 }
+                  status: { type: string, example: OK }
+                  data: { $ref: '#/components/schemas/HijriCalendarDateResponse' }
+                type: object
+        '404':
+          $ref: '#/components/responses/404HijriHolidaysResponse'
+  /islamicCalendar/methods:
+    get:
+      tags:
+        - Hijri
+      summary: 'Hirji / Islamic Calendar Calculations'
+      description: 'Returns a list of methods that are used for different types of Hijri / Islamic Calendar calculations'
+      operationId: 63e613d9e5f24bfba2918f58feb1a230
+      responses:
+        '200':
+          description: 'Returns a list of methods used for Hijri / Islamic Calendar calculations'
+          content:
+            application/json:
+              schema:
+                properties:
+                  code: { type: integer, example: 200 }
+                  status: { type: string, example: OK }
+                  data: { type: array, items: { oneOf: [{ properties: { id: { type: string, example: UAQ }, name: { type: string, example: 'Umm al-Qura' }, description: { type: string, example: 'The Umm Al-Qura Calender based on astronomical data provided by the Umm al-Qura University in Makkah, Saudi Arabia. Strictly speaking, this calendar is intended for civil purposes only. Please keep in mind that the first visual sighting of the lunar crescent (hilāl) can occur up to two days after the date predicted by the Umm al-Qura calendar.' }, validity: { type: string, example: '1356 AH (14 March 1937 CE) to 1500 AH (16 November 2077 CE)' } }, type: object }, { properties: { id: { type: string, example: HJCoSA }, name: { type: string, example: 'Majlis al-Qadāʾ al-Aʿlā (High Judiciary Council of Saudi Arabia)' }, description: { type: string, example: 'This calendar is based on the Umm al-Qura calendar, but the dates for the months of Muḥarram, Ramaḍān, Shawwāl and Dhu ʾl-Ḥijja are adjusted after reported sightings of the lunar crescent announced by the Majlis al-Qadāʾ al-Aʿlā (High Judiciary Council of Saudi Arabia). Please also see https://webspace.science.uu.nl/~gent0113/islam/ummalqura_adjust.htm for more details.' }, validity: { type: string, example: '1356 AH (14 March 1937 CE) to 1500 AH (16 November 2077 CE)' } }, type: object }, { properties: { id: { type: string, example: MATHEMATICAL }, name: { type: string, example: 'Mathematical calculator based on a calculation written by Layth A. Ibraheem' }, description: { type: string, example: 'This has been the default calendar used by the AlAdhan API until January 2025. It is purely mathematical does not \n    keep track of the number of days in a month, so adjusting it to match the actual hilaal sightings is not possible. It still works if you are happy \n    wth some inconsistencies, but is no longer the default calendar. This calendar allows for adjustments.' }, validity: { type: string, example: 'No restrictions' } }, type: object }, { properties: { id: { type: string, example: DIYANET }, name: { type: string, example: 'Diyanet İşleri Başkanlığı' }, description: { type: string, example: 'The Islamic Calendar of Tukey based on astronomical data provided by Turkish Presidency of Religious Affairs (Diyanet İşleri Başkanlığı.' }, validity: { type: string, example: '1 Muharram 1318 AH (1 May 1900) to 29 Şaban 1449 AH (26 January 2028)' } }, type: object }] } }
+                type: object
+components:
+  schemas:
+    HijriCalendarDateResponse:
+      properties:
+        hijri:
+          properties:
+            date:
+              type: string
+              example: 10-01-1443
+            format:
+              type: string
+              example: DD-MM-YYYY
+            day:
+              type: integer
+              example: 10
+            weekday:
+              properties:
+                en:
+                  type: string
+                  example: "Al Arba'a"
+                ar:
+                  type: string
+                  example: الاربعاء
+              type: object
+            month:
+              properties:
+                number:
+                  type: integer
+                  example: 1
+                en:
+                  type: string
+                  example: Muḥarram
+                ar:
+                  type: string
+                  example: مُحَرَّم
+                days:
+                  type: integer
+                  example: 30
+              type: object
+            year:
+              type: integer
+              example: 1443
+            designation:
+              properties:
+                abbreviated:
+                  type: string
+                  example: AH
+                expanded:
+                  type: string
+                  example: 'Anno Hegirae'
+              type: object
+            holidays:
+              type: array
+              items: {  }
+              example:
+                - Ashura
+            method:
+              type: string
+              example: HJCoSA
+          type: object
+        gregorian:
+          properties:
+            date:
+              type: string
+              example: 18-08-2021
+            format:
+              type: string
+              example: DD-MM-YYYY
+            day:
+              type: string
+              example: '18'
+            weekday:
+              properties:
+                en:
+                  type: string
+                  example: Wednesday
+              type: object
+            month:
+              properties:
+                number:
+                  type: integer
+                  example: 8
+                en:
+                  type: string
+                  example: August
+              type: object
+            year:
+              type: string
+              example: '2021'
+            designation:
+              properties:
+                abbreviated:
+                  type: string
+                  example: AD
+                expanded:
+                  type: string
+                  example: 'Anno Domini'
+              type: object
+          type: object
+      type: object
+  responses:
+    404HijriResponse:
+      description: 'NOT FOUND - Unable to process request'
+      content:
+        application/json:
+          schema:
+            properties:
+              code:
+                type: integer
+                example: 404
+              status:
+                type: string
+                example: 'NOT FOUND'
+              data:
+                type: string
+                example: 'Invalid date or unable to convert it.'
+            type: object
+    200HijriCurrentYearResponse:
+      description: 'Returns current Islamic year'
+      content:
+        application/json:
+          schema:
+            properties:
+              code:
+                type: integer
+                example: 200
+              status:
+                type: string
+                example: OK
+              data:
+                type: integer
+                example: 1446
+            type: object
+    404HijriHolidaysResponse:
+      description: 'NOT FOUND - Unable to process request'
+      content:
+        application/json:
+          schema:
+            properties:
+              code:
+                type: integer
+                example: 404
+              status:
+                type: string
+                example: 'NOT FOUND'
+              data:
+                type: string
+                example: 'No holidays found.'
+            type: object
+  parameters:
+    HijriMonth:
+      name: month
+      in: path
+      description: 'A Hijri Month - Example: 1 for Muharram'
+      required: true
+      schema:
+        type: integer
+      example: 4
+    GregorianMonth:
+      name: month
+      in: path
+      description: 'A Gregorian month - Example: 1 for January'
+      required: true
+      schema:
+        type: integer
+      example: 4
+    HijriYear:
+      name: year
+      in: path
+      description: 'Year as per the Hijri calendar'
+      required: true
+      schema:
+        type: integer
+      example: 1439
+    GregorianYear:
+      name: year
+      in: path
+      description: 'Year as per the Gregorian calendar'
+      required: true
+      schema:
+        type: integer
+      example: 2018
+    CalendarMethod:
+      name: calendarMethod
+      in: query
+      description: "A Calendar Calculation Method. \r\n        <br />Defaults to HJCoSA.\r\n        <br />- HJCoSA - High Judicial Council of Saudi Arabia (this is used on aladhan.com) \r\n        <br />- UAQ - Umm al-Qura\r\n        <br />- DIYANET - Diyanet İşleri Başkanlığı\r\n        <br />- MATHEMATICAL\r\n        <br /><br />\r\n        For more details on the methods, please see https://api.aladhan.com/v1/islamicCalendar/methods.\r\n        "
+      required: false
+      schema:
+        type: string
+      example: UAQ
+    Adjustment:
+      name: adjustment
+      in: query
+      description: 'Only applicable if the calendarMethod is set to MATHEMATICAL. Number of days to adjust the date being converted to. Example: 1 or 2 or -1 or -2'
+      required: true
+      schema:
+        type: integer
+      example: 1
+tags:
+  -
+    name: Hijri
