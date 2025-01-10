@@ -1,21 +1,20 @@
 <?php include_once('common/header.phtml'); ?>
 <?php include_once('common/navigation.phtml'); ?>
 
-    <div class="panel" style="background-color: whitesmoke; margin-top: 50px; opacity: 100%;">
+    <div class="panel" style="margin-top: 50px; opacity: 100%;">
         <?php include_once('common/bismillah.phtml'); ?>
         <div class="page-header">
-            <h2 style="color: black">Islamic / Hijri Calendar API</h2>
+            <h2>Islamic / Hijri Calendar API</h2>
         </div>
-        <redoc spec-url="/openapi/islamic-calendar.yml" expand-responses path-in-middle-panel required-props-first show-oject-schema-examples
-               theme='{
-                   "spacing": {
-                     "sectionVertical": "10",
-                     "sectionHorizontal": "10"
-                   },
-                   "colors": {
-                     "tonalOffset": 0.6
-                   }
-                }'></redoc>
-        <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js" type="text/javascript"></script>
+        <rapi-doc spec-url="https://api.aladhan.com/v1/documentation/openapi/islamic-calendar/yaml"
+                  theme = 'dark'
+                  show-header = 'false'
+                  show-info = 'true'
+                  allow-authentication ='false'
+                  allow-server-selection = 'true'
+                  allow-api-list-style-selection ='false'
+        ></rapi-doc>
+        <script type="module" src="/js/rapidoc-min.js"></script>
+        </head>
     </div>
 <?php include_once('common/footer.phtml'); ?>

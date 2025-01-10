@@ -1,0 +1,1667 @@
+openapi: 3.1.0
+info:
+  title: 'Prayer Times API - AlAdhan'
+  description: "A RESTful API to get islamic prayer times for a given day, month or year.\n    The API has several endpoints to assist developers. All the endpoints return JSON and are available over `http` and `https`.\n    Please note that prayer timings might not always match your local mosque or government authority. Their timings are likely tuned or adjusted. Please see `https://aladhan.com/calculation-methods` for more details."
+  version: v1
+servers:
+  -
+    url: 'https://api.aladhan.com/v1'
+  -
+    url: 'http://api.aladhan.com/v1'
+paths:
+  '/timings/{date}':
+    get:
+      tags:
+        - 'Daily Prayer Times'
+      summary: 'Prayer times for a specific date'
+      description: 'Returns all prayer times for a specific date'
+      operationId: f72a530e3bf3fa383486373e61c2f30b
+      parameters:
+        -
+          $ref: '#/components/parameters/GregorianDate'
+        -
+          $ref: '#/components/parameters/LatitudeQueryParameter'
+        -
+          $ref: '#/components/parameters/LongitudeQueryParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesCalMethodParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesShafaqParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTuneParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesSchoolParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesMidNightModeParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTimeZoneStringParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesLatitudeAdjustmentMethodParameter'
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+        -
+          $ref: '#/components/parameters/Adjustment'
+        -
+          $ref: '#/components/parameters/PrayerTimesIso8601Parameter'
+      responses:
+        '200':
+          description: 'Returns all prayer times for a specific date'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200TimesResponse'
+        '400':
+          $ref: '#/components/responses/400TimesLatLongResponse'
+  '/timingsByAddress/{date}':
+    get:
+      tags:
+        - 'Daily Prayer Times'
+      summary: 'Prayer times for an address'
+      description: 'Returns all prayer times for an address on a specific date'
+      operationId: 689107cfed46ed7d0dab90d5e041618b
+      parameters:
+        -
+          $ref: '#/components/parameters/GregorianDate'
+        -
+          $ref: '#/components/parameters/TimesAddressQueryParameter'
+        -
+          $ref: '#/components/parameters/7xAPIKeyQueryParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesCalMethodParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesShafaqParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTuneParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesSchoolParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesMidNightModeParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTimeZoneStringParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesLatitudeAdjustmentMethodParameter'
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+        -
+          $ref: '#/components/parameters/Adjustment'
+        -
+          $ref: '#/components/parameters/PrayerTimesIso8601Parameter'
+      responses:
+        '200':
+          description: 'Returns all prayer times for the given address on specified date'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200TimesResponse'
+        '400':
+          description: 'Unable to process request'
+          content:
+            application/json:
+              schema:
+                properties:
+                  code: { type: integer, example: 400 }
+                  status: { type: string, example: BAD_REQUEST }
+                  data: { type: string, example: 'Please specify a valid address.' }
+                type: object
+  '/timingsByCity/{date}':
+    get:
+      tags:
+        - 'Daily Prayer Times'
+      summary: 'Prayer times for a city on a specific date'
+      description: 'Returns all prayer times for a city on a specific date'
+      operationId: 326252e2e6f918586f9bd5c020e07bd4
+      parameters:
+        -
+          $ref: '#/components/parameters/GregorianDate'
+        -
+          $ref: '#/components/parameters/TimesCityQueryParameter'
+        -
+          $ref: '#/components/parameters/TimesCountryQueryParameter'
+        -
+          $ref: '#/components/parameters/TimesStateQueryParameter'
+        -
+          $ref: '#/components/parameters/7xAPIKeyQueryParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesCalMethodParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesShafaqParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTuneParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesSchoolParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesMidNightModeParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTimeZoneStringParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesLatitudeAdjustmentMethodParameter'
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+        -
+          $ref: '#/components/parameters/Adjustment'
+        -
+          $ref: '#/components/parameters/PrayerTimesIso8601Parameter'
+      responses:
+        '200':
+          description: 'Returns all prayer times for the given city and country on specified date'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200TimesResponse'
+        '400':
+          description: 'Unable to process request'
+          content:
+            application/json:
+              schema:
+                properties:
+                  code: { type: integer, example: 400 }
+                  status: { type: string, example: BAD_REQUEST }
+                  data: { type: string, example: 'Please specify a valid city and country.' }
+                type: object
+  '/nextPrayer/{date}':
+    get:
+      tags:
+        - 'Daily Prayer Times'
+      summary: 'Next prayer time for a date'
+      description: 'Returns next prayer time for a specific date'
+      operationId: 020308315fd18ccc1d81294eea6acc4d
+      parameters:
+        -
+          $ref: '#/components/parameters/GregorianDate'
+        -
+          $ref: '#/components/parameters/LatitudeQueryParameter'
+        -
+          $ref: '#/components/parameters/LongitudeQueryParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesCalMethodParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesShafaqParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTuneParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesSchoolParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesMidNightModeParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTimeZoneStringParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesLatitudeAdjustmentMethodParameter'
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+        -
+          $ref: '#/components/parameters/Adjustment'
+        -
+          $ref: '#/components/parameters/PrayerTimesIso8601Parameter'
+      responses:
+        '200':
+          description: 'Returns next prayer times for a specific date'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200TimesNextPrayerResponse'
+        '400':
+          $ref: '#/components/responses/400TimesLatLongResponse'
+  '/nextPrayerByAddress/{date}':
+    get:
+      tags:
+        - 'Daily Prayer Times'
+      summary: 'Next prayer times for an address on the specific date'
+      description: 'Returns next prayer times for the given address on the specified date'
+      operationId: 3b69ed18992b7d3aa602f48becc69db4
+      parameters:
+        -
+          $ref: '#/components/parameters/GregorianDate'
+        -
+          $ref: '#/components/parameters/TimesAddressQueryParameter'
+        -
+          $ref: '#/components/parameters/7xAPIKeyQueryParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesCalMethodParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesShafaqParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTuneParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesSchoolParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesMidNightModeParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTimeZoneStringParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesLatitudeAdjustmentMethodParameter'
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+        -
+          $ref: '#/components/parameters/Adjustment'
+        -
+          $ref: '#/components/parameters/PrayerTimesIso8601Parameter'
+      responses:
+        '200':
+          description: 'Returns next prayer times for an address on the specified date'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200TimesNextPrayerResponse'
+        '400':
+          description: 'Unable to process request'
+          content:
+            application/json:
+              schema:
+                properties:
+                  code: { type: integer, example: 400 }
+                  status: { type: string, example: BAD_REQUEST }
+                  data: { type: string, example: 'Please specify an address.' }
+                type: object
+  '/hijriCalendar/{year}':
+    get:
+      tags:
+        - 'Annual Prayer Times Calendar'
+      summary: 'Prayer times for a Hijri year'
+      description: 'Returns Prayer times for a Hijri year'
+      operationId: 9bc99921129ac50d9c77798f167a8e84
+      parameters:
+        -
+          $ref: '#/components/parameters/HijriYear'
+        -
+          $ref: '#/components/parameters/LatitudeQueryParameter'
+        -
+          $ref: '#/components/parameters/LongitudeQueryParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesCalMethodParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesShafaqParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTuneParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesSchoolParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesMidNightModeParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTimeZoneStringParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesLatitudeAdjustmentMethodParameter'
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+        -
+          $ref: '#/components/parameters/Adjustment'
+        -
+          $ref: '#/components/parameters/PrayerTimesIso8601Parameter'
+      responses:
+        '200':
+          description: 'Returns Prayer times for a Hijri year'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200TimesPrayerTimesCalendarYearResponse'
+        '400':
+          $ref: '#/components/responses/400TimesLatLongResponse'
+  '/hijriCalendar/{year}/{month}':
+    get:
+      tags:
+        - 'Monthly Prayer Times Calendar'
+      summary: 'Prayer times for a Hijri month'
+      description: 'Returns Prayer times for a requested Hijri month'
+      operationId: 12be6d61355aaf27bb0e2e897bb719b7
+      parameters:
+        -
+          $ref: '#/components/parameters/HijriYear'
+        -
+          $ref: '#/components/parameters/TimesHijriMonth'
+        -
+          $ref: '#/components/parameters/LatitudeQueryParameter'
+        -
+          $ref: '#/components/parameters/LongitudeQueryParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesCalMethodParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesShafaqParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTuneParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesSchoolParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesMidNightModeParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTimeZoneStringParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesLatitudeAdjustmentMethodParameter'
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+        -
+          $ref: '#/components/parameters/Adjustment'
+        -
+          $ref: '#/components/parameters/PrayerTimesIso8601Parameter'
+      responses:
+        '200':
+          description: 'Returns Prayer times for a Hijri month'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200TimesPrayerTimesCalendarMonthResponse'
+        '400':
+          $ref: '#/components/responses/400TimesLatLongResponse'
+  '/calendar/{year}':
+    get:
+      tags:
+        - 'Annual Prayer Times Calendar'
+      summary: 'Prayer times for a Gregorian year'
+      description: 'Returns Prayer times for a Gregorian year'
+      operationId: 06bf6d2bca42da43cd37de6e752b4f0f
+      parameters:
+        -
+          $ref: '#/components/parameters/GregorianYear'
+        -
+          $ref: '#/components/parameters/LatitudeQueryParameter'
+        -
+          $ref: '#/components/parameters/LongitudeQueryParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesCalMethodParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesShafaqParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTuneParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesSchoolParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesMidNightModeParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTimeZoneStringParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesLatitudeAdjustmentMethodParameter'
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+        -
+          $ref: '#/components/parameters/Adjustment'
+        -
+          $ref: '#/components/parameters/PrayerTimesIso8601Parameter'
+      responses:
+        '200':
+          description: 'Returns Prayer times for a Gregorian year'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200TimesPrayerTimesCalendarYearResponse'
+        '400':
+          $ref: '#/components/responses/400TimesLatLongResponse'
+  '/calendar/{year}/{month}':
+    get:
+      tags:
+        - 'Monthly Prayer Times Calendar'
+      summary: 'Prayer times for a Gregorian month'
+      description: 'Returns Prayer times for a Gregorian month'
+      operationId: bb3f7052e5ac611f9a2b50145f9d0464
+      parameters:
+        -
+          $ref: '#/components/parameters/GregorianYear'
+        -
+          $ref: '#/components/parameters/TimesGregorianMonth'
+        -
+          $ref: '#/components/parameters/LatitudeQueryParameter'
+        -
+          $ref: '#/components/parameters/LongitudeQueryParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesCalMethodParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesShafaqParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTuneParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesSchoolParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesMidNightModeParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTimeZoneStringParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesLatitudeAdjustmentMethodParameter'
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+        -
+          $ref: '#/components/parameters/Adjustment'
+        -
+          $ref: '#/components/parameters/PrayerTimesIso8601Parameter'
+      responses:
+        '200':
+          description: 'Returns Prayer times for a Gregorian month'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200TimesPrayerTimesCalendarMonthResponse'
+        '400':
+          $ref: '#/components/responses/400TimesLatLongResponse'
+  '/hijriCalendarByAddress/{year}':
+    get:
+      tags:
+        - 'Annual Prayer Times Calendar'
+      summary: 'Prayer times for a Hijri year for an address'
+      description: 'Returns Prayer times for a Hijri year for an address'
+      operationId: 2d5d48029cab139e44789431b3657dea
+      parameters:
+        -
+          $ref: '#/components/parameters/HijriYear'
+        -
+          $ref: '#/components/parameters/TimesAddressQueryParameter'
+        -
+          $ref: '#/components/parameters/7xAPIKeyQueryParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesCalMethodParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesShafaqParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTuneParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesSchoolParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesMidNightModeParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTimeZoneStringParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesLatitudeAdjustmentMethodParameter'
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+        -
+          $ref: '#/components/parameters/Adjustment'
+        -
+          $ref: '#/components/parameters/PrayerTimesIso8601Parameter'
+      responses:
+        '200':
+          description: 'Returns Prayer times for a Hijri year for an address'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200TimesPrayerTimesCalendarYearResponse'
+        '400':
+          $ref: '#/components/responses/400TimesCityCountryMonthResponse'
+  '/hijriCalendarByAddress/{year}/{month}':
+    get:
+      tags:
+        - 'Monthly Prayer Times Calendar'
+      summary: 'Prayer times for a Hijri month for an address'
+      description: 'Returns Prayer times for a Hijri month for an address'
+      operationId: 1a5d122c70fef8c446a64ee62ad886f9
+      parameters:
+        -
+          $ref: '#/components/parameters/HijriYear'
+        -
+          $ref: '#/components/parameters/TimesHijriMonth'
+        -
+          $ref: '#/components/parameters/TimesAddressQueryParameter'
+        -
+          $ref: '#/components/parameters/7xAPIKeyQueryParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesCalMethodParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesShafaqParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTuneParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesSchoolParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesMidNightModeParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTimeZoneStringParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesLatitudeAdjustmentMethodParameter'
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+        -
+          $ref: '#/components/parameters/Adjustment'
+        -
+          $ref: '#/components/parameters/PrayerTimesIso8601Parameter'
+      responses:
+        '200':
+          description: 'Returns Prayer times for a Hijri month for an address'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200TimesPrayerTimesCalendarMonthResponse'
+        '400':
+          $ref: '#/components/responses/400TimesCityCountryMonthResponse'
+  '/calendarByAddress/{year}':
+    get:
+      tags:
+        - 'Annual Prayer Times Calendar'
+      summary: 'Prayer times for a Gregorian year for an address'
+      description: 'Returns Prayer times for a Gregorian year for an address'
+      operationId: 01788b76d19669a2ae5e0dc96c6821a4
+      parameters:
+        -
+          $ref: '#/components/parameters/GregorianYear'
+        -
+          $ref: '#/components/parameters/TimesAddressQueryParameter'
+        -
+          $ref: '#/components/parameters/7xAPIKeyQueryParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesCalMethodParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesShafaqParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTuneParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesSchoolParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesMidNightModeParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTimeZoneStringParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesLatitudeAdjustmentMethodParameter'
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+        -
+          $ref: '#/components/parameters/Adjustment'
+        -
+          $ref: '#/components/parameters/PrayerTimesIso8601Parameter'
+      responses:
+        '200':
+          description: 'Returns Prayer times for a Gregorian year for an address'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200TimesPrayerTimesCalendarYearResponse'
+        '400':
+          $ref: '#/components/responses/400TimesCityCountryMonthResponse'
+  '/calendarByAddress/{year}/{month}':
+    get:
+      tags:
+        - 'Monthly Prayer Times Calendar'
+      summary: 'Prayer times for a Gregorian month for an address'
+      description: 'Returns Prayer times for a Gregorian month for an address'
+      operationId: 29dc0762295fa94611e6311a2d6e0d85
+      parameters:
+        -
+          $ref: '#/components/parameters/GregorianYear'
+        -
+          $ref: '#/components/parameters/TimesGregorianMonth'
+        -
+          $ref: '#/components/parameters/TimesAddressQueryParameter'
+        -
+          $ref: '#/components/parameters/7xAPIKeyQueryParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesCalMethodParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesShafaqParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTuneParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesSchoolParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesMidNightModeParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTimeZoneStringParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesLatitudeAdjustmentMethodParameter'
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+        -
+          $ref: '#/components/parameters/Adjustment'
+        -
+          $ref: '#/components/parameters/PrayerTimesIso8601Parameter'
+      responses:
+        '200':
+          description: 'Returns Prayer times for a Gregorian month for an address'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200TimesPrayerTimesCalendarMonthResponse'
+        '400':
+          $ref: '#/components/responses/400TimesCityCountryMonthResponse'
+  '/hijriCalendarByCity/{year}':
+    get:
+      tags:
+        - 'Annual Prayer Times Calendar'
+      summary: 'Prayer times for a Hijri year for a city and country'
+      description: 'Returns Prayer times a Hijri year for a city and country'
+      operationId: 6d1a4f6ae96724886a9f20a5244fb466
+      parameters:
+        -
+          $ref: '#/components/parameters/HijriYear'
+        -
+          $ref: '#/components/parameters/TimesCityQueryParameter'
+        -
+          $ref: '#/components/parameters/TimesCountryQueryParameter'
+        -
+          $ref: '#/components/parameters/TimesStateQueryParameter'
+        -
+          $ref: '#/components/parameters/7xAPIKeyQueryParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesCalMethodParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesShafaqParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTuneParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesSchoolParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesMidNightModeParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTimeZoneStringParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesLatitudeAdjustmentMethodParameter'
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+        -
+          $ref: '#/components/parameters/Adjustment'
+        -
+          $ref: '#/components/parameters/PrayerTimesIso8601Parameter'
+      responses:
+        '200':
+          description: 'Returns Prayer times a Hijri year for a city and country'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200TimesPrayerTimesCalendarYearResponse'
+        '400':
+          $ref: '#/components/responses/400TimesCityCountryMonthResponse'
+  '/hijriCalendarByCity/{year}/{month}':
+    get:
+      tags:
+        - 'Monthly Prayer Times Calendar'
+      summary: 'Prayer times for a Hijri month for a city and country'
+      description: 'Returns Prayer times a Hijri month for a city and country'
+      operationId: 882397ab855feddb9a9eae82880bebfc
+      parameters:
+        -
+          $ref: '#/components/parameters/HijriYear'
+        -
+          $ref: '#/components/parameters/TimesHijriMonth'
+        -
+          $ref: '#/components/parameters/TimesCityQueryParameter'
+        -
+          $ref: '#/components/parameters/TimesCountryQueryParameter'
+        -
+          $ref: '#/components/parameters/TimesStateQueryParameter'
+        -
+          $ref: '#/components/parameters/7xAPIKeyQueryParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesCalMethodParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesShafaqParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTuneParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesSchoolParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesMidNightModeParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTimeZoneStringParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesLatitudeAdjustmentMethodParameter'
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+        -
+          $ref: '#/components/parameters/Adjustment'
+        -
+          $ref: '#/components/parameters/PrayerTimesIso8601Parameter'
+      responses:
+        '200':
+          description: 'Returns Prayer times a Hijri month for a city and country'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200TimesPrayerTimesCalendarMonthResponse'
+        '400':
+          $ref: '#/components/responses/400TimesCityCountryMonthResponse'
+  '/calendarByCity/{year}':
+    get:
+      tags:
+        - 'Annual Prayer Times Calendar'
+      summary: 'Prayer times for a Gregorian year for a city and country'
+      description: 'Returns Prayer times a Gregorian year for a city and country'
+      operationId: 8c93920f321365ca07de2cc79a2a4238
+      parameters:
+        -
+          $ref: '#/components/parameters/GregorianYear'
+        -
+          $ref: '#/components/parameters/TimesCityQueryParameter'
+        -
+          $ref: '#/components/parameters/TimesCountryQueryParameter'
+        -
+          $ref: '#/components/parameters/TimesStateQueryParameter'
+        -
+          $ref: '#/components/parameters/7xAPIKeyQueryParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesCalMethodParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesShafaqParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTuneParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesSchoolParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesMidNightModeParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTimeZoneStringParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesLatitudeAdjustmentMethodParameter'
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+        -
+          $ref: '#/components/parameters/Adjustment'
+        -
+          $ref: '#/components/parameters/PrayerTimesIso8601Parameter'
+      responses:
+        '200':
+          description: 'Returns Prayer times a Gregorian year for a city and country'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200TimesPrayerTimesCalendarYearResponse'
+        '400':
+          $ref: '#/components/responses/400TimesCityCountryMonthResponse'
+  '/calendarByCity/{year}/{month}':
+    get:
+      tags:
+        - 'Monthly Prayer Times Calendar'
+      summary: 'Prayer times for a Gregorian month for a city and country'
+      description: 'Returns Prayer times a Gregorian month for a city and country'
+      operationId: 71c86f8b9e82d690b4af5b02b0076391
+      parameters:
+        -
+          $ref: '#/components/parameters/GregorianYear'
+        -
+          $ref: '#/components/parameters/TimesGregorianMonth'
+        -
+          $ref: '#/components/parameters/TimesCityQueryParameter'
+        -
+          $ref: '#/components/parameters/TimesCountryQueryParameter'
+        -
+          $ref: '#/components/parameters/TimesStateQueryParameter'
+        -
+          $ref: '#/components/parameters/7xAPIKeyQueryParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesCalMethodParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesShafaqParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTuneParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesSchoolParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesMidNightModeParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesTimeZoneStringParameter'
+        -
+          $ref: '#/components/parameters/PrayerTimesLatitudeAdjustmentMethodParameter'
+        -
+          $ref: '#/components/parameters/CalendarMethod'
+        -
+          $ref: '#/components/parameters/Adjustment'
+        -
+          $ref: '#/components/parameters/PrayerTimesIso8601Parameter'
+      responses:
+        '200':
+          description: 'Returns Prayer times a Gregorian year for a city and country'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200TimesPrayerTimesCalendarMonthResponse'
+        '400':
+          $ref: '#/components/responses/400TimesCityCountryMonthResponse'
+  /methods:
+    get:
+      tags:
+        - 'Prayer Time Methods'
+      summary: 'Prayer Times Methods'
+      description: 'Returns all the prayer times calculation methods & details supported by Islamic Network API'
+      operationId: aa0802c7fb4bf9e17d637ed39ffc4314
+      responses:
+        '200':
+          description: 'Returns all the prayer times calculation methods & details'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200PrayerCalMethodsResponse'
+components:
+  schemas:
+    200CalendarTimesResponse:
+      properties:
+        code:
+          type: integer
+          example: 200
+        status:
+          type: string
+          example: OK
+        data:
+          properties:
+            timings:
+              properties:
+                Fajr:
+                  type: string
+                  example: '06:03 (UTC)'
+                Sunrise:
+                  type: string
+                  example: '08:06 (UTC)'
+                Dhuhr:
+                  type: string
+                  example: '12:04 (UTC)'
+                Asr:
+                  type: string
+                  example: '13:44 (UTC)'
+                Sunset:
+                  type: string
+                  example: '16:03 (UTC)'
+                Maghrib:
+                  type: string
+                  example: '16:03 (UTC)'
+                Isha:
+                  type: string
+                  example: '17:59 (UTC)'
+                Imsak:
+                  type: string
+                  example: '05:53 (UTC)'
+                Midnight:
+                  type: string
+                  example: '00:04 (UTC)'
+                Firstthird:
+                  type: string
+                  example: '21:24 (UTC)'
+                Lastthird:
+                  type: string
+                  example: '02:45 (UTC)'
+              type: object
+          type: object
+      type: object
+    200TimesResponse:
+      properties:
+        code:
+          type: integer
+          example: 200
+        status:
+          type: string
+          example: OK
+        data:
+          properties:
+            timings:
+              properties:
+                Fajr:
+                  type: string
+                  example: '06:03'
+                Sunrise:
+                  type: string
+                  example: '08:06'
+                Dhuhr:
+                  type: string
+                  example: '12:04'
+                Asr:
+                  type: string
+                  example: '13:44'
+                Sunset:
+                  type: string
+                  example: '16:03'
+                Maghrib:
+                  type: string
+                  example: '16:03'
+                Isha:
+                  type: string
+                  example: '17:59'
+                Imsak:
+                  type: string
+                  example: '05:53'
+                Midnight:
+                  type: string
+                  example: '00:04'
+                Firstthird:
+                  type: string
+                  example: '21:24'
+                Lastthird:
+                  type: string
+                  example: '02:45'
+              type: object
+            date:
+              properties:
+                readable:
+                  type: string
+                  example: '01 Jan 2025'
+                timestamp:
+                  type: string
+                  example: '1735714800'
+                hijri:
+                  properties: { date: { type: string, example: 01-07-1446 }, format: { type: string, example: DD-MM-YYYY }, day: { type: string, example: '1' }, weekday: { properties: { en: { type: string, example: "Al Arba'a" }, ar: { type: string, example: الاربعاء } }, type: object }, month: { properties: { number: { type: integer, example: 7 }, en: { type: string, example: Rajab }, ar: { type: string, example: رَجَب }, days: { type: integer, example: 30 } }, type: object }, year: { type: string, example: '1446' }, designation: { properties: { abbreviated: { type: string, example: AH }, expanded: { type: string, example: 'Anno Hegirae' } }, type: object }, holidays: { type: array, items: {  }, example: ['Beginning of the holy months'] }, adjustedHolidays: { type: array, items: { type: string, example: [] }, example: [] }, method: { type: string, example: HJCoSA } }
+                  type: object
+                gregorian:
+                  properties: { date: { type: string, example: 01-01-2025 }, format: { type: string, example: DD-MM-YYYY }, day: { type: string, example: '01' }, weekday: { properties: { en: { type: string, example: Wednesday } }, type: object }, month: { properties: { number: { type: integer, example: 1 }, en: { type: string, example: January } }, type: object }, year: { type: string, example: '2025' }, designation: { properties: { abbreviated: { type: string, example: AD }, expanded: { type: string, example: 'Anno Domini' } }, type: object }, lunarSighting: { type: boolean, example: false } }
+                  type: object
+              type: object
+            meta:
+              properties:
+                latitude:
+                  type: number
+                  example: 51.5194682
+                longitude:
+                  type: number
+                  example: -0.1360365
+                timezone:
+                  type: string
+                  example: UTC
+                method:
+                  properties: { id: { type: integer, example: 3 }, name: { type: string, example: 'Muslim World League' }, params: { properties: { Fajr: { type: integer, example: 18 }, Isha: { type: integer, example: 17 } }, type: object }, location: { properties: { latitude: { type: number, example: 51.5194682 }, longitude: { type: number, example: -0.1360365 } }, type: object } }
+                  type: object
+                latitudeAdjustmentMethod:
+                  type: string
+                  example: ANGLE_BASED
+                midnightMode:
+                  type: string
+                  example: STANDARD
+                school:
+                  type: string
+                  example: STANDARD
+                offset:
+                  properties: { Imsak: { type: integer, example: 0 }, Fajr: { type: integer, example: 0 }, Sunrise: { type: integer, example: 0 }, Dhuhr: { type: integer, example: 0 }, Asr: { type: integer, example: 0 }, Sunset: { type: integer, example: 0 }, Maghrib: { type: integer, example: 0 }, Isha: { type: integer, example: 0 }, Midnight: { type: integer, example: 0 } }
+                  type: object
+              type: object
+          type: object
+      type: object
+    200TimesPrayerTimesCalendarYearResponse:
+      properties:
+        code:
+          $ref: '#/components/schemas/200TimesResponse/properties/code'
+        status:
+          $ref: '#/components/schemas/200TimesResponse/properties/status'
+        data:
+          properties:
+            '1':
+              $ref: '#/components/schemas/200TimingPartialMonthResponse/properties/1'
+            '2':
+              $ref: '#/components/schemas/200TimingPartialMonthResponse/properties/1'
+            '3':
+              $ref: '#/components/schemas/200TimingPartialMonthResponse/properties/1'
+            '4':
+              $ref: '#/components/schemas/200TimingPartialMonthResponse/properties/1'
+            '5':
+              $ref: '#/components/schemas/200TimingPartialMonthResponse/properties/1'
+            '6':
+              $ref: '#/components/schemas/200TimingPartialMonthResponse/properties/1'
+            '7':
+              $ref: '#/components/schemas/200TimingPartialMonthResponse/properties/1'
+            '8':
+              $ref: '#/components/schemas/200TimingPartialMonthResponse/properties/1'
+            '9':
+              $ref: '#/components/schemas/200TimingPartialMonthResponse/properties/1'
+            '10':
+              $ref: '#/components/schemas/200TimingPartialMonthResponse/properties/1'
+            '11':
+              $ref: '#/components/schemas/200TimingPartialMonthResponse/properties/1'
+            '12':
+              $ref: '#/components/schemas/200TimingPartialMonthResponse/properties/1'
+          type: object
+      type: object
+    200TimesPrayerTimesCalendarMonthResponse:
+      properties:
+        code:
+          $ref: '#/components/schemas/200TimesResponse/properties/code'
+        status:
+          $ref: '#/components/schemas/200TimesResponse/properties/status'
+        data:
+          type: array
+          items:
+            properties:
+              timings:
+                $ref: '#/components/schemas/200CalendarTimesResponse/properties/data/properties/timings'
+              date:
+                $ref: '#/components/schemas/200TimesResponse/properties/data/properties/date'
+              meta:
+                $ref: '#/components/schemas/200TimesResponse/properties/data/properties/meta'
+            type: object
+      type: object
+    200TimingPartialMonthResponse:
+      properties:
+        '1':
+          type: array
+          items:
+            properties:
+              timings:
+                $ref: '#/components/schemas/200CalendarTimesResponse/properties/data/properties/timings'
+              date:
+                $ref: '#/components/schemas/200TimesResponse/properties/data/properties/date'
+              meta:
+                $ref: '#/components/schemas/200TimesResponse/properties/data/properties/meta'
+            type: object
+      type: object
+    200TimesNextPrayerResponse:
+      properties:
+        code:
+          $ref: '#/components/schemas/200TimesResponse/properties/code'
+        status:
+          $ref: '#/components/schemas/200TimesResponse/properties/status'
+        data:
+          properties:
+            timings:
+              properties:
+                Dhuhr:
+                  type: string
+                  example: '12:04'
+              type: object
+            date:
+              $ref: '#/components/schemas/200TimesResponse/properties/data/properties/date'
+            meta:
+              $ref: '#/components/schemas/200TimesResponse/properties/data/properties/meta'
+          type: object
+      type: object
+    200PrayerCalMethodsResponse:
+      properties:
+        code:
+          $ref: '#/components/schemas/200TimesResponse/properties/code'
+        status:
+          $ref: '#/components/schemas/200TimesResponse/properties/status'
+        data:
+          properties:
+            MWL:
+              properties:
+                id:
+                  type: integer
+                  example: 3
+                name:
+                  type: string
+                  example: 'Muslim World League'
+                params:
+                  properties: { Fajr: { type: integer, example: 18 }, Isha: { type: integer, example: 17 } }
+                  type: object
+                location:
+                  properties: { latitude: { type: number, example: 51.5194682 }, longitude: { type: number, example: -0.1360365 } }
+                  type: object
+              type: object
+            ISNA:
+              properties:
+                id:
+                  type: integer
+                  example: 2
+                name:
+                  type: string
+                  example: 'Islamic Society of North America (ISNA)'
+                params:
+                  properties: { Fajr: { type: integer, example: 15 }, Isha: { type: integer, example: 15 } }
+                  type: object
+                location:
+                  properties: { latitude: { type: number, example: 39.7042123 }, longitude: { type: number, example: -86.3994387 } }
+                  type: object
+              type: object
+            EGYPT:
+              properties:
+                id:
+                  type: integer
+                  example: 5
+                name:
+                  type: string
+                  example: 'Egyptian General Authority of Survey'
+                params:
+                  properties: { Fajr: { type: number, example: 19.5 }, Isha: { type: number, example: 17.5 } }
+                  type: object
+                location:
+                  properties: { latitude: { type: number, example: 30.0444196 }, longitude: { type: number, example: 31.2357116 } }
+                  type: object
+              type: object
+            MAKKAH:
+              properties:
+                id:
+                  type: integer
+                  example: 4
+                name:
+                  type: string
+                  example: 'Umm Al-Qura University, Makkah'
+                params:
+                  properties: { Fajr: { type: number, example: 18.5 }, Isha: { type: string, example: '90 min' } }
+                  type: object
+                location:
+                  properties: { latitude: { type: number, example: 21.3890824 }, longitude: { type: number, example: 39.8579118 } }
+                  type: object
+              type: object
+            KARACHI:
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                name:
+                  type: string
+                  example: 'University of Islamic Sciences, Karachi'
+                params:
+                  properties: { Fajr: { type: integer, example: 18 }, Isha: { type: integer, example: 18 } }
+                  type: object
+                location:
+                  properties: { latitude: { type: number, example: 24.8614622 }, longitude: { type: number, example: 67.0099388 } }
+                  type: object
+              type: object
+            TEHRAN:
+              properties:
+                id:
+                  type: integer
+                  example: 7
+                name:
+                  type: string
+                  example: 'Institute of Geophysics, University of Tehran'
+                params:
+                  properties: { Fajr: { type: number, example: 17.7 }, Isha: { type: integer, example: 14 }, Maghrib: { type: number, example: 4.5 }, Midnight: { type: string, example: JAFARI } }
+                  type: object
+                location:
+                  properties: { latitude: { type: number, example: 35.6891975 }, longitude: { type: number, example: 51.3889736 } }
+                  type: object
+              type: object
+            JAFARI:
+              properties:
+                id:
+                  type: integer
+                  example: 0
+                name:
+                  type: string
+                  example: 'Shia Ithna-Ashari, Leva Institute, Qum'
+                params:
+                  properties: { Fajr: { type: integer, example: 16 }, Isha: { type: integer, example: 14 }, Maghrib: { type: integer, example: 4 }, Midnight: { type: string, example: JAFARI } }
+                  type: object
+                location:
+                  properties: { latitude: { type: number, example: 34.6415764 }, longitude: { type: number, example: 50.8746035 } }
+                  type: object
+              type: object
+            GULF:
+              properties:
+                id:
+                  type: integer
+                  example: 8
+                name:
+                  type: string
+                  example: 'Gulf Region'
+                params:
+                  properties: { Fajr: { type: number, example: 19.5 }, Isha: { type: string, example: '90 min' } }
+                  type: object
+                location:
+                  properties: { latitude: { type: number, example: 24.1323638 }, longitude: { type: number, example: 53.3199527 } }
+                  type: object
+              type: object
+            KUWAIT:
+              properties:
+                id:
+                  type: integer
+                  example: 9
+                name:
+                  type: string
+                  example: Kuwait
+                params:
+                  properties: { Fajr: { type: integer, example: 18 }, Isha: { type: number, example: 17.5 } }
+                  type: object
+                location:
+                  properties: { latitude: { type: number, example: 29.375859 }, longitude: { type: number, example: 47.9774052 } }
+                  type: object
+              type: object
+            QATAR:
+              properties:
+                id:
+                  type: integer
+                  example: 10
+                name:
+                  type: string
+                  example: Qatar
+                params:
+                  properties: { Fajr: { type: integer, example: 18 }, Isha: { type: string, example: '90 min' } }
+                  type: object
+                location:
+                  properties: { latitude: { type: number, example: 25.2854473 }, longitude: { type: number, example: 51.5310398 } }
+                  type: object
+              type: object
+            SINGAPORE:
+              properties:
+                id:
+                  type: integer
+                  example: 11
+                name:
+                  type: string
+                  example: 'Majlis Ugama Islam Singapura, Singapore'
+                params:
+                  properties: { Fajr: { type: integer, example: 20 }, Isha: { type: integer, example: 18 } }
+                  type: object
+                location:
+                  properties: { latitude: { type: number, example: 1.352083 }, longitude: { type: number, example: 103.819836 } }
+                  type: object
+              type: object
+            FRANCE:
+              properties:
+                id:
+                  type: integer
+                  example: 12
+                name:
+                  type: string
+                  example: 'Union Organization Islamic de France'
+                params:
+                  properties: { Fajr: { type: integer, example: 12 }, Isha: { type: integer, example: 12 } }
+                  type: object
+                location:
+                  properties: { latitude: { type: number, example: 48.856614 }, longitude: { type: number, example: 2.3522219 } }
+                  type: object
+              type: object
+            TURKEY:
+              properties:
+                id:
+                  type: integer
+                  example: 13
+                name:
+                  type: string
+                  example: 'Diyanet İşleri Başkanlığı, Turkey (experimental)'
+                params:
+                  properties: { Fajr: { type: integer, example: 18 }, Isha: { type: integer, example: 17 } }
+                  type: object
+                location:
+                  properties: { latitude: { type: number, example: 39.9333635 }, longitude: { type: number, example: 32.8597419 } }
+                  type: object
+              type: object
+            RUSSIA:
+              properties:
+                id:
+                  type: integer
+                  example: 14
+                name:
+                  type: string
+                  example: 'Spiritual Administration of Muslims of Russia'
+                params:
+                  properties: { Fajr: { type: integer, example: 16 }, Isha: { type: integer, example: 15 } }
+                  type: object
+                location:
+                  properties: { latitude: { type: number, example: 54.734791 }, longitude: { type: number, example: 55.9578555 } }
+                  type: object
+              type: object
+            MOONSIGHTING:
+              properties:
+                id:
+                  type: integer
+                  example: 15
+                name:
+                  type: string
+                  example: 'Moonsighting Committee Worldwide (Moonsighting.com)'
+                params:
+                  properties: { shafaq: { type: string, example: general } }
+                  type: object
+              type: object
+            DUBAI:
+              properties:
+                id:
+                  type: integer
+                  example: 16
+                name:
+                  type: string
+                  example: 'Dubai (experimental)'
+                params:
+                  properties: { Fajr: { type: number, example: 18.2 }, Isha: { type: number, example: 18.2 } }
+                  type: object
+                location:
+                  properties: { latitude: { type: number, example: 25.0762677 }, longitude: { type: number, example: 55.087404 } }
+                  type: object
+              type: object
+            JAKIM:
+              properties:
+                id:
+                  type: integer
+                  example: 17
+                name:
+                  type: string
+                  example: 'Jabatan Kemajuan Islam Malaysia (JAKIM)'
+                params:
+                  properties: { Fajr: { type: integer, example: 20 }, Isha: { type: integer, example: 18 } }
+                  type: object
+                location:
+                  properties: { latitude: { type: number, example: 3.139003 }, longitude: { type: number, example: 101.686855 } }
+                  type: object
+              type: object
+            TUNISIA:
+              properties:
+                id:
+                  type: integer
+                  example: 18
+                name:
+                  type: string
+                  example: Tunisia
+                params:
+                  properties: { Fajr: { type: integer, example: 18 }, Isha: { type: integer, example: 18 } }
+                  type: object
+                location:
+                  properties: { latitude: { type: number, example: 36.8064948 }, longitude: { type: number, example: 10.1815316 } }
+                  type: object
+              type: object
+            ALGERIA:
+              properties:
+                id:
+                  type: integer
+                  example: 19
+                name:
+                  type: string
+                  example: Algeria
+                params:
+                  properties: { Fajr: { type: integer, example: 18 }, Isha: { type: integer, example: 17 } }
+                  type: object
+                location:
+                  properties: { latitude: { type: number, example: 36.753768 }, longitude: { type: number, example: 3.0587561 } }
+                  type: object
+              type: object
+            KEMENAG:
+              properties:
+                id:
+                  type: integer
+                  example: 20
+                name:
+                  type: string
+                  example: 'Kementerian Agama Republik Indonesia'
+                params:
+                  properties: { Fajr: { type: integer, example: 20 }, Isha: { type: integer, example: 18 } }
+                  type: object
+                location:
+                  properties: { latitude: { type: number, example: -6.2087634 }, longitude: { type: number, example: 106.845599 } }
+                  type: object
+              type: object
+            MOROCCO:
+              properties:
+                id:
+                  type: integer
+                  example: 21
+                name:
+                  type: string
+                  example: Morocco
+                params:
+                  properties: { Fajr: { type: integer, example: 19 }, Isha: { type: integer, example: 17 } }
+                  type: object
+                location:
+                  properties: { latitude: { type: number, example: 33.9715904 }, longitude: { type: number, example: -6.8498129 } }
+                  type: object
+              type: object
+            PORTUGAL:
+              properties:
+                id:
+                  type: integer
+                  example: 22
+                name:
+                  type: string
+                  example: 'Comunidade Islamica de Lisboa'
+                params:
+                  properties: { Fajr: { type: integer, example: 18 }, Maghrib: { type: string, example: '3 min' }, Isha: { type: string, example: '77 min' } }
+                  type: object
+                location:
+                  properties: { latitude: { type: number, example: 38.7222524 }, longitude: { type: number, example: -9.1393366 } }
+                  type: object
+              type: object
+            JORDAN:
+              properties:
+                id:
+                  type: integer
+                  example: 23
+                name:
+                  type: string
+                  example: 'Ministry of Awqaf, Islamic Affairs and Holy Places, Jordan'
+                params:
+                  properties: { Fajr: { type: integer, example: 18 }, Maghrib: { type: string, example: '5 min' }, Isha: { type: integer, example: 18 } }
+                  type: object
+                location:
+                  properties: { latitude: { type: number, example: 31.9461222 }, longitude: { type: number, example: 35.923844 } }
+                  type: object
+              type: object
+            CUSTOM:
+              properties:
+                id:
+                  type: integer
+                  example: 99
+              type: object
+          type: object
+      type: object
+  responses:
+    400TimesLatLongResponse:
+      description: 'Unable to process request'
+      content:
+        application/json:
+          schema:
+            properties:
+              code:
+                type: integer
+                example: 400
+              status:
+                type: string
+                example: BAD_REQUEST
+              data:
+                type: integer
+                example: 'Please specify a valid latitude and longitude.'
+            type: object
+    400TimesCityCountryMonthResponse:
+      description: 'Unable to process request'
+      content:
+        application/json:
+          schema:
+            properties:
+              code:
+                type: integer
+                example: 400
+              status:
+                type: string
+                example: BAD_REQUEST
+              data:
+                type: integer
+                example: 'Please specify a city, country, month and year.'
+            type: object
+  parameters:
+    TimesHijriMonth:
+      name: month
+      in: path
+      description: 'Month number as per the Hijri calendar'
+      required: true
+      schema:
+        type: integer
+      example: 7
+    HijriYear:
+      name: year
+      in: path
+      description: 'Year as per the Hijri calendar'
+      required: true
+      schema:
+        type: integer
+      example: 1446
+    GregorianDate:
+      name: date
+      in: path
+      description: 'Specific gregorian date in DD-MM-YYYY format'
+      required: true
+      schema:
+        type: string
+      example: 01-01-2025
+    TimesGregorianMonth:
+      name: month
+      in: path
+      description: 'Month number as per the Gregorian calendar'
+      required: true
+      schema:
+        type: integer
+      example: 1
+    GregorianYear:
+      name: year
+      in: path
+      description: 'Year as per the Gregorian calendar'
+      required: true
+      schema:
+        type: integer
+      example: 2025
+    LatitudeQueryParameter:
+      name: latitude
+      in: query
+      description: 'Latitude coordinates of users location'
+      required: true
+      schema:
+        type: string
+      example: '51.5194682'
+    LongitudeQueryParameter:
+      name: longitude
+      in: query
+      description: 'Longitude coordinates of users location'
+      required: true
+      schema:
+        type: string
+      example: '-0.1360365'
+    TimesAddressQueryParameter:
+      name: address
+      in: query
+      description: 'Address of user location'
+      required: true
+      schema:
+        type: string
+      example: 'A5204, London'
+    TimesCityQueryParameter:
+      name: city
+      in: query
+      description: 'Name of the city'
+      required: true
+      schema:
+        type: string
+      example: London
+    TimesStateQueryParameter:
+      name: state
+      in: query
+      description: 'Name of the state'
+      required: false
+      schema:
+        type: string
+      example: London
+    TimesCountryQueryParameter:
+      name: country
+      in: query
+      description: 'A country name or 2 character alpha ISO 3166 code'
+      required: true
+      schema:
+        type: string
+      example: GB
+    7xAPIKeyQueryParameter:
+      name: x7xapikey
+      in: query
+      description: "7x API Key - An API key from <a href=\"https://7x.ax\" target=\"_blank\">https://7x.ax</a> to geocode the address, city and country. \n        If you do not provide one the response will mask the geocoded co-ordinates.\n        "
+      required: false
+      schema:
+        type: string
+      example: P244d623e2fe2daf56359fGyK3s
+    CalendarMethod:
+      name: calendarMethod
+      in: query
+      description: "A Calendar Calculation Method. \n        <br />Defaults to HJCoSA.\n        <br />- <b>HJCoSA</b> - High Judicial Council of Saudi Arabia (this is used on aladhan.com) \n        <br />- <b>UAQ</b> - Umm al-Qura\n        <br />- <b>DIYANET</b> - Diyanet İşleri Başkanlığı\n        <br />- <b>MATHEMATICAL</b>\n        <br /><br />\n        For more details on the methods, please see <a href=\"https://api.aladhan.com/v1/islamicCalendar/methods\" target=\"_blank\">https://api.aladhan.com/v1/islamicCalendar/methods</a>.\n        "
+      required: false
+      schema:
+        type: string
+        default: HJCoSA
+      example: UAQ
+    Adjustment:
+      name: adjustment
+      in: query
+      description: 'Only applicable if the calendar Method is set to MATHEMATICAL. Number of days to adjust the date being converted to. Example: 1 or 2 or -1 or -2'
+      required: false
+      schema:
+        type: integer
+      example: 0
+    PrayerTimesCalMethodParameter:
+      name: method
+      in: query
+      description: "A prayer times calculation method. Methods identify various schools of thought about how to compute the timings. \n        If not specified, it defaults to the closest authority based on the location or co-ordinates specified in the API call. This parameter accepts values from 0-23 and 99, as specified below:\n        <br /><br />\n        Possible values: \n        <ul>\n        <li />0 - Jafari / Shia Ithna-Ashari\n        <li />1 - University of Islamic Sciences, Karachi\n        <li />2 - Islamic Society of North America\n        <li />3 - Muslim World League\n        <li />4 - Umm Al-Qura University, Makkah\n        <li />5 - Egyptian General Authority of Survey\n        <li />7 - Institute of Geophysics, University of Tehran\n        <li />8 - Gulf Region\n        <li />9 - Kuwait\n        <li />10 - Qatar\n        <li />12 - Majlis Ugama Islam Singapura, Singapore\n        <li />12 - Union Organization islamic de France\n        <li />13 - Diyanet İşleri Başkanlığı, Turkey\n        <li />14 - Spiritual Administration of Muslims of Russia\n        <li />15 - Moonsighting Committee Worldwide (also requires shafaq parameter)\n        <li />16 - Dubai (experimental)\n        <li />17 - Jabatan Kemajuan Islam Malaysia (JAKIM)\n        <li />18 - Tunisia\n        <li />19 - Algeria\n        <li />20 - KEMENAG - Kementerian Agama Republik Indonesia\n        <li />21 - Morocco\n        <li />22 - Comunidade Islamica de Lisboa\n        <li />23 - Ministry of Awqaf, Islamic Affairs and Holy Places, Jordan\n        <li />99 - Custom. See <a href=\"https://aladhan.com/calculation-methods\" target=\"_blank\">https://aladhan.com/calculation-methods</a>\n        </ul>\n        "
+      required: false
+      schema:
+        type: integer
+        enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          - 12
+          - 13
+          - 14
+          - 15
+          - 16
+          - 17
+          - 18
+          - 19
+          - 20
+          - 21
+          - 22
+          - 23
+          - 99
+      example: 3
+    PrayerTimesShafaqParameter:
+      name: shafaq
+      in: query
+      description: "Which Shafaq to use if the 'method' query parameter is 'Moonsighting Commitee Worldwide'. Acceptable options are 'general', 'ahmer' and 'abyad'"
+      required: false
+      schema:
+        type: string
+        default: general
+        enum:
+          - general
+          - ahmer
+          - abyad
+      example: general
+    PrayerTimesTuneParameter:
+      name: tune
+      in: query
+      description: "Comma Separated String of integers to offset timings returned by the API in minutes. The order is Imsak,Fajr,Sunrise,Dhuhr,Asr,Maghrib,Sunset,Isha,Midnight. \n        See <a href='https://aladhan.com/calculation-methods' target='_blank'>https://aladhan.com/calculation-methods</a> for more details."
+      required: false
+      schema:
+        type: string
+      example: '5,3,5,7,9,-1,0,8,-6'
+    PrayerTimesSchoolParameter:
+      name: school
+      in: query
+      description: "Shafi (or the standard way) or Hanafi.\n        <br /><br />\n        Possible values:\n        <ul>\n        <li />0 - Shafi\n        <li />1 - Hanafi\n        </ul>\n        "
+      required: false
+      schema:
+        type: integer
+        default: 0
+        enum:
+          - 0
+          - 1
+      example: 0
+    PrayerTimesMidNightModeParameter:
+      name: midnightMode
+      in: query
+      description: "Determines the method for calculating midnight\n        <br /><br />\n        Possible values:\n        <ul>\n        <li />0 - Standard (Mid Sunset to Sunrise)        \n        <li />1 - Jafari (Mid Sunset to Fajr)\n        </ul>\n        "
+      required: false
+      schema:
+        type: integer
+        default: 0
+        enum:
+          - 0
+          - 1
+      example: 0
+    PrayerTimesTimeZoneStringParameter:
+      name: timezonestring
+      in: query
+      description: "A valid timezone name as specified on \n        <a href='https://php.net/manual/en/timezones.php' target='_blank'>https://php.net/manual/en/timezones.php</a>. \n        <br /><i>If you do not specify this, we'll calculate it using the co-ordinates you provide.</i>\n        "
+      required: false
+      schema:
+        type: string
+      example: UTC
+    PrayerTimesLatitudeAdjustmentMethodParameter:
+      name: latitudeAdjustmentMethod
+      in: query
+      description: "Method for adjusting times at higher latitudes. \n        For example, if you are checking timings in the UK or Sweden.\n        <br /><br />\n        Possible values:\n        <ul>\n        <li />1 - Middle of the Night\n        <li />2 - One Seventh\n        <li />3 - Angle Based\n        </ul>\n        "
+      required: false
+      schema:
+        type: integer
+        enum:
+          - 1
+          - 2
+          - 3
+    PrayerTimesIso8601Parameter:
+      name: iso8601
+      in: query
+      description: "Whether to return the prayer times in the iso8601 format. \n        Example: true will return 2020-07-01T02:56:00+01:00 instead of 02:56\n        "
+      required: false
+      schema:
+        type: boolean
+        default: false
+    PrayerTimesAnnualParameter:
+      name: annual
+      in: query
+      description: 'If true, month parameter will be ignored and the calendar for the entire year will be returned'
+      required: false
+      schema:
+        type: boolean
+        default: false
+      example: false
+tags:
+  -
+    name: 'Daily Prayer Times'
+  -
+    name: 'Monthly Prayer Times Calendar'
+  -
+    name: 'Annual Prayer Times Calendar'
+  -
+    name: 'Prayer Time Methods'
