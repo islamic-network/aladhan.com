@@ -17,9 +17,9 @@ spec:
       app: aladhan-com-app
   template:
     metadata:
-      annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "9117"
+#      annotations:
+#        prometheus.io/scrape: "true"
+#        prometheus.io/port: "9117"
       labels:
         app: aladhan-com-app
     spec:
