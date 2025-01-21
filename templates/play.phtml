@@ -73,6 +73,7 @@
                             <label for="method">Method (<a href="/calculation-methods" target="_blank">Learn more about
                                     calculation methods</a>)</label>
                             <select id="method" name="method" class="form-control">
+                                <?php !isset($times['meta']['method']['id']) ? $times['meta']['method']['id'] = 3 : ""; ?>
                                 <option value="0" <?=$times['meta']['method']['id'] == "0" ? "selected" : ""?>>Shia Ithna-Ashari</option>
                                 <option value="1" <?=$times['meta']['method']['id'] == "1" ? "selected" : ""?>>University of Islamic Sciences, Karachi</option>
                                 <option value="2" <?=$times['meta']['method']['id'] == "2" ? "selected" : ""?>>Islamic Society of North America (ISNA)</option>
