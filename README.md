@@ -5,6 +5,8 @@
 [![](https://img.shields.io/github/license/islamic-network/aladhan.com.svg)](https://github.com/islamic-network/aladhan.com/blob/master/LICENSE)
 ![GitHub All Releases](https://img.shields.io/github/downloads/islamic-network/aladhan.com/total)
 
+# This repository is no longer active. Please see https://community.islamic.network/d/140-removing-repositories-from-github.
+
 # Al Adhan App
 
 This is the code you see deployed on https://aladhan.com. This documentation explains how you can get setup
